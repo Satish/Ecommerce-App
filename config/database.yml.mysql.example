@@ -1,0 +1,19 @@
+defaults: &defaults
+  adapter: mysql
+  encoding: utf8
+  username: root
+  password: 
+  socket: /var/run/mysqld/mysqld.sock
+
+  
+development:
+  database: ecommerceapp_development
+  <<: *defaults
+
+test:
+  database: ecommerceapp_test
+  <<: *defaults
+
+production:
+  database: ecommerceapp_production
+  <<: *defaults
