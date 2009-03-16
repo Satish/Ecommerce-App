@@ -1,4 +1,5 @@
 class RemoteLinkRenderer < WillPaginate::LinkRenderer
+
   def page_link_or_span(page, span_class = 'current', text = nil)
     text ||= page.to_s
     if page and page != current_page
@@ -7,4 +8,5 @@ class RemoteLinkRenderer < WillPaginate::LinkRenderer
       @template.content_tag :span, text, :class => span_class
     end
   end
+
 end
