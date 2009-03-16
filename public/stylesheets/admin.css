@@ -424,6 +424,7 @@ body.page-logs .item.expanded .more {
 
 .create {
   color:#555;
+  margin-top:10px;
 }
 
 .create input.text, .create textarea, .create label, .search .text {
@@ -435,7 +436,7 @@ body.page-logs .item.expanded .more {
 }
 .create input.text, .create textarea {
   padding:3px 5px;
-  width:100%;
+  width:98%;
 }
 
 .search { font-size:1.5em; }
