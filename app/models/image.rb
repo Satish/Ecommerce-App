@@ -27,8 +27,8 @@ class Image < ActiveRecord::Base
                                  :S280x280 => "280x280",
                                  :S365x355 => "365x355",
                                  :S550x440 => "550x440",},
-                 :storage => :file_system, :path_prefix => 'public/images/products/photos',
-                 :size => 1.kilobyte..5.megabytes,
+                 :storage => :file_system, :path_prefix => 'public/images/admin/products/photos',
+                 :max_size => 5.megabytes,
                  :processor => 'Rmagick'
                  
   validates_as_attachment

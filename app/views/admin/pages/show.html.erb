@@ -1,0 +1,7 @@
+<div class="container post">
+  <h2 class="pageHeading"><%= h @page.title %></h2>
+  <% div_for @page do -%>
+    <h3 class = "title"><%= h @page.title -%></h3>
+    <div class = "description"><%= @page.description -%></div>
+  <% end -%>
+</div>

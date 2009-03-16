@@ -13,12 +13,16 @@ ActionController::Routing::Routes.draw do |map|
     session.login  '/login', :action => 'new'
     session.logout '/logout', :action => 'destroy'
   end
-
+  
+ 
   # Admin Routes (under admin namescope)
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
     admin.resources :dashboard, :only => [:index]
     admin.resources :pages
+    admin.resources :posts
+    admin.resources :comments
+    admin.resources :tiny_mce_photos, :only => [:index, :create]
     admin.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
     
     admin.with_options :controller => 'users' do |user|
