@@ -1,0 +1,22 @@
+<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <span class = "floatRight marginTop4"><%= page_entries_info @users, :entry_name => '' -%></span>
+  <h1 class="postHeading">users(<%= link_to "+", new_admin_user_path, :title => "Create New user" -%>)</h1>
+</div>
+<div class="container">
+  <% if @users.size > 0 -%>
+    <div class="table">
+      <div class = "tableHeader">
+        <span class = "pct10">Sr. NO.</span>
+        <span class = "pct25 textAlignLeft">Login</span>
+        <span class = "pct25 textAlignLeft">Email</span>
+        <span class = "pct10">State</span>
+        <span class = "pct10">Created At</span>
+        <span class = "pct20">-</span>
+      </div>
+      <%= render :partial => 'users' -%>
+    </div>
+	<% else %>
+    <div class = "noRecords">There are no users</div>     
+  <% end -%>
+</div>

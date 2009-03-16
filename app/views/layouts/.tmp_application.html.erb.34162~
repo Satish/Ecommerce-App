@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title><%= @meta_title -%></title>
+    <meta name="description" content= '<%= @meta_description -%>' />
+    <meta name="keywords" content= '<%= @meta_keywords -%>' />
+    <%#= stylesheet_link_tag 'main' %>
+    <%= javascript_include_tag :defaults %>
+    <%= stylesheet_link_tag "sexy_flash" %>
+    <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
+  </head>
+  <body>
+    <%= sexy_flash :timeout => 3, :duration => 0.1 -%>
+    <%= yield -%>
+  </body>
+</html>

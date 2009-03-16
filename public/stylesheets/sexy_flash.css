@@ -1,0 +1,50 @@
+/*
+ * flash styles, sexy_flash plugin
+ * Iconset: Knobs => http://itweek.deviantart.com/art/Knob-Buttons-Toolbar-icons-73463960
+ */
+.flash{
+  width: 815px !important;
+	margin: 10px auto;
+	padding: 15px 30px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-shadow: 0px 1px 15px #ddd;
+  overflow:hidden;  
+}
+
+.login .flash{
+  width: 310px !important;
+}
+
+#flash_notice, #flash_error, #flash_warning, #flash_info, #flash_message{
+  margin: 10px auto;
+  padding:13px 10px 13px 50px;
+  border: solid 1px;
+  width: 90%;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+#flash_message {
+  color:green;
+  background-color: lightCyan;
+  border-color: lightGreen;
+  background-image: url('/images/icons/sexy_flash/message.png');
+}
+
+#flash_error {
+  background-color: #FAA;
+  border-color: red;
+  background-image: url('/images/icons/sexy_flash/error.png');
+}
+#flash_warning{
+  background-color: lightYellow;
+  border-color: Wheat;
+  background-image: url('/images/icons/sexy_flash/warning.png');
+}
+
+#flash_notice, #flash_info{
+  background-color: #FFF8C6;
+  border-color: #ECD872;
+  background-image: url('/images/icons/sexy_flash/info.png');
+}

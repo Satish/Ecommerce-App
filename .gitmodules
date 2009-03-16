@@ -1,0 +1,24 @@
+[submodule "vendor/plugins/acts_as_paranoid"]
+	path = vendor/plugins/acts_as_paranoid
+	url = git://github.com/technoweenie/acts_as_paranoid.git
+[submodule "vendor/plugins/annotate_models"]
+	path = vendor/plugins/annotate_models
+	url = git://github.com/Satish/annotate_models.git
+[submodule "vendor/plugins/restful_authentication"]
+	path = vendor/plugins/restful_authentication
+	url = git://github.com/technoweenie/restful-authentication.git
+[submodule "vendor/plugins/acts_as_state_machine"]
+	path = vendor/plugins/acts_as_state_machine
+	url = git://github.com/omghax/acts_as_state_machine.git
+[submodule "vendor/plugins/tiny_mce_plus"]
+	path = vendor/plugins/tiny_mce_plus
+	url = git://github.com/devon/tiny_mce_plus.git
+[submodule "vendor/plugins/sexy_flash"]
+	path = vendor/plugins/sexy_flash
+	url = git://github.com/Satish/sexy_flash.git
+[submodule "vendor/plugins/attachment_fu"]
+	path = vendor/plugins/attachment_fu
+	url = git://github.com/technoweenie/attachment_fu.git
+[submodule "vendor/plugins/open_id_authentication"]
+	path = vendor/plugins/open_id_authentication
+	url = git://github.com/rails/open_id_authentication.git
