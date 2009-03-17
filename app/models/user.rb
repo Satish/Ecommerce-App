@@ -1,10 +1,12 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   include Authorization::StatefulRoles
+  
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -17,7 +19,9 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
-
+  
+  has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
+  has_many :roles, :through => :roles_users
   
 
   # HACK HACK HACK -- how to do attr_accessible from here?
@@ -46,7 +50,22 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
-
+  
+  def self.search(search, page)
+    paginate :per_page => 5, :page => page,
+             :conditions => ['name like ? or email like ?', "%#{search}%", "%#{search}%"], :order => 'name'
+  end
+  
+  # ---------------------------------------
+  # has_role? simply needs to return true or false whether a user has a role or not.  
+  # It may be a good idea to have "admin" roles return true always
+  def has_role?(role_in_question)
+    @_list ||= self.roles.collect(&:name)
+    return true if @_list.include?("admin")
+    (@_list.include?(role_in_question.to_s) )
+  end
+  # ---------------------------------------
+  
   protected
     
     def make_activation_code

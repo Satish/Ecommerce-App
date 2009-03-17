@@ -1,4 +1,8 @@
 class Admin::UsersController < Admin::BaseController
+  
+  before_filter :login_required
+  require_role "admin"
+  
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
