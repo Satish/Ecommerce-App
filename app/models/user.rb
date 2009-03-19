@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   include Authorization::StatefulRoles
   
-  validates_presence_of     :login
+  validates_presence_of     :login, :store_id
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
   has_many :roles, :through => :roles_users
   
+  belongs_to :store
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation

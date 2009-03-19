@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email,                                                              :limit => 100
       t.datetime :activated_at, :remember_token_expires_at, :deleted_at
       t.string :state,                                                              :null => :no, :default => 'passive'
+      t.references :store
       
       t.timestamps      
     end

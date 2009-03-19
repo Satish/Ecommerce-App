@@ -30,6 +30,7 @@ class Store < ActiveRecord::Base
   has_many :categories, :dependent => :destroy
   has_many :products, :dependent => :destroy
   has_many :images, :dependent => :destroy
+  has_many  :users, :dependent => :destroy
   
   belongs_to :brand
   

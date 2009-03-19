@@ -1,0 +1,22 @@
+<div style = "padding:10px 0px 0px 50px">
+  <h4>Hi  {{ user.login | html_escape }}</h4>
+  
+  <div  style = "padding:10px 0px">
+    Your account has been created.
+  
+     <p>
+       Username: {{ user.login | html_escape }}<br/>
+       Password: {{ user.password | html_escape }}
+     </p>
+  </div>
+  <div style = "padding:10px 0px">
+    <p>Visit this url to activate your account:</p>
+    <p><a href = "{{ url }}" title = "click here to activate your account">{{ url }}</a></p>
+    <p style = "padding: 10px 0px; ">Thanks for signing up!</p>
+  </div>
+  <div  style = "padding:10px 0px; font-size:16px;font-weight:lighter;">
+    Admin<br/>
+    http://www.{{ store.domain | html_escape }}<br/>
+    {{ store.email | html_escape }}
+  </div>
+</div>
