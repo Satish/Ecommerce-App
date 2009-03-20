@@ -1,2 +1,41 @@
-<h1>Admin::Products#create</h1>
-<p>Find me in app/views/admin/products/create.html.erb</p>
+<div class="addnewpost item">
+  <% form_for([:admin, @product]) do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :name -%>
+   		<%= f.text_field :name, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :permalink -%>
+   		<%= f.text_field :permalink, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :description -%>
+   		<%= f.text_area :description, :class => "mceEditor styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :meta_title -%>
+   		<%= f.text_field :meta_title, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :meta_description -%>
+   		<%= f.text_area :meta_description, :class => "mceNoEditor styledFormElement height50px" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :meta_keywords -%>
+   		<%= f.text_area :meta_keywords, :class => "mceNoEditor styledFormElement height50px" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :brand_id -%>
+   		<%= f.select :brand_id, @store.brands.collect{|b| [b.name, b.id]}, :class => "mceNoEditor styledFormElement height50px" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :product_id, "Product ID" -%>
+   		<%= f.text_field :product_id, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit @product.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, Product.new] -%>
+    </div>
+  <% end -%>
+</div> 

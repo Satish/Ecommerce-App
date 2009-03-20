@@ -65,5 +65,5 @@ class Admin::BrandsController < Admin::BaseController
   def redirect_to_brands_home
     redirect_to [:admin, Brand.new] and return
   end
-
+  
 end

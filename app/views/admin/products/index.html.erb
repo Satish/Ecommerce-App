@@ -1,2 +1,22 @@
-<h1>Admin::Products#index</h1>
-<p>Find me in app/views/admin/products/index.html.erb</p>
+<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <span class = "floatRight marginTop4"><%= page_entries_info @products, :entry_name => '' -%></span>
+  <h1 class="pageHeading">products(<%= link_to "+", new_admin_product_path, :title => "Create New Product" -%>)</h1>
+</div>
+
+<div class="container">
+  <% if @products.size > 0 -%>
+    <div class="table">
+      <div class = "tableHeader">
+        <span class = "pct10">Sr. NO.</span>
+        <span class = "pct50 textAlignLeft">Name</span>
+        <span class = "pct10">Date</span>
+        <span class = "pct10">Status</span>
+        <span class = "pct10">-</span>
+      </div>
+      <%= render :partial => 'products' -%>
+    </div>
+	<% else %>
+    <div class = "noRecords">There are no products</div>     
+  <% end -%>
+</div>

@@ -31,13 +31,23 @@ class Product < ActiveRecord::Base
   @@per_page = 5
   cattr_reader :per_page
   
-  validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price
+  has_permalink :name, :permalink
+  
+  validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price, :product_id
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
   
   has_many :images, :dependent => :destroy
   has_many :sku, :dependent => :destroy
   
   belongs_to :store
+  
+  def before_validation
+    self.product_id = rand(5)
+  end
+  
+  def after_create
+    update_attribute(:product_id, "PID#{id + 251}")
+  end
   
   def self.search(query, options)
     conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
@@ -46,4 +56,7 @@ class Product < ActiveRecord::Base
     paginate default_options.merge(options)
   end
   
+  def active?
+    status?
+  end
 end
