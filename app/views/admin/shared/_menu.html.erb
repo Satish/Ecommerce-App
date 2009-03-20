@@ -1,31 +1,51 @@
 <div id="menubar">
   <div id="menu" class="dropbutton">
-	  <h1 id="menubutton"><a href="<%= request.path -%>"><%= controller.controller_name -%></a></h1>
+	  <h1 id="menubutton"><a href="/admin/<%= controller.controller_name -%>"><%= controller.controller_name -%></a></h1>
 			<div id="menulist" class="dropbuttonlist">
 				<ul>
-				<li id="link-dashboard" class="" title="View your user dashboard"><%= link_to 'Dashboard', admin_dashboard_index_path -%></li>				  
-  			<li id="link-create" class="submenu first-child" title="Create content">
-  			  <%= link_to 'New', new_admin_post_path, :class => "top" -%>
+				<li id="link-dashboard" class="" title="View your user dashboard"><%= link_to 'Dashboard', admin_root_path -%></li>				  
+  			<li id="link_manage_categories" class="submenu first-child" title="Manage Categories">
+  			  <%= link_to 'Categories', [:admin, Category.new], :class => "top" -%>
   				<ul class="submenu">
-	  				<li id="link-create_1" title="Create a new Post" class="sub hotkey-1 first-child"><%= link_to 'Post', new_admin_post_path -%></li>
-						<li id="link-create_2" title="Create a new Page" class="sub hotkey-2 last-child"><%= link_to 'Page', new_admin_page_path -%></li></li>
+	  				<li id="link_create_category" title="Create New Category" class="first child"><%= link_to 'New', new_admin_category_path -%></li>
+            <li id="link_manage_categories" title="Manage Categories" class="last child"><%= link_to 'Manage', [:admin, Category.new] -%></li>            
 		  		 </ul>
 				</li>
-				<li id="link-manage" class="submenu" title="Manage content">
-				  <%= link_to 'Manage', admin_posts_path, :class => "top" -%>
+        <li id="link_manage_brands" class="submenu" title="Manage Brands">
+  			  <%= link_to 'Brands', [:admin, Brand.new], :class => "top" -%>
   				<ul class="submenu">
-  					<li id="link-manage_1" title="Manage Entry" class="sub hotkey-1 first-child"><%= link_to 'Posts', admin_posts_path -%></li>
-  					<li id="link-manage_2" title="Manage Page" class="sub hotkey-2 last-child"><%= link_to 'Pages', admin_pages_path -%></li>
-  			  </ul>
+  				  <li id="link_create_brand" title="Create New Brand" class="first child"><%= link_to 'New', new_admin_brand_path -%></li>
+   				  <li id="link_manage_brands" title="Manage Brand" class="last child"><%= link_to 'Manage', [:admin, Brand.new] -%></li>            
+     		 </ul>
 				</li>
-				<li id="link-comments" class="" title="Manage blog comments"><%= link_to 'Comments', admin_comments_path -%></li>
-				<li id="link-pages" class="" title="View and Manage Pages"><%= link_to 'Pages', admin_pages_path -%></li>
-		  	<li id="link-users" class="selected" title="View and manage users"><%= link_to 'Users', admin_users_path -%></li>
-				<li id="link-tags" class="" title="blog tags"><%= link_to 'Tags', admin_posts_path -%></li>
+        <li id="link_manage_products" class="submenu" title="Manage Products">
+  			  <%= link_to 'Products', [:admin, Product.new], :class => "top" -%>
+  				<ul class="submenu">
+  					<li id="link_create_product" title="Create New Product" class="last child"><%= link_to 'New', new_admin_product_path -%></li>
+  				  <li id="link_manage_products" title="Manage Product" class="last child"><%= link_to 'Manage', [:admin, Product.new] -%></li>            
+		  		 </ul>
+				</li>
+        <li id="link_manage_product_attributes" class="submenu" title="Manage Product Attributes">
+  			  <%= link_to 'Product Attributes', [:admin, ProductAttribute.new], :class => "top" -%>
+  				<ul class="submenu">
+  					<li id="link_create_product_attribute" title="Create New Product Attribute" class="last child"><%= link_to 'New', new_admin_product_attribute_path -%></li>
+  				  <li id="link_manage_product_attributes" title="Manage Product Attributes" class="last child"><%= link_to 'Manage', [:admin, ProductAttribute.new] -%></li>            
+		  		 </ul>
+				</li>
+        <li id="link_manage_pages" class="submenu" title="Manage Pages">
+  			  <%= link_to 'Pages', [:admin, Page.new], :class => "top" -%>
+  				<ul class="submenu">
+  					<li id="link_create_page" title="Create New Page" class="last child"><%= link_to 'New', new_admin_page_path -%></li>
+  				  <li id="link_manage_pages" title="Manage Pages" class="last child"><%= link_to 'Manage', [:admin, Page.new] -%></li>            
+		  		 </ul>
+				</li>
 				<li id="link-logs" class="" title="View system log messages"><%= link_to 'Logs', "#" -%></li>
-				<li id="link-logout" class="last-child" title="Log out of the administration interface"><%= link_to 'Logout<span class="hotkey enabled">X</span>', "#" -%></li>
+				<li id="link-logout" class="last-child" title="Log out of the admin interface"><%= link_to 'Logout<span class="hotkey enabled">X</span>', logout_path, :method => :delete -%></li>
 			</ul>
 		</div>
 	</div>
-	<a href="/admin" id="site" title="Go to Site">My Blog</a>
+  <div id = "storeName">
+    <p style = "float:left; padding-right:10px"><%#= link_to current_user.login, "#" -%></p>
+    <%= link_to @store.display_name, admin_root_path, :id => "site" -%>
+  </div>
 </div>

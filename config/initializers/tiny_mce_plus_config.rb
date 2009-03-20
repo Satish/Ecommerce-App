@@ -30,8 +30,8 @@ AppConfig.advanced_mce_options = {
     :plugin_preview_pageurl => '../../../../../posts/preview',
     :plugin_preview_width => "965",
     :plugin_preview_height => "650",
-    :width => "813",
-    :height => "375",
+    :width => "880",
+    :height => "100",
     :editor_deselector => "mceNoEditor",
     :extended_valid_elements => "img[class|src|flashvars|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|obj|param|embed|scale|wmode|salign|style],embed[src|quality|scale|salign|wmode|bgcolor|width|height|name|align|type|pluginspage|flashvars],object[align<bottom?left?middle?right?top|archive|border|class|classid|codebase|codetype|data|declare|dir<ltr?rtl|height|hspace|id|lang|name|style|tabindex|title|type|usemap|vspace|width]"
   }

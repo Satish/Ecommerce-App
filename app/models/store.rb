@@ -27,11 +27,12 @@ class Store < ActiveRecord::Base
   validates_presence_of :domain, :email, :display_name
   validates_uniqueness_of :domain
 
-  has_many :categories, :dependent => :destroy
+  has_many :categories, :dependent => :destroy#, :conditions => {:parent_id => nil}
   has_many :products, :dependent => :destroy
+  has_many :brands, :dependent => :destroy
+  has_many :product_attributes, :dependent => :destroy
   has_many :images, :dependent => :destroy
   has_many  :users, :dependent => :destroy
-  
-  belongs_to :brand
-  
+  has_many  :pages, :dependent => :destroy
+ 
 end

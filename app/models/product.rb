@@ -28,6 +28,9 @@
 
 class Product < ActiveRecord::Base
   
+  @@per_page = 5
+  cattr_reader :per_page
+  
   validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
   
@@ -35,5 +38,12 @@ class Product < ActiveRecord::Base
   has_many :sku, :dependent => :destroy
   
   belongs_to :store
-
+  
+  def self.search(query, options)
+    conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    
+    paginate default_options.merge(options)
+  end
+  
 end

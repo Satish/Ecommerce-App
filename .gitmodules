@@ -34,3 +34,9 @@
 [submodule "vendor/plugins/liquid"]
 	path = vendor/plugins/liquid
 	url = git://github.com/tobi/liquid.git
+[submodule "vendor/plugins/acts_as_tree"]
+	path = vendor/plugins/acts_as_tree
+	url = git://github.com/rails/acts_as_tree.git
+[submodule "vendor/plugins/acts_as_list"]
+	path = vendor/plugins/acts_as_list
+	url = git://github.com/rails/acts_as_list.git

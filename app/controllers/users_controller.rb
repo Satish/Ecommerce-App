@@ -68,7 +68,8 @@ class UsersController < ApplicationController
   # smart -- make sure you check that the visitor is authorized to do so, that they
   # supply their old password along with a new one to update it, etc.
 
-protected
+  protected #########################
+  
   def find_user
     @user = User.find(params[:id])
   end

@@ -18,6 +18,12 @@
 
 class Brand < ActiveRecord::Base
   
+  @@per_page = 5
+  cattr_reader :per_page
+  
+  has_permalink :name, :permalink
+  attr_protected :status, :store_id
+  
   validates_presence_of :name, :permalink, :description, :store_id
   validates_uniqueness_of :name, :permalink, :scope => :store_id
   
@@ -25,5 +31,16 @@ class Brand < ActiveRecord::Base
   has_many :products, :dependent => :destroy
   
   belongs_to :store
-
+  
+  def self.search(query, options)
+    conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    
+    paginate default_options.merge(options)
+  end
+  
+  def active?
+    status?
+  end
+  
 end

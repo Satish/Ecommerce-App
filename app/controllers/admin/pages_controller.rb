@@ -3,7 +3,8 @@ class Admin::PagesController < Admin::BaseController
   before_filter :find_page, :only => [:show, :edit, :update, :destroy]
   
   def index
-    @pages = Page.search(params[:search], params[:page])
+    options = { :page => params[:page] }
+    @pages = @store.pages.search( params[:search], options )
     respond_to do |format|
       format.html{}
       format.xml{ render :xml => @pages }
@@ -16,9 +17,9 @@ class Admin::PagesController < Admin::BaseController
   
   def create
     @page = Page.new(params[:page])
-    if @page.save
+    if @store.pages << @page
       flash[:message] = 'Page Created successfully.'
-      redirect_to [:admin, @page] and return
+      redirect_to_pages_home
     else
       render :action => 'new'
     end
@@ -29,7 +30,7 @@ class Admin::PagesController < Admin::BaseController
   def update
     if @page.update_attributes(params[:page])
       flash[:message] = 'Page updated successfully.'
-      redirect_to [:admin, @page] and return
+      redirect_to_pages_home
     else
       render :action => 'edit'
     end
@@ -48,16 +49,16 @@ class Admin::PagesController < Admin::BaseController
       end
       format.html do
         flash[:message] = 'Page deleted successfully.' if @page.destroy
-        redirect_to_pages_home and return
+        redirect_to_pages_home
       end
     end
   end
   
   private #######################
   
-  def find_page
-    @page = Page.find_by_id(params[:id])
-    redirect_to_pages_home and return unless @page
+   def find_page
+    @brand = @store.pages.find_by_id(params[:id])
+    redirect_to_pages_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @brand
   end
   
   def redirect_to_pages_home

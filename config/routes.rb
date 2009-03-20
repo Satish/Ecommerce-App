@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   
-  # Normal(Public) Routes
+  # Normal Routes
   map.root :controller => "products"
   map.resources :users
   map.with_options :controller => 'users' do |user|
@@ -20,6 +20,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
     admin.resources :dashboard, :only => [:index]
+    admin.resources :categories
+    admin.resources :brands
+    admin.resources :products
+    admin.resources :product_attributes, :except => [:show]
     admin.resources :pages
     admin.resources :posts
     admin.resources :comments
