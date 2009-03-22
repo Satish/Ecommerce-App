@@ -1,6 +1,0 @@
-<div class="container post">
-  <h2 class="pageHeading">Edit Product</h2>
-  <div id='editProductForm' class="formContainer create">
-    <%= render :partial => 'form' -%>
-  </div>
-</div>
