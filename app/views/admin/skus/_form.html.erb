@@ -1,0 +1,21 @@
+<div class="addnewpost item">
+  <% form_for([:admin, @product, @sku], :html => { :multipart => true }) do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :number -%>
+   		<%= f.text_field :number, :class => "text important styledFormElement", :style => "width:100px;" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :quantity -%>
+   		<%= f.text_field :quantity, :class => "text important styledFormElement", :style => "width:100px;" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :additional_price -%>
+   		<%= f.text_field :additional_price, :class => "text important styledFormElement", :style => "width:100px;" -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit @sku.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, @product, Sku.new] -%>
+    </div>
+  <% end -%>
+</div> 

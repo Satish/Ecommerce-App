@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :dashboard, :only => [:index]
     admin.resources :categories
     admin.resources :brands
-    admin.resources :products
+    admin.resources :products, :has_many => [:skus]
     admin.resources :product_attributes, :except => [:show]
     admin.resources :pages
     admin.resources :posts

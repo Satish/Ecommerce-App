@@ -1,0 +1,17 @@
+<% @skus.each_with_index do |sku, index| -%>
+  <% div_for sku, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+    <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+    <span class = "pct20 textAlignCenter"><%= sku.number -%></span>
+    <span class = "pct40 textAlignCenter"><%= sku.quantity -%></span>
+    <span class = "pct20 textAlignCenter"><%= number_to_currency(sku.additional_price) -%></span>
+    <span class = "pct10 textAlignCenter">
+      <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit"), [:edit, :admin, @product, sku], :title => "Edit") -%>
+      <%= link_to(image_tag("admin/iconDelete.png", :alt => "X"), [:admin, @product, sku], :title => "Delete", :method => :delete, :confirm => " Deleting sku '#{ sku.number }'\n Are you Sure?") -%>
+    </span>
+  <% end -%>
+<% end -%>
+<% if @skus.total_pages > 1 %>
+  <div class = "tableRow pct100 <%= cycle('odd', 'even') %>">
+    <%= will_paginate(@skus, :class => "pagination textAlignCenter", :id => "pagination") -%>
+  </div>
+<% end %>

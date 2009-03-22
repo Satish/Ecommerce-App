@@ -37,7 +37,7 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
   
   has_many :images, :dependent => :destroy
-  has_many :sku, :dependent => :destroy
+  has_many :skus, :dependent => :destroy
   
   belongs_to :store
   

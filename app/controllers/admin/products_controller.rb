@@ -17,6 +17,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def create
     @product = Product.new(params[:product])
+    params[:image].each do |image|
+      @product.images.build(:uploaded_data => image)
+    end
     if @store.products << @product
       redirect_to_products_home
     else

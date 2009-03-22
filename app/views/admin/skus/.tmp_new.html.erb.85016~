@@ -1,0 +1,6 @@
+<div class="container post">
+  <h2 class="pageHeading">New Product</h2>
+  <div id='newProductForm' class="formContainer create">
+    <%= render :partial => 'form' -%>
+  </div>
+</div>

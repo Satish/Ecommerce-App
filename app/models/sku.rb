@@ -22,4 +22,20 @@ class Sku < ActiveRecord::Base
   
   belongs_to :product
 
+  def before_validation
+    self.number = rand(5)
+  end
+  
+  def after_create
+    update_attribute(:number, "SKU#{id + 251}")
+  end
+  
+  def self.search(query, options)
+    conditions = ["number like ?", "%#{query}%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "created_at DESC, number"}
+    
+    paginate default_options.merge(options)
+  end
+
+
 end

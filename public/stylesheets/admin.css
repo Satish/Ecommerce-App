@@ -362,7 +362,7 @@ textarea {
 	line-height: 1.3em;
 }
 
-select {
+.formRow select, .formRow input.fileField{
 	width: 40%;
 }
 

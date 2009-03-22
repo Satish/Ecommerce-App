@@ -5,3 +5,4 @@ tmp/**/*
 .loadpath
 db/schema.rb
 config/database.yml
+public/images/admin/products/
