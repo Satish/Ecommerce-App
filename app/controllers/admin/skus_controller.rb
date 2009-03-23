@@ -14,6 +14,9 @@ class Admin::SkusController < Admin::BaseController
 
   def new
     @sku = Sku.new
+    @store.product_attributes.each do |attr|
+      @sku.attribute_values.build(:product_attribute_id => attr.id)
+    end
   end
 
   def create
@@ -25,7 +28,11 @@ class Admin::SkusController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+#    @store.product_attributes.each do |attr|
+#      @sku.attribute_values.build(:product_attribute_id => attr.id)
+#    end
+  end
 
   def show
     respond_to do |format|

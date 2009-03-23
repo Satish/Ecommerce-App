@@ -13,6 +13,9 @@
    		<%= f.label :additional_price -%>
    		<%= f.text_field :additional_price, :class => "text important styledFormElement", :style => "width:100px;" -%>
    	</div>
+    <div class="sku_attribute_values">
+      <%= render :partial => "attribute_value", :collection => @sku.attribute_values -%>
+    </div>
     <div class="formRow transparent">
       <%= f.submit @sku.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, @product, Sku.new] -%>

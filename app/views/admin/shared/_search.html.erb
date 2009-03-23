@@ -1,11 +1,10 @@
-<div class = "search">
-  <% form_tag request.path, :method => 'get' do -%>
-    <% content_tag :label do -%>
-      Search term:
-    <% end %>
+<div class = "search" style = "width:90%">
+  <% remote_form_for request.path, :method => 'get',  :loading => "showSpinner('searchProgressIndicator')", :complete => "hideSpinner('searchProgressIndicator')", :html => {:class => "searchForm", :id => "searchForm" } do -%>
+    <%= label_tag :search, "Search term:" %>
     <%= text_field_tag :search, params[:search], :class => "text important styledFormElement" -%>
     <span class="formRow transparent">
       <%= submit_tag 'Search', :class => "button" -%>
     </span>
   <% end -%>
+  <span class="searchProgressIndicatorBlock" id = "searchProgressIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "25x25"}) -%></span>
 </div>

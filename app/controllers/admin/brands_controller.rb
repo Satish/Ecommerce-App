@@ -1,6 +1,6 @@
 class Admin::BrandsController < Admin::BaseController
   
-  before_filter :find_brand, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_brand, :only => [:show, :edit, :update, :destroy, :products]
   
   def index
     options = { :page => params[:page] }
@@ -55,6 +55,11 @@ class Admin::BrandsController < Admin::BaseController
     end
   end
   
+  def products
+    options = { :page => params[:page] }
+    @products = @brand.products.search( params[:search], options )
+    render_products
+  end
   private #######################
   
   def find_brand

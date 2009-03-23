@@ -31,6 +31,8 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :title, :permalink, :scope => :store_id
   
   has_many :images, :dependent => :destroy
+  has_many :categories_products, :dependent => :destroy
+  has_many :products, :through => :categories_products#, :conditions => {:active => true}
   belongs_to :store
   
   def self.search(query, options)

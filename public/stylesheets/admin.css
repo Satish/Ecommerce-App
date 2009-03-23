@@ -297,6 +297,11 @@ body.login .create input.text, body.login .create label {
 	font-size: 1.6em;
 }
 
+#page .container h1 .subTitle{
+	font-size:0.6em; font-weight:normal; color:#555;
+}
+
+
 #page .container h1 {
 	font-size: 2em;
 }
@@ -440,9 +445,9 @@ body.page-logs .item.expanded .more {
 }
 
 .search { font-size:1.5em; }
-
-.search .text { width: 60%; padding:5px; }
-  
+.search .text { width: 75%; padding:5px; }
+.search .searchForm { float:left; width:95% }
+.search .searchProgressIndicatorBlock { float:right; }  
 .create input.text, .create textarea, .create select{
   padding:3px 5px;
 }
@@ -481,3 +486,8 @@ label.overcontent {
 .table .tableRow.even{ border-bottom:1px solid #E7E7E7; }
 .table .tableRow .textAlignLeft, .table .tableHeader .textAlignLeft { text-align:left; }
 /* TABLE VIEW STYLE END */
+
+/* PAGINATION LINKS STYLE START */
+#pagination { float:left; padding: 0px 20px;}
+
+/* PAGINATION LINKS STYLE START */

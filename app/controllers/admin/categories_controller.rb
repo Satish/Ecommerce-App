@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
   
-  before_filter :find_category, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_category, :only => [:show, :edit, :update, :destroy, :products]
   
   def index
     options = { :page => params[:page] }
@@ -53,6 +53,12 @@ class Admin::CategoriesController < Admin::BaseController
         end
       end
     end
+  end
+  
+  def products
+    options = { :page => params[:page] }
+    @products = @category.products.search( params[:search], options )
+    render_products
   end
   
   private #######################

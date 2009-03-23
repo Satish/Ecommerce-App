@@ -1,0 +1,14 @@
+<div class = "sku_attribute_value" >
+<%- 
+  new_or_existing = attribute_value.new_record? ? 'new' : 'existing'
+  prefix = "sku[#{new_or_existing}_attribute_value_attributes][]" 
+-%>
+<% fields_for prefix, attribute_value do |attribute_value_form| %>
+  <div class="formRow transparent">
+ 		<%= attribute_value_form.label :attribute_value, "Attribute Value" -%>
+    <%= attribute_value_form.hidden_field :product_attribute_id %>
+		<%= attribute_value_form.select :product_attribute_id, @store.product_attributes.collect{|a| [a.name, a.id]},{}, { :disabled => 'disabled', :class => "text important styledFormElement", :style => "color: #333; width:200px;-moz-border-radius:5px;"} -%>
+		<%= attribute_value_form.text_field :value, :class => "text important styledFormElement", :style => "width:300px;" -%>
+ 	</div>
+<% end -%>
+</div>

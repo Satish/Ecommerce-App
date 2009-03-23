@@ -11,9 +11,9 @@
 #  updated_at           :datetime
 #
 
-class AttributeValues < ActiveRecord::Base
+class AttributeValue < ActiveRecord::Base
   
-  validates_presence_of :value, :sku_id, :product_attribute_id
+  validates_presence_of :value, :product_attribute_id#, :sku_id
   validates_uniqueness_of :value, :scope => [:sku_id, :product_attribute_id]
 
   belongs_to :sku

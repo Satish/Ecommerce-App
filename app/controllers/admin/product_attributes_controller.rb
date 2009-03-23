@@ -44,7 +44,7 @@ class Admin::ProductAttributesController < Admin::BaseController
   def destroy
     respond_to do |format|
       format.html do
-        flash[:message] = "Product Attribute '#{ @product_attribute.name }' deleted successfully"# if @product_attribute.destroy
+        flash[:message] = "Product Attribute '#{ @product_attribute.name }' deleted successfully" if @product_attribute.destroy
         redirect_to_product_attributes_home
       end
       format.js do

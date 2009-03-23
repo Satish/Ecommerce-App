@@ -5,10 +5,7 @@ class Admin::ProductsController < Admin::BaseController
   def index
     options = { :page => params[:page] }
     @products = @store.products.search( params[:search], options )
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @products }
-    end
+    render_products
   end
 
   def new

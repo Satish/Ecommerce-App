@@ -6,3 +6,4 @@ tmp/**/*
 db/schema.rb
 config/database.yml
 public/images/admin/products/
+public/images/admin/tiny_mce/
