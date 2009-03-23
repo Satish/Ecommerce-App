@@ -19,7 +19,7 @@
 #  price            :float           default(0.0)
 #  discount         :float           default(0.0)
 #  handling_fee     :float           default(0.0)
-#  status           :boolean(1)
+#  active           :boolean(1)      default(TRUE)
 #  dependent        :boolean(1)
 #  deleted_at       :datetime
 #  created_at       :datetime
@@ -32,6 +32,7 @@ class Product < ActiveRecord::Base
   cattr_reader :per_page
   
   has_permalink :name, :permalink
+  attr_protected :store_id
   
   validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price, :product_id
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
@@ -56,7 +57,4 @@ class Product < ActiveRecord::Base
     paginate default_options.merge(options)
   end
   
-  def active?
-    status?
-  end
 end

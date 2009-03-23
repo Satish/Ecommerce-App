@@ -6,7 +6,7 @@
 #  value                :string(255)
 #  sku_id               :integer(4)
 #  product_attribute_id :integer(4)
-#  status               :boolean(1)      default(TRUE)
+#  active               :boolean(1)      default(TRUE)
 #  created_at           :datetime
 #  updated_at           :datetime
 #

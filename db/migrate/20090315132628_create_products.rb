@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration
       t.text        :description, :care_instruction, :meta_description, :meta_keywords
       t.references  :brand, :store
       t.float       :price, :discount, :handling_fee, :precision => 2, :default => 0.00
-      t.boolean     :status, :dependent, :default => false
+      t.boolean     :active, :dependent, :default => false
       t.datetime:deleted_at
       
       t.timestamps

@@ -19,7 +19,7 @@
 #  price            :float           default(0.0)
 #  discount         :float           default(0.0)
 #  handling_fee     :float           default(0.0)
-#  status           :boolean(1)
+#  active           :boolean(1)      default(TRUE)
 #  dependent        :boolean(1)
 #  deleted_at       :datetime
 #  created_at       :datetime

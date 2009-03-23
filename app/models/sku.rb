@@ -8,7 +8,7 @@
 #  additional_price :float           default(0.0)
 #  product_id       :integer(4)
 #  deleted_at       :datetime
-#  status           :boolean(1)      default(TRUE)
+#  active           :boolean(1)      default(TRUE)
 #  created_at       :datetime
 #  updated_at       :datetime
 #

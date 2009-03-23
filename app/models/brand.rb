@@ -10,7 +10,7 @@
 #  meta_description :text
 #  meta_keywords    :text
 #  store_id         :integer(4)
-#  status           :boolean(1)      default(TRUE)
+#  active           :boolean(1)      default(TRUE)
 #  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -22,7 +22,7 @@ class Brand < ActiveRecord::Base
   cattr_reader :per_page
   
   has_permalink :name, :permalink
-  attr_protected :status, :store_id
+  attr_protected :store_id
   
   validates_presence_of :name, :permalink, :description, :store_id
   validates_uniqueness_of :name, :permalink, :scope => :store_id
@@ -38,9 +38,5 @@ class Brand < ActiveRecord::Base
     
     paginate default_options.merge(options)
   end
-  
-  def active?
-    status?
-  end
-  
+   
 end

@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: tiny_mce_photos
+#
+#  id           :integer(4)      not null, primary key
+#  name         :string(255)
+#  description  :text
+#  user_id      :integer(4)
+#  content_type :string(255)
+#  filename     :string(255)
+#  size         :integer(4)
+#  parent_id    :integer(4)
+#  thumbnail    :string(255)
+#  width        :integer(4)
+#  height       :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class TinyMcePhoto < ActiveRecord::Base
   
   has_attachment  :storage => :file_system,

@@ -4,7 +4,7 @@ class CreateBrands < ActiveRecord::Migration
       t.string          :name, :permalink, :meta_title
       t.text            :description, :meta_description, :meta_keywords
       t.references      :store
-      t.boolean         :status, :default => true
+      t.boolean         :active, :default => true
       t.datetime        :deleted_at
       
       t.timestamps

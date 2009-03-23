@@ -4,7 +4,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string      :title, :permalink, :meta_title
       t.text        :description, :meta_description, :meta_keywords
       t.references  :store, :parent
-      t.boolean     :status
+      t.boolean     :active, :default => true
       t.datetime    :deleted_at
       
       t.timestamps

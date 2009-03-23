@@ -10,7 +10,7 @@
 #  meta_description :text
 #  meta_keywords    :text
 #  store_id         :integer(4)
-#  status           :boolean(1)      default(TRUE)
+#  active           :boolean(1)      default(TRUE)
 #  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime

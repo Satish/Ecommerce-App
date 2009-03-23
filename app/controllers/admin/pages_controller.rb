@@ -57,8 +57,8 @@ class Admin::PagesController < Admin::BaseController
   private #######################
   
    def find_page
-    @brand = @store.pages.find_by_id(params[:id])
-    redirect_to_pages_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @brand
+    @page = @store.pages.find_by_id(params[:id])
+    redirect_to_pages_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @page
   end
   
   def redirect_to_pages_home

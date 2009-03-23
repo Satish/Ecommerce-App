@@ -3,7 +3,7 @@ class CreateProductAttributes < ActiveRecord::Migration
     create_table :product_attributes do |t|
       t.string        :name
       t.references    :store
-      t.boolean       :status, :default => true
+      t.boolean       :active, :default => true
       
       t.timestamps
     end

@@ -11,7 +11,7 @@
 #  meta_keywords    :text
 #  store_id         :integer(4)
 #  parent_id        :integer(4)
-#  status           :boolean(1)
+#  active           :boolean(1)      default(TRUE)
 #  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -24,7 +24,7 @@ class Category < ActiveRecord::Base
   
   acts_as_tree
   has_permalink :title, :permalink
-  attr_protected :status, :store_id
+  attr_protected :store_id
   
   named_scope :parent_categories, :conditions => { :parent_id => nil }
   validates_presence_of :title, :permalink, :description, :store_id
@@ -42,9 +42,5 @@ class Category < ActiveRecord::Base
   def category_options_for_optgroup
     children
   end
-  
-  def active?
-    status?
-  end
-  
+    
 end

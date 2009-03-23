@@ -3,7 +3,7 @@ class CreateStores < ActiveRecord::Migration
     create_table :stores do |t|
       t.string :domain, :email, :address, :blog_title, :display_name, :toll_free_number, :meta_title, :google_analytics_account, :add_this_username
       t.text :description, :disable_message, :meta_description, :meta_keywords
-      t.boolean :status, :default => true
+      t.boolean :active, :default => true
       t.datetime:deleted_at
       
       t.timestamps

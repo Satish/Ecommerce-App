@@ -6,6 +6,10 @@
    		<%= f.text_field :name, :class => "text important styledFormElement" -%>
    	</div>
     <div class="formRow transparent">
+   		<%= f.label :active -%>
+   		<%= f.check_box :active, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
       <%= f.submit @product_attribute.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, ProductAttribute.new] -%>
     </div>

@@ -14,7 +14,7 @@ class ProductAttribute < ActiveRecord::Base
   
   @@per_page = 5
   cattr_reader :per_page
-  attr_protected :status, :store_id
+  attr_protected :store_id
   
   validates_presence_of :name, :store_id
   validates_uniqueness_of :name, :scope => :store_id
@@ -24,12 +24,14 @@ class ProductAttribute < ActiveRecord::Base
   
   def self.search(query, options)
     conditions = ["name like ?", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    default_options = {:conditions => conditions, :order => "created_at DESC, name"}    
     paginate default_options.merge(options)
   end
-  
-  def active?
-    status?
+   
+  def after_save
+    attribute_values.each do |attribute_value|
+      attribute_value.update_attribute(:status, active?)
+    end
   end
   
 end

@@ -3,7 +3,7 @@ class CreateAttributeValues < ActiveRecord::Migration
     create_table :attribute_values do |t|
       t.string          :value
       t.references      :sku, :product_attribute
-      t.boolean         :status, :default => true      
+      t.boolean         :active, :default => true
 
       t.timestamps
     end

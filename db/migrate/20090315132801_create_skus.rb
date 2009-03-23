@@ -6,7 +6,7 @@ class CreateSkus < ActiveRecord::Migration
       t.float           :additional_price, :precision => 2, :default => 0.0
       t.references      :product
       t.datetime        :deleted_at
-      t.boolean         :status, :default => true
+      t.boolean         :active, :default => true
       
       t.timestamps
     end

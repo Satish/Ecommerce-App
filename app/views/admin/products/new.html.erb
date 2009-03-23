@@ -1,4 +1,5 @@
 <div class="container post">
+  <span class = "floatRight marginTop4"><%= link_to 'Back to Products', [:admin, Product.new] -%></span>
   <h2 class="pageHeading">New Product</h2>
   <div id='newProductForm' class="formContainer create">
     <%= render :partial => 'form' -%>
