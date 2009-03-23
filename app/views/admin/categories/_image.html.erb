@@ -1,7 +1,7 @@
 <div class="formRow transparent image">
-  <% fields_for "category[new_image_attributes][]", image do |image_form| %>
+  <% fields_for "category[new_image_attributes][]", image do |image_form1| %>
     <div class="formRow transparent">
-   		<%= image_form.file_field :uploaded_data, :class => "styledFormElement fileField", :size => "31px" -%>
+   		<%= image_form1.file_field :uploaded_data, :class => "styledFormElement fileField", :size => "31px" -%>
       <%= link_to_function "remove" , "$(this).up('.image').remove()" -%>
    	</div>
   <% end -%>

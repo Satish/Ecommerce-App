@@ -38,6 +38,7 @@ class Category < ActiveRecord::Base
   def self.search(query, options)
     conditions = ["title like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
     default_options = {:conditions => conditions, :order => "created_at DESC, title"}
+    
     paginate default_options.merge(options)
   end
     

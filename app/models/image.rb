@@ -36,5 +36,13 @@ class Image < ActiveRecord::Base
   validates_as_attachment
 
   belongs_to :attachable, :polymorphic => true
+  belongs_to :store
+  after_update :abc
+  after_update :abc
+  
+  def abc
+    self.store = attachable.store
+    self.save
+  end
   
 end
