@@ -1,0 +1,11 @@
+<div class="formRow transparent pct100" id ="images">
+  <%= label_tag :images -%>
+  <div  style = "padding:10px 0px" >
+  <% @category.images.reject(&:new_record?).compact.each do |image| %>
+    <% div_for(image, :style => 'float:left;') do %>
+    	<%= image_tag(image.public_filename(:S75x75), :size => "50x50", :border => "1") -%>&nbsp;&nbsp;&nbsp;
+    	<br/><%= link_to_remote(image_tag('admin/delete.png', :alt=>"Delete", :align=>'absmiddle'), :url=> [:admin, @category, image], :confirm=>"Deleting Image.\nAre you sure?", :method=>:delete) -%>
+    <% end -%>
+  <% end %>
+  </div>
+</div>

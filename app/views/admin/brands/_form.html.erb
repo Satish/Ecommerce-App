@@ -1,5 +1,5 @@
 <div class="addnewpost item">
-  <% form_for([:admin, @brand]) do |f| -%>
+  <% form_for([:admin, @brand], :html => { :multipart => true }) do |f| -%>
     <%= f.error_messages -%>
     <div class="formRow transparent">
    		<%= f.label :name -%>
@@ -25,6 +25,11 @@
    		<%= f.label :meta_keywords -%>
    		<%= f.text_area :meta_keywords, :class => "mceNoEditor styledFormElement height50px" -%>
    	</div>
+    
+    <%= render :partial => 'images' -%>
+    <%= render :partial => 'image', :collection => @brand.images.collect(&:new_record?).compact -%>
+    <div style = "padding: 10px 0px; clear:left"><%= add_image_link("Add another image") -%></div>
+    
     <div class="formRow transparent">
       <%= f.submit @brand.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, Brand.new] -%>

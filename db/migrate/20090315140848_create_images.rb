@@ -1,9 +1,10 @@
 class CreateImages < ActiveRecord::Migration
   def self.up
     create_table :images do |t|
-      t.integer :size, :height, :width, :parent_id
+      t.integer :size, :height
       t.string :content_type, :filename, :thumbnail, :type
       t.references :attachable, :polymorphic => true
+      t.references :store, :parent
 
       t.timestamps
     end

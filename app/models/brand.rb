@@ -27,7 +27,7 @@ class Brand < ActiveRecord::Base
   validates_presence_of :name, :permalink, :description, :store_id
   validates_uniqueness_of :name, :permalink, :scope => :store_id
   
-  has_many :images, :dependent => :destroy
+  has_many :images, :dependent => :destroy, :as => :attachable
   has_many :products, :dependent => :destroy
   
   belongs_to :store
@@ -38,5 +38,11 @@ class Brand < ActiveRecord::Base
     
     paginate default_options.merge(options)
   end
-   
+  
+  def new_image_attributes=(image_attributes)
+    image_attributes.each do |image|
+      self.images.build(image)
+    end
+  end
+  
 end

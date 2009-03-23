@@ -5,5 +5,5 @@ tmp/**/*
 .loadpath
 db/schema.rb
 config/database.yml
-public/images/admin/products/
+public/images/photos
 public/images/admin/tiny_mce/

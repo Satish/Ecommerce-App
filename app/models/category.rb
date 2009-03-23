@@ -30,7 +30,7 @@ class Category < ActiveRecord::Base
   validates_presence_of :title, :permalink, :description, :store_id
   validates_uniqueness_of :title, :permalink, :scope => :store_id
   
-  has_many :images, :dependent => :destroy
+  has_many :images, :dependent => :destroy, :as => :attachable
   has_many :categories_products, :dependent => :destroy
   has_many :products, :through => :categories_products#, :conditions => {:active => true}
   belongs_to :store
@@ -44,5 +44,11 @@ class Category < ActiveRecord::Base
   def category_options_for_optgroup
     children
   end
-    
+  
+  def new_image_attributes=(image_attributes)
+    image_attributes.each do |image|
+      self.images.build(image)
+    end
+  end
+  
 end

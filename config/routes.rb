@@ -20,9 +20,9 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
     admin.resources :dashboard, :only => [:index]
-    admin.resources :categories, :member => {:products => :get}
-    admin.resources :brands, :member => {:products => :get}
-    admin.resources :products, :has_many => [:skus]
+    admin.resources :categories, :member => {:products => :get}, :has_many => [:images]
+    admin.resources :brands, :member => {:products => :get}, :has_many => [:images]
+    admin.resources :products, :has_many => [:skus, :images]
     admin.resources :product_attributes, :except => [:show]
     admin.resources :pages
     admin.resources :posts

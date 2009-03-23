@@ -37,7 +37,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price, :product_id
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
   
-  has_many :images, :dependent => :destroy
+  has_many :images, :dependent => :destroy, :as => :attachable
   has_many :skus, :dependent => :destroy
   
   belongs_to :store
@@ -55,6 +55,12 @@ class Product < ActiveRecord::Base
     default_options = {:conditions => conditions, :order => "created_at DESC, name"}
     
     paginate default_options.merge(options)
+  end
+  
+  def new_image_attributes=(image_attributes)
+    image_attributes.each do |image|
+      self.images.build(image)
+    end
   end
   
 end

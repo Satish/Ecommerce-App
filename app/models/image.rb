@@ -19,6 +19,8 @@
 
 class Image < ActiveRecord::Base
   
+  #validates_presence_of :attachable_type, :attachable_id#,  :store_id
+  
   has_attachment :content_type => [:image],  
                  :thumbnails => {:S75x75 => "75x75",
                                  :S100x120 => "100x120",
@@ -27,11 +29,12 @@ class Image < ActiveRecord::Base
                                  :S280x280 => "280x280",
                                  :S365x355 => "365x355",
                                  :S550x440 => "550x440",},
-                 :storage => :file_system, :path_prefix => 'public/images/admin/products/photos',
+                 :storage => :file_system, :path_prefix => 'public/images/photos',
                  :max_size => 5.megabytes,
                  :processor => 'Rmagick'
                  
   validates_as_attachment
 
-
+  belongs_to :attachable, :polymorphic => true
+  
 end

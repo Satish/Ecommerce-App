@@ -13,6 +13,7 @@ class Admin::BrandsController < Admin::BaseController
 
   def new
     @brand = Brand.new
+    @brand.images.build
   end
 
   def create
@@ -60,6 +61,7 @@ class Admin::BrandsController < Admin::BaseController
     @products = @brand.products.search( params[:search], options )
     render_products
   end
+  
   private #######################
   
   def find_brand
