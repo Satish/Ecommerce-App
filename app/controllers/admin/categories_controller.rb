@@ -15,7 +15,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def new
     @category = Category.new
-    #@category.images.build
+    @category.images.build
   end
 
   def create

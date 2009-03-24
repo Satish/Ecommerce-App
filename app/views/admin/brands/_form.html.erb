@@ -25,11 +25,7 @@
    		<%= f.label :meta_keywords -%>
    		<%= f.text_area :meta_keywords, :class => "mceNoEditor styledFormElement height50px" -%>
    	</div>
-    
-    <%= render :partial => 'images' -%>
-    <%= render :partial => 'image', :collection => @brand.images.collect(&:new_record?).compact -%>
-    <div style = "padding: 10px 0px; clear:left"><%= add_image_link("Add another image") -%></div>
-    
+    <%= render :partial => 'admin/images/images', :locals => {:attachable => @brand, :prefix => 'brand' } %>
     <div class="formRow transparent">
       <%= f.submit @brand.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, Brand.new] -%>

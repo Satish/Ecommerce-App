@@ -1,0 +1,6 @@
+<div class="formRow transparent image">
+  <div class="formRow transparent">
+    <%= file_field_tag "#{prefix}[new_image_attributes][][uploaded_data]", :class => "styledFormElement fileField", :size => "31px" -%>
+    <%= link_to_function "remove" , "$(this).up('.image').remove()" -%>
+ 	</div>
+</div>

@@ -1,8 +1,0 @@
-<div class="formRow transparent image">
-  <% fields_for "product[new_image_attributes][]", image do |product_image_form| %>
-    <div class="formRow transparent">
-   		<%= product_image_form.file_field :uploaded_data, :class => "styledFormElement fileField", :size => "31px" -%>
-      <%= link_to_function "remove" , "$(this).up('.image').remove()" -%>
-   	</div>
-  <% end -%>
-</div>

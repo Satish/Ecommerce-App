@@ -43,11 +43,12 @@ class Product < ActiveRecord::Base
   belongs_to :store
   
   def before_validation
-    self.product_id = rand(5)
+    self.product_id = "PID#{Product.last(:select => "id").id + 1 }" if product_id.blank?
+    self.images.build if images.size < 1
   end
-  
-  def after_create
-    update_attribute(:product_id, "PID#{id + 251}")
+    
+  def first_image
+    images.first
   end
   
   def self.search(query, options)

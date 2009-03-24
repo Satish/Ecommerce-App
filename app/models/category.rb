@@ -35,6 +35,10 @@ class Category < ActiveRecord::Base
   has_many :products, :through => :categories_products#, :conditions => {:active => true}
   belongs_to :store
   
+  def before_validation
+    self.images.build if images.size < 1
+  end
+  
   def self.search(query, options)
     conditions = ["title like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
     default_options = {:conditions => conditions, :order => "created_at DESC, title"}

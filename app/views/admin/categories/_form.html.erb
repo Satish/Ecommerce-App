@@ -29,10 +29,7 @@
    		<%= f.label :parent, 'Parent Category' -%>
    		<%= select_tag :category_parent, category_options_for_select, :class => "styledFormElement" -%>
    	</div>
-    <%= render :partial => 'images' -%>
-    <%= render :partial => 'image', :collection => @category.images.collect(&:new_record?).compact -%>
-    <div style = "padding: 10px 0px; clear:left"><%= add_image_link("Add another image") -%></div>
-    
+    <%= render :partial => 'admin/images/images', :locals => {:attachable => @category, :prefix => 'category' } %>
     <div class="formRow transparent">
       <%= f.submit @category.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, Category.new] -%>

@@ -1,0 +1,5 @@
+<% @products.each  do |product| %>
+  <% div_for product do -%>
+    <%= image_tag(product.first_image.public_filename(:S130x130) rescue '/') -%>
+  <% end %>
+<% end %>

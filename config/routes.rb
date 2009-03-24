@@ -3,6 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   # Normal Routes
   map.root :controller => "products"
   map.resources :users
+  map.resources :products, :only => [:show, :index]
+  map.resources :categories, :only => [:show, :index]
+  map.resources :brands, :only => [:show, :index]
+  
   map.with_options :controller => 'users' do |user|
     user.signup '/signup', :action => 'new'
     user.register '/register', :action => 'create'
@@ -20,10 +24,11 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
     admin.resources :dashboard, :only => [:index]
-    admin.resources :categories, :member => {:products => :get}, :has_many => [:images]
-    admin.resources :brands, :member => {:products => :get}, :has_many => [:images]
-    admin.resources :products, :has_many => [:skus, :images]
+    admin.resources :categories, :member => {:products => :get}
+    admin.resources :brands, :member => {:products => :get}
+    admin.resources :products, :has_many => [:skus]
     admin.resources :product_attributes, :except => [:show]
+    admin.resources :images, :only => [:index, :destroy]
     admin.resources :pages
     admin.resources :posts
     admin.resources :comments

@@ -33,9 +33,7 @@
    		<%= f.label :brand_id -%>
    		<%= f.select :brand_id, @store.brands.collect{|b| [b.name, b.id]}, :class => "styledFormElement" -%>
    	</div>
-    <%= render :partial => 'images' -%>
-    <%= render :partial => 'image', :collection => @product.images.collect(&:new_record?).compact, :as => :image -%>
-    <div style = "padding: 10px 0px; clear:left"><%= add_image_link("Add another image") -%></div>
+    <%= render :partial => 'admin/images/images', :locals => {:attachable => @product, :prefix => 'product' } %>
     <div class="formRow transparent">
       <%= f.submit @product.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, Product.new] -%>

@@ -15,7 +15,7 @@ class Admin::BrandsController < Admin::BaseController
 
   def new
     @brand = Brand.new
-    #@brand.images.build
+    @brand.images.build
   end
 
   def create

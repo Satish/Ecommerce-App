@@ -7,13 +7,13 @@
     <title><%= @meta_title -%></title>
     <meta name="description" content= '<%= @meta_description -%>' />
     <meta name="keywords" content= '<%= @meta_keywords -%>' />
-    <%#= stylesheet_link_tag 'main' %>
-    <%= javascript_include_tag :defaults %>
-    <%= stylesheet_link_tag "sexy_flash" %>
+    <%= stylesheet_link_tag 'application', 'sexy_flash' %>
     <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
   </head>
-  <body>
+  <body id = "container">
+    <%= render :partial => 'shared/header' -%>
     <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
-    <%= yield -%>
+    <div id = "body"><%= yield -%></div>
+    <%= render :partial => 'shared/footer' -%>
   </body>
 </html>

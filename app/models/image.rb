@@ -37,12 +37,9 @@ class Image < ActiveRecord::Base
 
   belongs_to :attachable, :polymorphic => true
   belongs_to :store
-  after_update :abc
-  after_update :abc
   
-  def abc
-    self.store = attachable.store
-    self.save
+  def before_save
+    self.store = attachable.store if attachable
   end
   
 end

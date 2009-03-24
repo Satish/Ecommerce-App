@@ -1,0 +1,8 @@
+<div class="formRow transparent pct100" id ="images">
+  <%= label_tag :images -%>
+  <div  style = "padding:10px 0px" >
+    <%= render :partial => 'admin/images/image', :collection => attachable.images.reject(&:new_record?).compact -%>
+  </div>
+</div>
+<%= render :partial => 'admin/images/form', :collection => attachable.images.collect(&:new_record?).compact, :locals => {:prefix => prefix } -%>
+<div style = "padding: 10px 0px; clear:left; font-size:1.5em; font-weight:bold"><%= add_image_link("Add another image", prefix) -%></div>

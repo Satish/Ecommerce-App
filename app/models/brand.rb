@@ -32,6 +32,10 @@ class Brand < ActiveRecord::Base
   
   belongs_to :store
   
+  def before_validation
+    self.images.build if images.size < 1
+  end
+  
   def self.search(query, options)
     conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
     default_options = {:conditions => conditions, :order => "created_at DESC, name"}

@@ -6,7 +6,7 @@ class Admin::ImagesController < Admin::BaseController
     respond_to do |format|
       format.html do
         flash[:message] = "Image deleted successfully" if @image.destroy
-        redirect_to_brands_home
+        redirect_to_images_home
       end
       format.js do
         render :update do |page|
