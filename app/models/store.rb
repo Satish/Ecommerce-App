@@ -32,7 +32,12 @@ class Store < ActiveRecord::Base
   has_many :brands, :dependent => :destroy
   has_many :product_attributes, :dependent => :destroy
   has_many :images, :dependent => :destroy
-  has_many  :users, :dependent => :destroy
-  has_many  :pages, :dependent => :destroy
- 
+  has_many :users, :dependent => :destroy
+  has_many :pages, :dependent => :destroy
+  has_one :blog, :dependent => :destroy
+  
+  def after_create
+    self.blog.create
+  end
+  
 end

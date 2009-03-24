@@ -1,7 +1,8 @@
 class Admin::PagesController < Admin::BaseController
   
   before_filter :find_page, :only => [:show, :edit, :update, :destroy]
-  
+  before_filter :set_metas, :only => [:show]
+
   def index
     options = { :page => params[:page] }
     @pages = @store.pages.search( params[:search], options )
@@ -64,6 +65,10 @@ class Admin::PagesController < Admin::BaseController
   
   def redirect_to_pages_home
     redirect_to [:admin, Page.new] and return
+  end
+  
+  def set_metas
+    @meta_title = @page.title.titleize if @page
   end
   
 end

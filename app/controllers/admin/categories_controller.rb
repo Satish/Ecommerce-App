@@ -1,6 +1,7 @@
 class Admin::CategoriesController < Admin::BaseController
   
   before_filter :find_category, :only => [:show, :edit, :update, :destroy, :products]
+  before_filter :set_metas, :only => [:show]
   
   def index
     options = { :page => params[:page] }
@@ -74,4 +75,8 @@ class Admin::CategoriesController < Admin::BaseController
     redirect_to [:admin, Category.new] and return
   end
   
+  def set_metas
+    @meta_title = @category.title.titleize if @category
+  end
+    
 end

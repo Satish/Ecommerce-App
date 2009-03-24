@@ -1,6 +1,7 @@
 class Admin::ProductsController < Admin::BaseController
   
   before_filter :find_product, :only => [:show, :edit, :update, :destroy]
+  before_filter :set_metas, :only => [:show]
   
   def index
     options = { :page => params[:page] }
@@ -63,5 +64,9 @@ class Admin::ProductsController < Admin::BaseController
   def redirect_to_products_home
     redirect_to [:admin, Product.new] and return
   end
-
+  
+  def set_metas
+    @meta_title = @product.name.titleize if @product
+  end
+  
 end

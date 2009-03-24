@@ -79,5 +79,5 @@ class Admin::SkusController < Admin::BaseController
   def redirect_to_skus_home
     redirect_to [:admin, @product, Sku.new] and return
   end
-
+  
 end
