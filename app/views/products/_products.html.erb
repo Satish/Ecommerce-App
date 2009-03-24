@@ -1,5 +1,15 @@
-<% @products.each  do |product| %>
-  <% div_for product do -%>
-    <%= image_tag(product.first_image.public_filename(:S130x130) rescue '/') -%>
+<% products_section do %>
+  <% paginated_section @products, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <div id = "products">
+      <% @products.each do |product| %>
+        <% div_for product do -%>
+          <%= link_to image_tag(product.first_image.public_filename(:S130x130)), product -%><br/>
+          <%= link_to h(truncate(product.name, :length => 30)), product -%><br/>
+          Original Price: <%= number_to_currency(product.price, :unit => unit_ntoc, :precision => precision_ntoc) -%><br/>
+          Our Price: <%= number_to_currency(product.our_price, :unit => unit_ntoc, :precision => precision_ntoc) -%><br/>
+          You Saved: <%= number_to_currency(product.discount, :unit => unit_ntoc, :precision => precision_ntoc) -%> ( <%= number_to_percentage(product.percent_discount, :precision => precision_ntop) -%> )
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>

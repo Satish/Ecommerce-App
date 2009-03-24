@@ -10,10 +10,10 @@
     <%= stylesheet_link_tag 'application', 'sexy_flash' %>
     <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
   </head>
-  <body id = "container">
+  <body id = "body">
     <%= render :partial => 'shared/header' -%>
     <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
-    <div id = "body"><%= yield -%></div>
+    <div id = "container"><%= yield -%></div>
     <%= render :partial => 'shared/footer' -%>
   </body>
 </html>

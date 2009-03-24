@@ -49,4 +49,8 @@ class Brand < ActiveRecord::Base
     end
   end
   
+  def first_image
+    images.first
+  end
+  
 end

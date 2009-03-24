@@ -5,12 +5,16 @@ class Admin::ImagesController < Admin::BaseController
   def destroy
     respond_to do |format|
       format.html do
-        flash[:message] = "Image deleted successfully" if @image.destroy
+        flash[:message] = "Image deleted successfully" if @image.attachable.images.count > 1 and @image.destroy
         redirect_to_images_home
       end
       format.js do
         render :update do |page|
-          page.remove("image_#{ @image.id }") if @image.destroy
+          if @image.attachable.images.count > 1 and @image.destroy
+            page.remove("image_#{ @image.id }") 
+          else
+            page.alert("Last Image of this #{@image.attachable.class} can't be deleted")
+          end
         end
       end
     end

@@ -2,5 +2,9 @@
 html { overflow-y: scroll; /* To prevent 'popping' */}
 body { font-family: "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Verdana, Sans-Serif;}
 a img {	border: none; }
-body#container { margin:0px auto; width:80%; font-size: 75%;}
-#body { padding: 20px 0px; }
+body#body { margin:0px auto; width:80%; font-size: 75%;}
+#body #container { padding: 20px 0px; }
+#container #products, #container #categories, #container #brands { overflow:hidden; clear:both; }
+#container .product, #container .category, #container .brand { float:left; margin: 10px; text-align:center; width: 200px; }
+#body #footer{ clear:both; }
+#body #header{ clear:both; }

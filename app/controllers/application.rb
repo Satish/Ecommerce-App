@@ -16,8 +16,19 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
   
+  private
+  
   def find_store
     @store = Store.first  
+  end
+  
+  def find_order_by
+    sort_options = {"Arrange by A-Z" => "name ASC", "Arrange by Z-A" => "name DESC", "Price (Low-High)" => "price ASC", "Price (High-Low)" => "price DESC" }
+    return sort_options[params[:sort_by]] ? sort_options[params[:sort_by]] : "name ASC"
+  end
+  
+  def get_per_page_items(count)
+    [16, 40, 80, 120, 500].include?(count.to_i) ? count : 16
   end
   
 end

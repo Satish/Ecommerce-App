@@ -64,4 +64,12 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def our_price
+    price - discount
+  end
+  
+  def percent_discount
+    100 * discount/price
+  end
+  
 end

@@ -43,7 +43,7 @@ class Admin::ProductsController < Admin::BaseController
   def destroy
     respond_to do |format|
       format.html do
-        flash[:message] = "Product '#{ @product.title }'deleted successfully"# if @product.destroy
+        flash[:message] = "Product '#{ @product.name }' deleted successfully" if @product.destroy
         redirect_to_products_home
       end
       format.js do
