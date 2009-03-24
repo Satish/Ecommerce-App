@@ -12,7 +12,7 @@
 
 class ProductAttribute < ActiveRecord::Base
   
-  @@per_page = 5
+  @@per_page = 1
   cattr_reader :per_page
   attr_protected :store_id
   

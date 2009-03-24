@@ -1,0 +1,2 @@
+page.replace "product_attributes", :partial => "product_attributes"
+page.replace_html "page_entries_info", :text => page_entries_info(@product_attributes, :entry_name => '')

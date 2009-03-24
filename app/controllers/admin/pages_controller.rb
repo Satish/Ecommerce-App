@@ -6,7 +6,8 @@ class Admin::PagesController < Admin::BaseController
     options = { :page => params[:page] }
     @pages = @store.pages.search( params[:search], options )
     respond_to do |format|
-      format.html{}
+      format.html #index.html.erb
+      format.js #index.rjs
       format.xml{ render :xml => @pages }
     end
   end

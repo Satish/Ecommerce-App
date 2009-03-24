@@ -1,0 +1,2 @@
+page.replace "brands", :partial => "brands"
+page.replace_html "page_entries_info", :text => page_entries_info(@brands, :entry_name => '')

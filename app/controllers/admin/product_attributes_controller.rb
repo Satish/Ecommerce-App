@@ -7,6 +7,7 @@ class Admin::ProductAttributesController < Admin::BaseController
     @product_attributes = @store.product_attributes.search( params[:search], options )
     respond_to do |format|
       format.html # index.html.erb
+      format.js # index.rjs
       format.xml  { render :xml => @product_attributes }
     end
   end

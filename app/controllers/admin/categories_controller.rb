@@ -6,7 +6,8 @@ class Admin::CategoriesController < Admin::BaseController
     options = { :page => params[:page] }
     @categories = @store.categories.search( params[:search], options )
     respond_to do |format|
-      format.html # index.html.erb
+      format.html #index.html.erb
+      format.js #index.rjs
       format.xml  { render :xml => @categories }
     end
   end
@@ -45,7 +46,7 @@ class Admin::CategoriesController < Admin::BaseController
   def destroy
     respond_to do |format|
       format.html do
-        flash[:message] = "Category '#{ @category.title }'deleted successfully" if @category.destroy
+        flash[:message] = "Category '#{ @category.title }' deleted successfully" if @category.destroy
         redirect_to_categories_home
       end
       format.js do

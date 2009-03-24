@@ -7,6 +7,7 @@ class Admin::BrandsController < Admin::BaseController
     @brands = @store.brands.search( params[:search], options )
     respond_to do |format|
       format.html # index.html.erb
+      format.js # index.rjs
       format.xml  { render :xml => @brands }
     end
   end

@@ -1,0 +1,2 @@
+page.replace "users", :partial => "users"
+page.replace_html "page_entries_info", :text => page_entries_info(@users, :entry_name => '')

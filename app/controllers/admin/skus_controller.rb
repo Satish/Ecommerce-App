@@ -8,6 +8,7 @@ class Admin::SkusController < Admin::BaseController
     @skus = @product.skus.search( params[:search], options )
     respond_to do |format|
       format.html # index.html.erb
+      format.js # index.rjs
       format.xml  { render :xml => @skus }
     end
   end

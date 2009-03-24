@@ -1,8 +1,5 @@
 class Admin::UsersController < Admin::BaseController
   
-  before_filter :login_required
-  require_role "admin"
-  
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
@@ -11,7 +8,13 @@ class Admin::UsersController < Admin::BaseController
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
   
   def index
-    @users = User.search(params[:search], params[:page])
+    options = { :page => params[:page] }
+    @users = @store.users.search(params[:search], options)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.js # index.rjs
+      format.xml  { render :xml => @users }
+    end
   end
   
   # render new.rhtml

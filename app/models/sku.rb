@@ -15,6 +15,9 @@
 
 class Sku < ActiveRecord::Base
   
+  @@per_page = 5
+  cattr_reader :per_page
+  
   validates_presence_of :number, :quantity, :additional_price, :product_id
   validates_uniqueness_of :number, :scope => :product_id
   

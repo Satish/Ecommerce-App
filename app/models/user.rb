@@ -23,6 +23,9 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   
+  @@per_page = 5
+  cattr_reader :per_page
+  
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
@@ -73,9 +76,11 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
   
-  def self.search(search, page)
-    paginate :per_page => 5, :page => page,
-             :conditions => ['name like ? or email like ?', "%#{search}%", "%#{search}%"], :order => 'name'
+  def self.search(query, options)
+    conditions = ["name like ? or email like ?", "%#{query}%", "%#{query}%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    
+    paginate default_options.merge(options)
   end
   
   # ---------------------------------------

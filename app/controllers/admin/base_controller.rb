@@ -7,6 +7,7 @@ class Admin::BaseController < ApplicationController
   def render_products
     respond_to do |format|
       format.html # products.html.erb
+#      format.js { render :action => '/admin/products/products' }
       format.js do
         render :update do |page|
           page.replace_html "products", :partial => "admin/products/products"
