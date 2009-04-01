@@ -47,7 +47,7 @@ class Product < ActiveRecord::Base
     self.images.build if images.size < 1
   end
     
-  def first_image
+  def main_image
     images.first
   end
   

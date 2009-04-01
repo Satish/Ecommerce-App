@@ -1,0 +1,5 @@
+<% content_tag_for :ul, brand do -%>
+  <li class = "brandImage"><%= link_to image_tag(brand.main_image.public_filename(:S160x160)), brand -%></li>
+  <li class = "brandName"><%= link_to h(truncate(brand.name.titleize, :length => 30)), brand -%></li>
+  <li class = "brandDesc"><%= truncate(brand.name, :length => 100) -%></li>
+<% end %>

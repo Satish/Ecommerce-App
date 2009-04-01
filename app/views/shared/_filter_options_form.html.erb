@@ -1,6 +1,8 @@
-<% form_for :search, :url => request.path, :html => {:method => :get, :id => 'productsForm'} do -%>
-  <%= select_tag :sort_by, options_for_select(get_options_for_sort_by, params[:sort_by]) -%>
-  <%= select_tag :per_page, options_for_select(get_options_for_per_page, params[:per_page].to_i) -%>
-  <%= select_tag :page, options_for_select(get_options_for_jump_to(@products.total_pages), params[:page].to_i) -%>
-  <%= submit_tag 'Go' -%>
-<% end -%>
+<div class = "filterForm">
+  <% form_for :search, :url => request.path, :html => {:method => :get, :id => 'productsForm'} do -%>
+    <%= select_tag :sort_by, options_for_select(get_options_for_sort_by, params[:sort_by]) -%>
+    <%= select_tag :per_page, options_for_select(get_options_for_per_page, params[:per_page].to_i) -%>
+    <%#= select_tag :page, options_for_select(get_options_for_jump_to(@products.total_pages), params[:page].to_i) -%>
+    <%= submit_tag 'Go' -%>
+  <% end -%>
+</div>

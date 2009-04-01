@@ -56,7 +56,7 @@ class Category < ActiveRecord::Base
     end
   end
   
-  def first_image
+  def main_image
     images.first
   end
   

@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   def index
     options = { :page => params[:page], :per_page => get_per_page_items(params[:per_page]), :order => find_order_by }
     @products = @store.products.search( params[:search], options )
+    render_products
   end
   
   def show

@@ -11,9 +11,14 @@
     <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
   </head>
   <body id = "body">
-    <%= render :partial => 'shared/header' -%>
-    <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
-    <div id = "container"><%= yield -%></div>
+    <div id = "wrapper">
+      <%= render :partial => 'shared/header' -%>
+      <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
+      <div id = "container">
+        <div id = "leftColumn"><%= render :partial => 'shared/sidebar' -%></div>
+        <div id = "rightColumn"><%= yield -%></div>
+      </div>
     <%= render :partial => 'shared/footer' -%>
+    </div>
   </body>
 </html>

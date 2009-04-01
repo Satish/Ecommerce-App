@@ -1,0 +1,9 @@
+<div class="navigationBar">
+  <ul>
+  <li class = "<%= get_css_class('home') -%>"><%= link_to 'Home', root_path -%></li>
+  <li class = "<%= get_css_class('products') -%>"><%= link_to 'Shop By Products', products_path -%></li>
+  <li class = "<%= get_css_class('categories') -%>"><%= link_to 'Shop By Categories', categories_path -%></li>
+  <li class = "<%= get_css_class('brands') -%>"><%= link_to 'Shop By Brands', brands_path -%></li>
+  <li class = "<%= get_css_class('products') -%>"><%= link_to 'On Sale', products_path(:tag => 'sale') -%></li>
+  </ul>
+</div>

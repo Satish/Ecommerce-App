@@ -28,6 +28,7 @@ class Store < ActiveRecord::Base
   validates_uniqueness_of :domain
 
   has_many :categories, :dependent => :destroy#, :conditions => {:parent_id => nil}
+#  has_many :parent_categories, :group => :parent_id, :class_name => "Category"
   has_many :products, :dependent => :destroy
   has_many :brands, :dependent => :destroy
   has_many :product_attributes, :dependent => :destroy

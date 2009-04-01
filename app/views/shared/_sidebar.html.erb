@@ -1,0 +1,10 @@
+<% sidebar_navigation_section "Shop By Category" do %>
+  <% for category in @store.categories.parent_categories -%>
+    <li><%= link_to category.title, category, :title => category.title -%></li>
+  <% end -%>
+<% end %>
+<% sidebar_navigation_section "Shop By Brand" do %>
+  <% for brand in @store.brands -%>
+    <li><%= link_to brand.name, brand, :title => brand.name -%></li>
+  <% end -%>
+<% end %>

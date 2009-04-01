@@ -1,6 +1,12 @@
 <div id = "header" class = "header">
-  header
-<div>
-  navigation
-</div>
+  <div id="headerInner">
+    <div class = "right">
+      <%= render :partial => 'shared/top_navigation' -%>
+      <%= render :partial => 'shared/search' -%>
+    </div>
+    <div class = "left">
+      <%= render :partial => 'shared/logo' -%>
+    </div>
+  </div>
+  <%= render :partial => 'shared/navigation' -%>
 </div>

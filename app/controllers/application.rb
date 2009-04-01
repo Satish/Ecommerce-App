@@ -31,4 +31,15 @@ class ApplicationController < ActionController::Base
     [16, 40, 80, 120, 500].include?(count.to_i) ? count : 16
   end
   
+  def render_products
+    respond_to do |format|
+      format.html # products.html.erb
+      format.js do
+        render :update do |page|
+          page.replace_html "productsBox", :partial => "products/products"
+        end
+      end
+      format.xml { render :xml => @products }
+    end
+  end
 end

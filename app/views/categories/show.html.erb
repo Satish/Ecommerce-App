@@ -1,4 +1,10 @@
-<h1><%= h @category.title %></h1>
-<div style = "padding:10px 0px;"><%= h @category.description -%></div>
-
-<%= render :partial => "products/products" -%>
+<div id = 'category'>
+  <h1><%= h @category.title.titleize %></h1>
+  <div id = "categoryDetail">
+    <div id = "categoryImage"><%= image_tag(@category.main_image.public_filename(:S650x250)) -%></div>
+    <div id = "categoryDesc"><%= @category.description -%></div>
+  </div>
+  <div id="productsBox">
+    <%= render :partial => "products/products" -%>
+  </div>
+</div>

@@ -13,6 +13,7 @@
         <span class = "pct10">Status</span>
         <span class = "pct10">-</span>
       </div>
+      <%# render :partial => @products -%>
       <% @products.each_with_index do |product, index| -%>
         <% div_for product, :class => "tableRow #{cycle('odd', 'even')}" do -%>
           <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>

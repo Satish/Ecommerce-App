@@ -1,13 +1,7 @@
-<%# products_section do %>
+<%# brands_section do %>
   <% paginated_section @brands, :class => "pagination", :renderer => RemoteLinkRenderer do %>
-    <div id = "categories">
-      <% @brands.each do |brand| %>
-        <% div_for brand do -%>
-          <%= link_to image_tag(brand.first_image.public_filename(:S130x130)), brand -%><br/>
-          <%= link_to h(truncate(brand.name, :length => 30)), brand -%><br/>
-          <%= h(truncate(brand.description, :length => 100)) -%><br/>
-        <% end %>
-      <% end %>
+    <div id = "brands">
+      <%= render :partial => @brands -%>
     </div>
   <% end %>
 <%# end %>

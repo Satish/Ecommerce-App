@@ -1,3 +1,10 @@
-<h1><%= h @brand.name %></h1>
-<div style = "padding:10px 0px;"><%= h @brand.description -%></div>
-<%= render :partial => "products/products" -%>
+<div id = 'brand'>
+  <h1><%= h @brand.name.titleize %></h1>
+  <div id = "brandDetail">
+    <div id = "brandImage"><%= image_tag(@brand.main_image.public_filename(:S650x250)) -%></div>
+    <div id = "brandDesc"><%= @brand.description -%></div>
+  </div>
+  <div id="productsBox">
+    <%= render :partial => "products/products" -%>
+  </div>
+</div>

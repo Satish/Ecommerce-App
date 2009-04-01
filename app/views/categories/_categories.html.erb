@@ -1,13 +1,7 @@
-<%# products_section @categories do %>
+<%# categories_section @categories do %>
   <% paginated_section @categories, :class => "pagination", :renderer => RemoteLinkRenderer do %>
     <div id = "categories">
-      <% @categories.each do |category| %>
-        <% div_for category do -%>
-          <%= link_to image_tag(category.first_image.public_filename(:S130x130)), category -%><br/>
-          <%= link_to h(truncate(category.title, :length => 30)), category -%>(<%= category.products.count %>)<br/>
-          <%= h(truncate(category.description, :length => 100)) -%><br/>
-        <% end %>
-      <% end %>
+      <%= render :partial => @categories -%>
     </div>
   <% end %>
 <%# end %>

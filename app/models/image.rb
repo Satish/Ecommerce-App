@@ -25,10 +25,12 @@ class Image < ActiveRecord::Base
                  :thumbnails => {:S75x75 => "75x75",
                                  :S100x120 => "100x120",
                                  :S130x130 => "130x130",
+                                 :S160x160 => "160x160",
                                  :S225x225 => "225x225",
                                  :S280x280 => "280x280",
                                  :S365x355 => "365x355",
-                                 :S550x440 => "550x440",},
+                                 :S550x440 => "550x440",
+                                 :S650x250 => "650x250",},
                  :storage => :file_system, :path_prefix => 'public/images/photos',
                  :max_size => 5.megabytes,
                  :processor => 'Rmagick'
