@@ -36,8 +36,8 @@
   			  <%= link_to 'Blog', edit_admin_blog_path, :class => "top" -%>
   				<ul class="submenu">
   					<li id="link_edit_blog" title="Edit blog" class="last child"><%= link_to 'Edit Blog', edit_admin_blog_path -%></li>
-            <li id="link_new_post" title="New Post" class="child"><%= link_to 'New Post', new_admin_blog_post_path -%></li>            
-  				  <li id="link_manage_posts" title="Manage Posts" class="last child"><%= link_to 'Manage Posts', [:admin,:blog, Post.new] -%></li>            
+            <li id="link_new_post" title="New Post" class="child"><%= link_to 'New Post', new_admin_post_path -%></li>            
+  				  <li id="link_manage_posts" title="Manage Posts" class="last child"><%= link_to 'Manage Posts', [:admin, Post.new] -%></li>            
 		  		 </ul>
 				</li>
         <li id="link_manage_pages" class="submenu" title="Manage Pages">

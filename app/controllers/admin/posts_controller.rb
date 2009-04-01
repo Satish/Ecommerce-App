@@ -4,7 +4,7 @@ class Admin::PostsController < Admin::BaseController
   before_filter :find_post, :only => [:show, :edit, :update, :destroy]
   
   def index
-    options = {:page => params[:page], :per_page => 1}
+    options = {:page => params[:page]}
     @posts = params[:tag].blank? ? @blog.posts.search(params[:search], options) : @blog.posts.paginate_tagged_with(params[:tag], options)
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class Admin::PostsController < Admin::BaseController
       respond_to do |format|
         format.html do
           flash[:message] = 'Post Created successfully.'
-          redirect_to [:admin, :blog, @post] and return
+          redirect_to [:admin, @post] and return
         end
       end
     else
@@ -41,7 +41,7 @@ class Admin::PostsController < Admin::BaseController
       respond_to do |format|
         format.html do
           flash[:message] = 'Post updated successfully.'
-          redirect_to [:admin, :blog, @post] and return
+          redirect_to [:admin, @post] and return
         end
       end
     else
@@ -69,7 +69,7 @@ class Admin::PostsController < Admin::BaseController
   end
   
   def redirect_to_posts_home
-    redirect_to [:admin, :blog, Post.new] and return
+    redirect_to [:admin, Post.new] and return
   end
  
 end

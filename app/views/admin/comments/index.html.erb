@@ -1,0 +1,6 @@
+<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <span class = "floatRight marginTop4"  id = "page_entries_info"><%= page_entries_info @comments, :entry_name => '' -%></span>
+  <h1 class="postHeading">comments(<%= link_to "+", new_admin_post_comment_path(@post), :title => "Create New post" -%>)</h1>
+</div>
+<div class="container"><%= render :partial => 'comments' -%></div>

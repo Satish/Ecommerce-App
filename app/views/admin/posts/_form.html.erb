@@ -1,5 +1,5 @@
 <div class="addnewpost item">
-  <% form_for([:admin, :blog, @post]) do |f| -%>
+  <% form_for([:admin, @post]) do |f| -%>
     <%= f.error_messages -%>
     <div class="formRow transparent">
    		<%= f.label :title -%>
@@ -15,7 +15,7 @@
    	</div>
     <div class="formRow transparent">
    		<%= f.label :tags -%>
-   		<%#= text_field :post, :tag_list, :class => "text important styledFormElement" -%>
+   		<%= text_field :post, :tag_list, :class => "text important styledFormElement" -%>
    	</div>
     <div class="formRow transparent">
    		<%= f.label :comments_allowed -%>
@@ -24,7 +24,7 @@
     <div class="formRow transparent">
       <%= f.submit "Publish", :class => "button publish" -%>
       <%= f.submit "Save", :class => "button", :tabindex=>"4", :style => "margin-left: 5px;" if @post.new_record? -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, :blog, Post.new] -%>
+      <%= link_to "Cancel", [:admin, Post.new] -%>
     </div>
   <% end -%>
 </div> 

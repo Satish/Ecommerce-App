@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   
-  #acts_as_taggable
+  acts_as_taggable
   acts_as_paranoid
   
   has_permalink :title, :permalink
@@ -39,12 +39,6 @@ class Post < ActiveRecord::Base
   
   def before_save
     self.published_at = (published? ? Time.now.utc : nil)
-  end
-  
-  def self.search(search, options)
-    default_options = {:per_page => 5, :conditions => ['title like ? or description like ?', "%#{search}%", "%#{search}%"], :order => 'created_at DESC, title'}
-    
-    paginate default_options.merge(options)
   end
   
   def self.search(query, options)
