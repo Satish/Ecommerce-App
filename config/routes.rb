@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :product_attributes, :except => [:show]
     admin.resources :images, :only => [:index, :destroy]
     admin.resources :pages
-    admin.resources :posts
+    admin.resource :blog, :has_many => [:posts]
     admin.resources :comments
     admin.resources :tiny_mce_photos, :only => [:index, :create]
     admin.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }

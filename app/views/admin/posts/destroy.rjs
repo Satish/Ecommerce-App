@@ -1,0 +1,5 @@
+if @post.delete!
+   page.replace_html "postsContainer", :partial => "admin/posts/posts"
+else
+  page.alert(BAD_REQUEST_ERROR_MESSAGE)
+end

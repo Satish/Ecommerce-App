@@ -1,0 +1,21 @@
+<% @posts.each_with_index do |post, index| -%>
+  <% div_for post, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+    <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+    <span class = "pct35"><h3 class = "title"><%= link_to h(post.title), [:admin, :blog, post], :title => h(post.title) -%></h3></span>
+    <span class = "pct20 textAlignCenter"><%= post.owner.display_name -%></span>
+    <span class = "pct10 textAlignCenter"><%= render_tags(post) -%></span>    
+    <span class = "pct5 textAlignCenter"><%= post.comments.count -%></span>
+    <span class = "pct10 textAlignCenter"><%= post.created_at.strftime("%d/%m/%Y") -%><br/><%= post.status -%></span>          
+    <span class = "pct10 textAlignCenter">
+      <% if current_user.has_ownership?(post) -%>
+        <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit"), [:edit, :blog, :admin, post], :title => "Edit") -%>
+        <%= link_to(image_tag("admin/iconDelete.png", :alt => "X"), [:admin, :blog, post], :title => "Delete", :method => "delete", :confirm => "Are you sure?\nYou want to delete '#{post.title}' post") -%>
+      <% end -%>     
+    </span>
+  <% end -%>
+<% end -%>
+<% if @posts.total_pages > 1 %>
+  <div class = "tableRow pct100 <%= cycle('odd', 'even') %>">
+	  <%= will_paginate(@posts, :class => "pagination textAlignCenter", :id => "pagination") -%>
+  </div>
+<% end %>

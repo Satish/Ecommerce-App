@@ -44,11 +44,16 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
+  has_many :posts#, :dependent => :destroy
   has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
   has_many :roles, :through => :roles_users
   
   belongs_to :store
-
+  
+  def display_name
+    name.blank? ? login : name
+  end
+  
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

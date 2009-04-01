@@ -1,0 +1,30 @@
+<div class="addnewpost item">
+  <% form_for([:admin, :blog, @post]) do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :title -%>
+   		<%= f.text_field :title, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :permalink -%>
+   		<%= f.text_field :permalink, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :description -%>
+   		<%= f.text_area :description, :class => "mceEditor styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :tags -%>
+   		<%#= text_field :post, :tag_list, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :comments_allowed -%>
+   		<%= f.check_box :comments_allowed, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit "Publish", :class => "button publish" -%>
+      <%= f.submit "Save", :class => "button", :tabindex=>"4", :style => "margin-left: 5px;" if @post.new_record? -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, :blog, Post.new] -%>
+    </div>
+  <% end -%>
+</div> 

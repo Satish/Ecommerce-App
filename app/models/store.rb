@@ -37,8 +37,14 @@ class Store < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_one :blog, :dependent => :destroy
   
-  def after_create
-    self.blog.create
-  end
+  after_create :create_blog
   
+  private ################################
+  
+  def create_blog
+    blog = Blog.new(:email => email, :time_zone => "New Delhi", :feeds_description => FEEDS_DESCRIPTION_OPTIONS.first)
+    blog.store = self
+    blog.save!
+  end
+
 end

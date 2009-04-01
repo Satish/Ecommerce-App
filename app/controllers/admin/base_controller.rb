@@ -17,9 +17,16 @@ class Admin::BaseController < ApplicationController
       format.xml { render :xml => @products }
     end
   end
+
+  private ######################
   
   def set_default_metas
     @meta_title = "#{@store.display_name} - #{params[:controller].split('/').last.titleize}"
+  end
+  
+  def find_blog
+    @blog = @store.blog
+    redirect_to admin_root_path and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @blog
   end
   
 end

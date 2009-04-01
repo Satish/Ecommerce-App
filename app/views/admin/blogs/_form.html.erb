@@ -1,0 +1,61 @@
+<div class="addnewpost item">
+  <% form_for@blog, :url => admin_blog_path do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+        <%= f.label :title -%>
+        <%= f.text_field :title, :maxlength => 10, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :sub_title -%>
+        <%= f.text_field :sub_title, :maxlength => 50, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :email -%>
+        <%= f.text_field :email, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :posts_per_page -%>
+        <%= f.text_field :posts_per_page, :class => "text important styledFormElement", :style => "width:50px" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :comment_moderation -%>
+        <%= f.check_box :comment_moderation, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :feeds_description -%>
+        <%= f.select :feeds_description, FEEDS_DESCRIPTION_OPTIONS, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :time_zone -%>
+        <%= f.time_zone_select :time_zone, [], :include_blank => 'Select Time Zone', :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%#= f.label :description -%>
+        <%#= f.text_area :description, :rows => 5, :class => "mceEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :meta_title -%>
+        <%= f.text_field :meta_title, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :meta_description -%>
+        <%= f.text_area :meta_description, :rows => 3, :class => "mceNoEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :meta_keywords -%>
+        <%= f.text_area :meta_keywords, :rows => 3, :class => "mceNoEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+        <%= f.label :active -%>
+        <%= f.check_box :active, :class => "styledFormElement", :onclick => "$('blogDisableMessage').toggle()" -%>
+    </div>
+    <div class="formRow transparent" id = "blogDisableMessage" style = "<%= 'display:none' if @blog.active? -%>">
+        <%= f.label :disable_message -%>
+        <%= f.text_area :disable_message, :rows => 6, :cols =>60, :class => "mceEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.submit "Save Settings", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", admin_root_path -%>
+    </div>
+  <% end -%>
+</div> 
