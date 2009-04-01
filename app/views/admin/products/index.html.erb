@@ -3,7 +3,4 @@
   <span class = "floatRight marginTop4"><%= page_entries_info @products, :entry_name => '' -%></span>
   <h1 class="pageHeading">products(<%= link_to "+", new_admin_product_path, :title => "Create New Product" -%>)</h1>
 </div>
-
-<div class="container">
-  <%= render :partial => 'products' -%>
-</div>
+<div class="container"><%= render :partial => 'products' -%></div>
