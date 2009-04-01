@@ -4,10 +4,11 @@ class Admin::PostsController < Admin::BaseController
   before_filter :find_post, :only => [:show, :edit, :update, :destroy]
   
   def index
-    options = {:page => params[:page]}
+    options = {:page => params[:page], :per_page => 1}
     @posts = params[:tag].blank? ? @blog.posts.search(params[:search], options) : @blog.posts.paginate_tagged_with(params[:tag], options)
     respond_to do |format|
-      format.html
+      format.html # index.html.erb
+      format.js # index.rjs
       format.xml{ render :xml => @posts }
     end
   end

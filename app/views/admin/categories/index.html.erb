@@ -3,7 +3,4 @@
   <span class = "floatRight marginTop4" id = "page_entries_info"><%= page_entries_info @categories, :entry_name => '' -%></span>
   <h1 class="pageHeading">Categories(<%= link_to "+", new_admin_category_path, :title => "Create New Category" -%>)</h1>
 </div>
-
-<div class="container">
-  <%= render :partial => 'categories' -%>
-</div>
+<div class="container"><%= render :partial => 'categories' -%></div>
