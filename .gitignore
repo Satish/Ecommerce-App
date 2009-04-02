@@ -6,4 +6,5 @@ tmp/**/*
 db/schema.rb
 config/database.yml
 public/images/photos
+public/javascripts/all.js
 public/images/admin/tiny_mce/

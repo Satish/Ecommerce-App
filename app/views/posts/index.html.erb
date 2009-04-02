@@ -1,0 +1,9 @@
+<% @posts.each do |post| %>
+  <% div_for post do %>
+    <h1 class = "postTitle"><%=link_to h(post.title), post %></h2>
+    <div class = "postDescription"><%= truncate(post.description, :lenght => 300) -%></div>
+    <div class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => post } -%></div>
+    <div class = "postDate">Date: <%= h post.created_at -%></div>
+  <% end %>
+<% end -%>
+<div class = "pagination"><%= will_paginate @posts -%></div>

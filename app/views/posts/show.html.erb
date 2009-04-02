@@ -1,0 +1,9 @@
+<% div_for @post do %>
+  <h1 class = "postTitle"><%=link_to h(@post.title), @post %></h2>
+  <div class = "postDescription"><%= truncate(@post.description, :lenght => 300) -%></div>
+  <div class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => @post } -%></div>
+  <div class = "postDate">Date: <%= h @post.created_at -%></div>
+<% end %>
+<div>
+  <h2>Comments</h2>
+</div>

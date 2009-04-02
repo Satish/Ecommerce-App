@@ -1,0 +1,8 @@
+<% div_for @page do %>
+  <h1 class = "postTitle"><%=link_to h(@page.title), @page %></h2>
+  <div class = "postDescription"><%= truncate(@page.description, :lenght => 300) -%></div>
+  <div class = "postDate">Date: <%= h @page.created_at -%></div>
+<% end %>
+<div>
+  <h2>Comments</h2>
+</div>

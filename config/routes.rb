@@ -6,7 +6,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :products, :only => [:show, :index]
   map.resources :categories, :only => [:show, :index]
   map.resources :brands, :only => [:show, :index]
-  
+   map.resources :pages, :only => [:index, :show]
+  map.resources :posts, :only => [:index]
+  map.with_options :controller => 'posts' do |posts|
+     posts.feed '/feed', :action => "feed"
+     posts.connect ':year/:month/:day/:permalink', :action => 'show', :requirements => { :year => /\d+/ }
+  end
+   
   map.with_options :controller => 'users' do |user|
     user.signup '/signup', :action => 'new'
     user.register '/register', :action => 'create'
