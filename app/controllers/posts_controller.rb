@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  layout "application", :except => [:feed]
+  layout "blog", :except => [:feed]
   before_filter :find_blog
   before_filter :find_post, :only => [:show]
 #  after_filter :set_meta_atttributes

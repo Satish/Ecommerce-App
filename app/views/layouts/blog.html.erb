@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title><%= @meta_title -%></title>
+    <meta name="description" content= '<%= @meta_description -%>' />
+    <meta name="keywords" content= '<%= @meta_keywords -%>' />
+    <%= stylesheet_link_tag 'application', 'sexy_flash' %>
+    <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
+  </head>
+  <body id = "body">
+    <div id = "wrapper">
+      <%= render :partial => 'shared/header' -%>
+      <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
+      <div id = "container">
+        <div id = "leftColumn1"><%#= render :partial => 'shared/sidebar' -%></div>
+        <div id = "rightColumn1"><%= yield -%></div>
+      </div>
+    <%= render :partial => 'shared/footer' -%>
+    </div>
+  </body>
+</html>
