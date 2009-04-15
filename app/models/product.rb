@@ -28,6 +28,8 @@
 
 class Product < ActiveRecord::Base
   
+  TO_XML_OPTIONS = {:camelize => true, :methods => [:brand_name], :except => [:id, :active, :meta_title, :meta_description, :meta_keywords, :store_id, :brand_id, :deleted_at, :created_at, :updated_at]}
+
   @@per_page = 5
   cattr_reader :per_page
   
@@ -41,9 +43,13 @@ class Product < ActiveRecord::Base
   has_many :skus, :dependent => :destroy
   
   belongs_to :store
+  belongs_to :brand
   
   def before_validation
-    self.product_id = "PID#{Product.last(:select => "id").id + 1 }" if product_id.blank?
+    if product_id.blank?
+      pid = Product.last(:select => "id").id rescue 0
+      self.product_id = "PID#{ pid + 1 }"
+    end
     self.images.build if images.size < 1
   end
     
@@ -71,5 +77,13 @@ class Product < ActiveRecord::Base
   def percent_discount
     100 * discount/price
   end
-  
+
+  def brand_name
+    brand.name
+  end
+
+  def original_price
+    price
+  end
+
 end

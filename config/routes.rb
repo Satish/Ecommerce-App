@@ -3,16 +3,24 @@ ActionController::Routing::Routes.draw do |map|
   # Normal Routes
   map.root :controller => "products"
   map.resources :users
-  map.resources :products, :only => [:show, :index]
-  map.resources :categories, :only => [:show, :index]
-  map.resources :brands, :only => [:show, :index]
-   map.resources :pages, :only => [:index, :show]
+  map.resources :products, :only => [:index]
+  map.with_options :controller => 'products' do |controller|
+    controller.product '/products/:permalink', :action => 'show'
+#    controller.product '/products/:tag', :action => 'index'
+  end
+  map.resources :categories, :only => [:index]
+  map.category '/categories/:permalink', :controller => 'categories', :action => 'show'
+  map.resources :brands, :only => [:index]
+  map.brand '/brands/:permalink', :controller => 'brands', :action => 'show'
+  map.resources :pages, :only => [:index]
+  map.page '/pages/:permalink', :controller => 'pages', :action => 'show'
+
   map.resources :posts, :only => [:index]
   map.with_options :controller => 'posts' do |posts|
      posts.feed '/feed', :action => "feed"
      posts.connect ':year/:month/:day/:permalink', :action => 'show', :requirements => { :year => /\d+/ }
   end
-   
+
   map.with_options :controller => 'users' do |user|
     user.signup '/signup', :action => 'new'
     user.register '/register', :action => 'create'

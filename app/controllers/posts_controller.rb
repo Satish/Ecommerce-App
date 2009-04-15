@@ -8,8 +8,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   def index
-    options = {:page => params[:page] || 1, :per_page => 2}
-    @posts = (params[:tag].blank? ? @blog.posts.published.search(params[:search], options) : @blog.posts.published.paginate_tagged_with(params[:tag], options))
+    options = {:page => parse_page_number(params[:page]), :per_page => 2}
+    @posts = (params[:tag].blank? ? @blog.posts.published.search(params[:query], options) : @blog.posts.published.paginate_tagged_with(params[:tag], options))
     respond_to do |format|
       format.html{}
       format.xml{ render :xml => @posts }

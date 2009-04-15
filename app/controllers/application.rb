@@ -17,18 +17,17 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   
   private
-  
+
   def find_store
     @store = Store.first  
   end
   
   def find_order_by
-    sort_options = {"Arrange by A-Z" => "name ASC", "Arrange by Z-A" => "name DESC", "Price (Low-High)" => "price ASC", "Price (High-Low)" => "price DESC" }
-    return sort_options[params[:sort_by]] ? sort_options[params[:sort_by]] : "name ASC"
+    return ORDER_BY_OPTIONS[params[:sort_by]] ? ORDER_BY_OPTIONS[params[:sort_by]] : "name ASC"
   end
-  
+
   def get_per_page_items(count)
-    [16, 40, 80, 120, 500].include?(count.to_i) ? count : 16
+    PER_PAGE_OPTIONS.include?(count.to_i) ? count : 16
   end
   
   def render_products
@@ -39,7 +38,12 @@ class ApplicationController < ActionController::Base
           page.replace_html "productsBox", :partial => "products/products"
         end
       end
-      format.xml { render :xml => @products }
+      format.xml { render :xml => @products.to_xml(Product::TO_XML_OPTIONS) }
     end
   end
+
+  def parse_page_number(page)
+    page.to_i == 0 ? 1 : page.to_i
+  end
+
 end

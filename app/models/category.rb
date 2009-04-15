@@ -19,6 +19,8 @@
 
 class Category < ActiveRecord::Base
   
+  TO_XML_OPTIONS = {:camelize => true, :methods => [:parent_category_title], :only => [:title, :description, :permalink]}
+
   @@per_page = 5
   cattr_reader :per_page
   
@@ -59,5 +61,9 @@ class Category < ActiveRecord::Base
   def main_image
     images.first
   end
-  
+
+  def parent_category_title
+    parent ? parent.title : nil
+  end
+
 end

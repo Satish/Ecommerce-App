@@ -27,7 +27,7 @@ class PagesController < ApplicationController
   private ###########################
 
   def find_page
-    @page = @store.pages.active.find_by_permalink(params[:id])
+    @page = @store.pages.active.find_by_permalink(params[:permalink])
     redirect_to root_path and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @page
   end
 

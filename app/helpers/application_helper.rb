@@ -1,6 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+
   def number_to_currency(number, options = {})
     default_options = { :unit => currency_unit, :precision => currency_precision }
     options = default_options.merge(options)
@@ -38,11 +38,12 @@ module ApplicationHelper
   end
 
   def get_options_for_per_page
+ #   return {"Show 16 Per Page"=> 16, "Show 40 Per Page"=> 40, "Show 80 Per Page" => 80, "Show 120 Per Page" => 120}
     return [["Show 16 Per Page", 16], ["Show 40 Per Page", 40], ["Show 80 Per Page", 80], ["Show 120 Per Page", 120]]
   end
   
   def get_options_for_sort_by
-    return ["Arrange by A-Z", "Arrange by Z-A", "Price (High-Low)", "Price (Low-High)"]
+    return  ORDER_BY_OPTIONS.keys
   end
   
   def get_options_for_jump_to(total_pages)

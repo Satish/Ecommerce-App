@@ -32,9 +32,5 @@ class Page < ActiveRecord::Base
     
     paginate default_options.merge(options)
   end
-  
-  def url
-    permalink
-  end
-  
+
 end

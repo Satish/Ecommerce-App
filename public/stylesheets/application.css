@@ -1,7 +1,7 @@
 *{ margin:0; padding:0; font-weight:inherit; font-style:inherit; font-family:inherit; vertical-align:baseline; }
 html { overflow-y: scroll; /* To prevent 'popping' */}
 ul, ol {  list-style-image:none; list-style-position:outside; list-style-type:none;}
-body { font-family: "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Verdana, Sans-Serif;}
+body { font-family: 'Trebuchet MS', sans-serif;}
 a img {	border: none; }
 a, a:active, a:hover, a:visited { text-decoration:none; color: #1382B9; }
 body#body {font-size: 85%; background-color: #eee}
@@ -16,7 +16,8 @@ body#body {font-size: 85%; background-color: #eee}
 #headerInner .topNav { padding-bottom: 20px; font-weight: bold; overflow:hidden;}
 #headerInner .topNav ul li { float:right; margin:2px; padding:0px 10px; border-right:1px solid #3A2012}
 #headerInner .topNav ul li.last { border: none }
-#headerInner .logo h1 { font-size: 3em; }
+#headerInner .logo h1 { font-size: 4em; }
+#headerInner .logo h1 a { color:#999 }
 #header .navigationBar{ overflow:hidden; padding:5px 10px;}
 #header .navigationBar { clear:both; background: #858484 url(/images/bgNavigation.png); font-size:1.2em; font-weight:bold}
 #header .navigationBar li { float:left; padding:5px 15px; border-right:1px solid #555555;}
@@ -37,7 +38,7 @@ body#body {font-size: 85%; background-color: #eee}
 #rightColumn .product, #rightColumn .category, #rightColumn .brand {height:275px; float:left; margin: 10px 0px; text-align:center; width: 163px; padding:0px 9px; }
 #rightColumn h1 { border-bottom:1px solid #333; background:#858484 url(/images/bgNavigation.png); color:#FFFFFF; font-size:2em; padding:3px 15px;}
 #productsBox, #brandsBox, #categoriesBox { padding:10px 10px 10px 0px; overflow: hidden; }
-.product .productImage, .category .categoryImage, .brand .brandImage { border: 1px solid; height:160px; width:160px; margin:0px auto;}
+.product .productImage, .category .categoryImage, .brand .brandImage { border: 1px solid #aaa; height:160px; width:160px; margin:0px auto;}
 .product .productName, .category .categoryTitle, .brand .brandName { font-weight:bold; padding:5px 0px;}
 .product .productName a, .category .categoryTitle a, .brand .brandName a { text-decoration:underline; }
 .product .productOriginalPrice, .product .productOurPrice, .product .productSavedPrice { padding:1px 0px; font-weight:700; color: #555 }

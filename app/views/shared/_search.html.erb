@@ -1,6 +1,6 @@
 <div id="searchBox">
 	<% form_tag products_path, :method => :get do %>
-	<%= text_field_tag :search, params[:search], :class => "searchField" -%>
+	<%= text_field_tag :query, params[:query], :class => "searchField" -%>
 	<%= submit_tag "Search", :class => "searchButton" -%>
 	<% end %>
 </div>

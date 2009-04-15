@@ -3,8 +3,8 @@ class CategoriesController < ApplicationController
   before_filter :find_category, :only => [:show]
   
   def index
-    options = { :page => params[:page], :per_page => get_per_page_items(params[:per_page]) }
-    @categories = @store.categories.search( params[:search], options )
+    options = { :page => parse_page_number(params[:page]), :per_page => get_per_page_items(params[:per_page]) }
+    @categories = @store.categories.search( params[:query], options )
     respond_to do |format|
       format.html # categories.html.erb
       format.js do
@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
           page.replace_html "categoriesBox", :partial => "categories"
         end
       end
-      format.xml { render :xml => @categories }
+      format.xml { render :xml => @categories.to_xml(Category::TO_XML_OPTIONS) }
     end
   end
   
@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
   private ####################
   
   def find_category
-    @category = @store.categories.find_by_id(params[:id])
+    @category = @store.categories.find_by_permalink(params[:permalink])
     redirect_to [Category.new] and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @category
   end
 

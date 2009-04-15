@@ -18,6 +18,8 @@
 
 class Brand < ActiveRecord::Base
   
+  TO_XML_OPTIONS = {:camelize => true, :only => [:name, :description, :permalink]}
+
   @@per_page = 5
   cattr_reader :per_page
   
