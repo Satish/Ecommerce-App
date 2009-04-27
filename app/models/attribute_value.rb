@@ -12,7 +12,10 @@
 #
 
 class AttributeValue < ActiveRecord::Base
-  
+
+  @@per_page = PER_PAGE
+  cattr_reader :per_page
+
   validates_presence_of :value, :product_attribute_id#, :sku_id
   validates_uniqueness_of :value, :scope => [:sku_id, :product_attribute_id]
 

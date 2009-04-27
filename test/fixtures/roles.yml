@@ -6,6 +6,7 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  store_id   :integer(4)
 #
 
 admin_role:

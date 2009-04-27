@@ -20,7 +20,7 @@ class Brand < ActiveRecord::Base
   
   TO_XML_OPTIONS = {:camelize => true, :only => [:name, :description, :permalink]}
 
-  @@per_page = 5
+  @@per_page = PER_PAGE
   cattr_reader :per_page
   
   has_permalink :name, :permalink
@@ -30,7 +30,7 @@ class Brand < ActiveRecord::Base
   validates_uniqueness_of :name, :permalink, :scope => :store_id
   
   has_many :images, :dependent => :destroy, :as => :attachable
-  has_many :products, :dependent => :destroy
+  has_many :products, :dependent => :destroy, :include => :images
   
   belongs_to :store
   

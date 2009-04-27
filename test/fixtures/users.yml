@@ -17,6 +17,7 @@
 #  created_at                :datetime
 #  updated_at                :datetime
 #  store_id                  :integer(4)
+#  visited_at                :datetime
 #
 
 

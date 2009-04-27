@@ -9,13 +9,12 @@ ActionController::Routing::Routes.draw do |map|
 #    controller.product '/products/:tag', :action => 'index'
   end
   map.resources :categories, :only => [:index]
-  map.category '/categories/:permalink', :controller => 'categories', :action => 'show'
   map.resources :brands, :only => [:index]
-  map.brand '/brands/:permalink', :controller => 'brands', :action => 'show'
   map.resources :pages, :only => [:index]
-  map.page '/pages/:permalink', :controller => 'pages', :action => 'show'
-
   map.resources :posts, :only => [:index]
+  map.category '/categories/:permalink', :controller => 'categories', :action => 'show'
+  map.brand '/brands/:permalink', :controller => 'brands', :action => 'show'
+  map.page '/pages/:permalink', :controller => 'pages', :action => 'show'
   map.with_options :controller => 'posts' do |posts|
      posts.feed '/feed', :action => "feed"
      posts.connect ':year/:month/:day/:permalink', :action => 'show', :requirements => { :year => /\d+/ }
@@ -54,12 +53,7 @@ ActionController::Routing::Routes.draw do |map|
 #      user.register '/register', :action => 'create'
 #      user.activate '/activate/:activation_code', :action => 'activate', :activation_code => nil
 #    end
-    
-#    admin.resources :sessions, :only => [:create]
-#    admin.with_options :controller => 'sessions' do |session|
-#      session.login  '/login', :action => 'new'
-#      session.logout '/logout', :action => 'destroy'
-#    end
+
   end
   
   map.connect ':controller/:action/:id'

@@ -21,7 +21,7 @@ class Category < ActiveRecord::Base
   
   TO_XML_OPTIONS = {:camelize => true, :methods => [:parent_category_title], :only => [:title, :description, :permalink]}
 
-  @@per_page = 5
+  @@per_page = PER_PAGE
   cattr_reader :per_page
   
   acts_as_tree
@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   
   has_many :images, :dependent => :destroy, :as => :attachable
   has_many :categories_products, :dependent => :destroy
-  has_many :products, :through => :categories_products#, :conditions => {:active => true}
+  has_many :products, :through => :categories_products, :include => :images
   belongs_to :store
   
   def before_validation

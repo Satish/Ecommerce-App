@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   def signup_notification(user, store)
     setup_email(user, store)
     @subject    += 'Please activate your new account' 
-    @body[:url] = "http://www.#{store.domain}/activate/#{user.activation_code}"
+    @body[:url] = get_activation_link(user, store)
   end
   
   def activation(user, store)
@@ -11,9 +11,15 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Your account has been activated!'
     @body[:url] = "http://www.#{store.domain}/login"
   end
-  
+
+  def resend_activation(user, store =  user.store)
+    setup_email(user, store)
+    @subject     += 'Please activate your account'
+    @body[:url]  = get_activation_link(user, store)
+  end
+
   protected ################################
-  
+
   def setup_email(user, store)
     recipients    user.email
     from          store.email
@@ -23,7 +29,7 @@ class UserMailer < ActionMailer::Base
     @body[:user]= user
     @body[:store] = store
   end
-  
+
   def render_message(method_name, body)
 #    mail_template = body[:order].store.mail_templates.find_by_name(method_name)
 #    template = Liquid::Template.parse(mail_template.body)
@@ -31,4 +37,9 @@ class UserMailer < ActionMailer::Base
     template = Liquid::Template.parse(File.read(Rails.root + "/app/views/user_mailer/#{method_name}.html.erb"))
     template.render('user'=> UserDrop.new(body[:user]), 'store'=> StoreDrop.new(body[:store]), 'url' => body[:url] )
   end
+
+  def get_activation_link(user, store)
+    activate_url(:activation_code => user.activation_code, :host => "www.#{store.domain}")
+  end
+
 end

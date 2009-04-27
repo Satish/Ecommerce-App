@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :login, :crypted_password, :salt, :remember_token, :activation_code, :limit => 40
       t.string :name,                                                               :limit => 100, :default => '', :null => true
       t.string :email,                                                              :limit => 100
-      t.datetime :activated_at, :remember_token_expires_at, :deleted_at
+      t.datetime :activated_at, :remember_token_expires_at, :deleted_at, :visited_at
       t.string :state,                                                              :null => :no, :default => 'passive'
       t.references :store
       

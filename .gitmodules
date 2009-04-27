@@ -7,9 +7,6 @@
 [submodule "vendor/plugins/restful_authentication"]
 	path = vendor/plugins/restful_authentication
 	url = git://github.com/technoweenie/restful-authentication.git
-[submodule "vendor/plugins/acts_as_state_machine"]
-	path = vendor/plugins/acts_as_state_machine
-	url = git://github.com/omghax/acts_as_state_machine.git
 [submodule "vendor/plugins/tiny_mce_plus"]
 	path = vendor/plugins/tiny_mce_plus
 	url = git://github.com/devon/tiny_mce_plus.git

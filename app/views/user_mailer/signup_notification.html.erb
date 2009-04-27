@@ -1,17 +1,10 @@
 <div style = "padding:10px 0px 0px 50px">
-  <h4>Hi  {{ user.login | html_escape }}</h4>
-  
-  <div  style = "padding:10px 0px">
-    Your account has been created.
-  
-     <p>
-       Username: {{ user.login | html_escape }}<br/>
-       Password: {{ user.password | html_escape }}
-     </p>
-  </div>
+  <h4>Hi {{ user.login | html_escape }}</h4>
+  <div  style = "padding:10px 0px">Your account has been created and an activation email have been sent to you to make sure you're real.</div>
   <div style = "padding:10px 0px">
-    <p>Visit this url to activate your account:</p>
+    <p>Please click the activation link below to activate your account:</p>
     <p><a href = "{{ url }}" title = "click here to activate your account">{{ url }}</a></p>
+    <p>If clicking doesn't work, try pasting it into your browser's address bar</p>
     <p style = "padding: 10px 0px; ">Thanks for signing up!</p>
   </div>
   <div  style = "padding:10px 0px; font-size:16px;font-weight:lighter;">

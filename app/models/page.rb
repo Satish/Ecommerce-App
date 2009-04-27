@@ -14,7 +14,7 @@
 
 class Page < ActiveRecord::Base
   
-  @@per_page = 5
+  @@per_page = PER_PAGE
   cattr_reader :per_page
   
   has_permalink :title, :permalink

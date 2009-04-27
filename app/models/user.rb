@@ -17,31 +17,32 @@
 #  created_at                :datetime
 #  updated_at                :datetime
 #  store_id                  :integer(4)
+#  visited_at                :datetime
 #
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
   
-  @@per_page = 5
+  @@per_page = PER_PAGE
   cattr_reader :per_page
   
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
-  include Authorization::StatefulRoles
-  
-  validates_presence_of     :login, :store_id
+  include Authorization::AasmRoles
+
+  named_scope :active, :conditions => { :state => 'active' }
+
+  validates_presence_of     :login, :email, :store_id
+  validates_uniqueness_of   :login, :email
   validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
 
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
 
-  validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
   has_many :posts#, :dependent => :destroy
@@ -54,6 +55,10 @@ class User < ActiveRecord::Base
     name.blank? ? login : name
   end
   
+  def update_visited_at
+    self.update_attribute(:visited_at, Time.now.utc)
+  end
+
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

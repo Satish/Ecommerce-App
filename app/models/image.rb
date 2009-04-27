@@ -15,6 +15,7 @@
 #  attachable_type :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  store_id        :integer(4)
 #
 
 class Image < ActiveRecord::Base

@@ -6,14 +6,20 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  store_id   :integer(4)
 #
 
 class Role < ActiveRecord::Base
-  
+
+  @@per_page = PER_PAGE
+  cattr_reader :per_page
+  attr_accessible :name
+
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :scope => :store_id
   
-  has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
+  has_many :roles_users, :dependent => :destroy
   has_many :users, :through => :roles_users
+  belongs_to :store
   
 end

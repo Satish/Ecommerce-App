@@ -6,7 +6,8 @@ class CreateComments < ActiveRecord::Migration
       t.boolean :spam, :default => false
       t.string :state, :default => 'unapproved', :limit => 15
       t.references :commentable, :polymorphic => true
-      
+      t.datetime :deleted_at
+
       t.timestamps
     end
   end

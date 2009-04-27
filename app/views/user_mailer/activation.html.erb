@@ -1,10 +1,6 @@
 <div style = "padding:10px 0px 0px 50px">
   <h4>Hi {{ user.login | html_escape }}</h4>
-
-  <div  style = "padding:10px 0px">
-    Your account has been activated.  Welcome to {{ store.display_name | html_escape }}
-  </div>
-
+  <div  style = "padding:10px 0px">Your account has been activated.  Welcome to {{ store.display_name | html_escape }}</div>
   <div style = "padding:10px 0px">
     <p>Visit this url to login to your account:</p>
     <p><a href = "{{ url }}" title = "click here to login">{{ url }}</a></p>

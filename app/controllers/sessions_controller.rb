@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
-    redirect_back_or_default('/') if current_user
+    redirect_back_or_default(current_user.has_role?('admin') ? admin_root_path : root_path) if current_user
   end
 
   def create
@@ -17,10 +17,11 @@ class SessionsController < ApplicationController
       # protection if user resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
       # reset_session
+      user.update_visited_at
       self.current_user = user
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_back_or_default('/')
+      redirect_back_or_default(user.has_role?('admin') ? admin_root_path : root_path)
       flash[:notice] = "Logged in successfully"
     else
       note_failed_signin

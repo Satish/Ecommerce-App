@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      flash.now[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
     end
   end
@@ -33,8 +33,8 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
-      flash[:notice] = "Signup complete! Please sign in to continue."
-      redirect_to '/login'
+      flash[:notice] = "Your account is activated! Please sign in to continue."
+      redirect_to login_path
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_back_or_default('/')
@@ -44,33 +44,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def suspend
-    @user.suspend! 
-    redirect_to users_path
-  end
+#  def destroy
+#    @user.delete!
+#    redirect_to users_path
+#  end
 
-  def unsuspend
-    @user.unsuspend! 
-    redirect_to users_path
-  end
-
-  def destroy
-    @user.delete!
-    redirect_to users_path
-  end
-
-  def purge
-    @user.destroy
-    redirect_to users_path
-  end
-  
   # There's no page here to update or destroy a user.  If you add those, be
   # smart -- make sure you check that the visitor is authorized to do so, that they
   # supply their old password along with a new one to update it, etc.
 
   protected #########################
-  
+
   def find_user
     @user = User.find(params[:id])
   end
+
 end

@@ -30,7 +30,7 @@ class Product < ActiveRecord::Base
   
   TO_XML_OPTIONS = {:camelize => true, :methods => [:brand_name], :except => [:id, :active, :meta_title, :meta_description, :meta_keywords, :store_id, :brand_id, :deleted_at, :created_at, :updated_at]}
 
-  @@per_page = 5
+  @@per_page = PER_PAGE
   cattr_reader :per_page
   
   has_permalink :name, :permalink
