@@ -1,5 +1,5 @@
 <% content_tag_for :ul, category do -%>
-  <li class = "categoryImage"><%= link_to image_tag(category.main_image.public_filename(:S160x160)), category -%></li>
+  <li class = "categoryImage"><%= link_to main_image(category, :S160x160), category -%></li>
   <li class = "categoryTitle"><%= link_to h(truncate(category.title.titleize, :length => 30)), category -%></li>
   <li class = "categoryDesc"><%= truncate(category.description, :length => 100 ) -%></li>
 <% end %>

@@ -59,7 +59,7 @@ ul.navSectionDesc li { padding: 5px 0px; font-size:1.2em; font-weight:bolder;}
 /* PAGINATION STYLE START (FROM WILLPAGINATE PLUGIN)*/
 .pageLoadingIndicator { float:right; margin:5px 10px 0px 0px;}
 .pagination { float:right;}
-.pagination a, .pagination span { padding: .2em; display: block; float: left; margin-right: 1px; }
+.pagination a, .pagination span { padding: .25em; display: block; float: left; margin-right: 3px; }
 .pagination span.disabled { color: #999; border: 1px solid #DDD; } 
 .pagination span.current { background: #2E6AB1; color: white; border: 1px solid #2E6AB1; }
 .pagination a { text-decoration: none; color: #105CB6; border: 1px solid #9AAFE5; }

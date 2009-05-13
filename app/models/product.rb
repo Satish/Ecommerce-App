@@ -50,7 +50,7 @@ class Product < ActiveRecord::Base
       pid = Product.last(:select => "id").id rescue 0
       self.product_id = "PID#{ pid + 1 }"
     end
-    self.images.build if images.size < 1
+#    self.images.build if images.size < 1
   end
     
   def main_image

@@ -35,7 +35,7 @@ class Brand < ActiveRecord::Base
   belongs_to :store
   
   def before_validation
-    self.images.build if images.size < 1
+#    self.images.build if images.size < 1
   end
   
   def self.search(query, options)
