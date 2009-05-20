@@ -1,7 +1,6 @@
-<%# categories_section @categories do %>
-  <% paginated_section @categories, :class => "pagination", :renderer => RemoteLinkRenderer do %>
-    <div id = "categories">
-      <%= render :partial => @categories -%>
-    </div>
-  <% end %>
-<%# end %>
+<% paginated_section @categories, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+  <%= render :partial => "shared/page_loading_indicator" -%>
+  <div id = "categories">
+    <%= render :partial => @categories -%>
+  </div>
+<% end %>

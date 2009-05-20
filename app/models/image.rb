@@ -22,7 +22,8 @@ class Image < ActiveRecord::Base
   
   #validates_presence_of :attachable_type, :attachable_id#,  :store_id
 
-  THUMBNAILS = {:S75x75 => "75x75",
+  THUMBNAILS = {:S25x25 => "25x25",
+                :S75x75 => "75x75",
                 :S100x120 => "100x120",
                 :S130x130 => "130x130",
                 :S160x160 => "160x160",

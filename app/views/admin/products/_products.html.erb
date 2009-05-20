@@ -5,8 +5,9 @@
     <div class="table">
       <div class = "tableHeader">
         <span class = "pct10">Sr. NO.</span>
+        <span class = "pct10">&nbsp;</span>
         <span class = "pct10">Product ID</span>
-        <span class = "pct30 textAlignLeft">Name</span>
+        <span class = "pct20 textAlignLeft">Name</span>
         <span class = "pct10">Price</span>
         <span class = "pct10">Discount</span>
         <span class = "pct10">SKUs</span>
@@ -17,8 +18,9 @@
       <% @products.each_with_index do |product, index| -%>
         <% div_for product, :class => "tableRow #{cycle('odd', 'even')}" do -%>
           <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+          <span class = "pct10 textAlignCenter"><%= link_to main_image(product, :S25x25), product -%></span>
           <span class = "pct10 textAlignCenter"><%= product.product_id -%></span>
-          <span class = "pct30"><h3 class = "title"><%= link_to h(truncate(product.name, :length => 25)), [:admin, product], :title => h(product.name) -%></h3></span>
+          <span class = "pct20"><h3 class = "title"><%= link_to h(truncate(product.name, :length => 25)), [:admin, product], :title => h(product.name) -%></h3></span>
           <span class = "pct10 textAlignCenter"><%= number_to_currency(product.price) -%></span>
           <span class = "pct10 textAlignCenter"><%= number_to_currency(product.discount) -%></span>
           <span class = "pct10 textAlignCenter"><%= link_to("SKUs (#{ product.skus.count })", [:admin, product, Sku.new], :title => "Product SKUs") -%></span>

@@ -1,0 +1,14 @@
+<div style = "padding:10px 0px 0px 50px">
+  <h4>Hi {{ user.login | html_escape }}</h4>
+  <div  style = "padding:10px 0px">
+    <p>Looks like you lost your account activation link - but no worries! To activate your account simply click the following link:</p>
+    <p><a href = "{{ url }}" title = "click here to activate your account">{{ url }}</a></p>
+    <p>If clicking doesn't work, try pasting it into your browser's address bar</p>
+    <p style = "padding: 10px 0px; ">Thanks</p>
+  </div>
+  <div  style = "padding:10px 0px; font-size:16px;font-weight:lighter;">
+    Admin<br/>
+    http://www.{{ store.domain | html_escape }}<br/>
+    {{ store.email | html_escape }}
+  </div>
+</div>

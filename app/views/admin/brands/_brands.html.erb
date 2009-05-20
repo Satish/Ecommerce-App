@@ -5,6 +5,7 @@
       <div class="table">
         <div class = "tableHeader">
           <span class = "pct10">Sr. NO.</span>
+          <span class = "pct10">&nbsp;</span>
           <span class = "pct50 textAlignLeft">Title</span>
           <span class = "pct10">Products</span>
           <span class = "pct10">Status</span>
@@ -13,6 +14,7 @@
         <% @brands.each_with_index do |brand, index| -%>
           <% div_for brand, :class => "tableRow #{cycle('odd', 'even')}" do -%>
             <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+            <span class = "pct10 textAlignCenter"><%= link_to main_image(brand, :S25x25), brand -%></span>
             <span class = "pct50"><h3 class = "title"><%= link_to h(brand.name), [:admin, brand], :title => h(brand.name) -%></h3></span>
             <span class = "pct10 textAlignCenter"><%= link_to pluralize(brand.products.count, 'Product'), [:products, :admin, brand] -%></span>
             <span class = "pct10 textAlignCenter"><%= brand.active? ? 'Active' : 'Inactive' -%></span>
