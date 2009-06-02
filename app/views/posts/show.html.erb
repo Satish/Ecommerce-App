@@ -1,9 +1,13 @@
-<% div_for @post do %>
-  <h1 class = "postTitle"><%=link_to h(@post.title), @post %></h2>
-  <div class = "postDescription"><%= truncate(@post.description, :lenght => 300) -%></div>
-  <div class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => @post } -%></div>
-  <div class = "postDate">Date: <%= h @post.created_at -%></div>
+<% content_tag_for :ul, @post do -%>
+  <li><h1 class = "postTitle"><%=link_to h(@post.title), @post %></h2></li>
+  <li class = "postDescription"><%= truncate(@post.description, :lenght => 300) -%></li>
+  <li class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => @post } -%></li>
+  <li class = "postDate">Date: <%= h @post.created_at -%></div>
 <% end %>
-<div>
-  <h2>Comments</h2>
+<div id = "comments">
+  <h2>Comments</h2><div><%= link_to 'Leave a Comment', "#newCommentForm" -%></div>
+  <%= render :partial =>  @post.comments -%>
+</div>
+<div id = "newComment">
+  <%= render :partial => 'comments/form' -%>
 </div>

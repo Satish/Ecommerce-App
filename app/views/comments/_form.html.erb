@@ -1,0 +1,28 @@
+<div class="newCommentFormContainer">
+  <% remote_form_for([@post, @comment], :loading => "showSpinner('#progressIndicator')", :complete => "hideSpinner('#progressIndicator')", :html => { :id => 'newCommentForm'}) do |f| -%>
+    <%= f.error_messages -%>
+   	<div class="formRow">
+   		<%= f.label :author -%>
+   		<%= f.text_field :author, :class => "textField", :size => 50 -%>
+   	</div>
+
+   	<div class="formRow">
+   		<%= f.label :author_email -%>
+   		<%= f.text_field :author_email, :class => "textField", :size => 50 -%>
+   	</div>
+
+   	<div class="formRow">
+   		<%= f.label :author_url -%>
+   		<%= f.text_field :author_url, :class => "textField", :size => 50 -%>
+   	</div>
+
+   	<div class="formRow">
+   		<%= f.label :description -%>
+   		<%= f.text_area :description, :class => "textArea", :rows => 8, :cols => 50 -%>
+   	</div>
+    <div class="formRow">
+      <%= f.submit "Submit", :class => "button", :style => "margin-right: 10px;" -%>
+      <%= image_tag 'indicator.gif', :size => '20x20', :style => 'display:none;align:absmiddle;', :id => 'progressIndicator' -%>
+    </div>
+  <% end -%>
+</div> 

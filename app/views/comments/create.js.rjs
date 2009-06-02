@@ -1,0 +1,7 @@
+if @comment.save
+  page.insert_html :bottom, "comments", :partial => "comments/comment", :locals => { :comment => @comment }
+  @comment = Comment.new
+else
+
+end
+page.replace_html "newComment", :partial => "comments/form"

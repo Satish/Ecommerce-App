@@ -82,7 +82,8 @@ class Post < ActiveRecord::Base
   end
   
   def url
-    created_at.strftime("/%Y/%m/%d/") + permalink
+    #created_at.strftime("/%Y/%m/%d/") + permalink
+    '/blog/' + permalink
   end
   
   class << self
@@ -95,6 +96,10 @@ class Post < ActiveRecord::Base
       end
     end
     
+  end
+
+  def published_month
+    published_at.beginning_of_month
   end
 
   private ############################

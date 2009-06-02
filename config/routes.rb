@@ -11,13 +11,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories, :only => [:index]
   map.resources :brands, :only => [:index]
   map.resources :pages, :only => [:index]
-  map.resources :posts, :only => [:index]
+  map.resources :posts, :only => [] do |post|
+    post.resources :comments, :only => [:create]
+  end
+  
   map.category '/categories/:permalink', :controller => 'categories', :action => 'show'
   map.brand '/brands/:permalink', :controller => 'brands', :action => 'show'
   map.page '/pages/:permalink', :controller => 'pages', :action => 'show'
-  map.with_options :controller => 'posts' do |posts|
-     posts.feed '/feed', :action => "feed"
-     posts.connect ':year/:month/:day/:permalink', :action => 'show', :requirements => { :year => /\d+/ }
+  map.with_options :controller => 'posts' do |controller|
+    controller.posts '/blog', :action => "index"
+    controller.archives '/blog/archives', :action => "archives"
+    controller.feed '/feed', :action => "feed"
+#    controller.connect ':year/:month/:day/:permalink', :action => 'show', :requirements => { :year => /\d+/ }
+    controller.post '/blog/:permalink', :action => 'show'
   end
 
   map.with_options :controller => 'users' do |user|

@@ -9,6 +9,7 @@
     <meta name="keywords" content= '<%= @meta_keywords -%>' />
     <%= stylesheet_link_tag 'application', 'sexy_flash' %>
     <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
+    <%= javascript_include_tag "application", "jquery", "jquery-ui", "jrails", :cache => true %>    
   </head>
   <body id = "body">
     <div id = "wrapper">

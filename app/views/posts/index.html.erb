@@ -1,9 +1,16 @@
-<% @posts.each do |post| %>
-  <% div_for post do %>
-    <h1 class = "postTitle"><%=link_to h(post.title), post %></h2>
-    <div class = "postDescription"><%= truncate(post.description, :lenght => 300) -%></div>
-    <div class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => post } -%></div>
-    <div class = "postDate">Date: <%= h post.created_at -%></div>
-  <% end %>
+<% @posts.each do |post| -%>
+  <% content_tag_for :ul, post do -%>
+    <li><h1 class = "postTitle"><%= link_to h(post.title), post, :title => h(post.title) -%></h2></li>
+    <li class = "postDescription"><%= truncate(post.description, :length => 800) -%></li>
+    <li class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => post } -%></li>
+    <li class = "postDate">Date: <%= h post.created_at %></li>
+    <%= link_to_function 'Leave a comment', "PopupContainer.open(#{ post.id }, '#commentFormContainer');" %>
+  <% end -%>
 <% end -%>
 <div class = "pagination"><%= will_paginate @posts -%></div>
+<script type="text/javascript">
+  //<![CDATA[
+    $(document).ready(function() { PopupContainer.initialize('#commentFormContainer', { title: 'Leave a Comment', width: 600 }); });
+  //]]>
+</script>
+<div id='commentFormContainer'>dwdwdwqdwqdwqd</div>

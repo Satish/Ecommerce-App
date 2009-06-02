@@ -4,6 +4,8 @@
 class ApplicationController < ActionController::Base
   
   before_filter :find_store
+  append_after_filter :set_meta_attributes
+
   # AuthenticatedSystem must be included for RoleRequirement, and is provided by installing acts_as_authenticates and running 'script/generate authenticated account user'.
   include AuthenticatedSystem
   # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.
@@ -16,12 +18,18 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
   
-  private
+  private #########################################
+
+  def set_meta_attributes
+    @meta_title = @store.meta_title unless @meta_title
+    @meta_description = @store.meta_description unless @meta_description
+    @meta_keywords = @store.meta_keywords unless @meta_keywords
+  end
 
   def find_store
     @store = Store.first  
   end
-  
+
   def find_order_by
     return ORDER_BY_OPTIONS[params[:sort_by]] ? ORDER_BY_OPTIONS[params[:sort_by]] : "name ASC"
   end

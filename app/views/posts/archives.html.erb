@@ -1,0 +1,12 @@
+<div class = 'blogArchive'>
+  <% n = @posts.size %>
+  <% @post_months.each do |month, posts | %>    
+    <div class = 'blogArchiveMonth' id = "<%= month.strftime('%B') + '_' + month.strftime('%Y') -%>">
+      <h2 class = 'archiveMonth'><%= month.strftime('%B %Y') -%></h2>
+      <% for post in posts %>
+        <div class = 'postTitle'><%= n %>. <%= link_to h(post.title), post -%></div>
+        <% n -= 1 %>
+      <% end -%>
+    </div>
+  <% end -%>
+</div>

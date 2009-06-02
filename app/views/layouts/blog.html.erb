@@ -4,21 +4,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title><%= @meta_title -%></title>
-    <meta name="description" content= '<%= @meta_description -%>' />
-    <meta name="keywords" content= '<%= @meta_keywords -%>' />
-    <%= stylesheet_link_tag 'application', 'sexy_flash' %>
+    <title><%= h @meta_title -%></title>
+    <meta name="description" content= '<%= h @meta_description -%>' />
+    <meta name="keywords" content= '<%= h @meta_keywords -%>' />
+    <%= stylesheet_link_tag 'blog', 'application', 'sexy_flash', 'ui.all' %>
     <%= auto_discovery_link_tag(:rss, :action => 'feed') %>
+    <%= javascript_include_tag "application", "jquery", "jquery-ui", "jrails", "ui.dialog.js", :cache => true %>
   </head>
   <body id = "body">
     <div id = "wrapper">
       <%= render :partial => 'shared/header' -%>
       <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
-      <div id = "container">
-        <div id = "leftColumn1"><%#= render :partial => 'shared/sidebar' -%></div>
-        <div id = "rightColumn1"><%= yield -%></div>
+      <div id = "container" class = "blog">
+        <div id = "leftColumnBlog"><%#= render :partial => 'shared/sidebar' -%></div>
+        <div id = "rightColumnBlog"><%= yield -%></div>
       </div>
-    <%= render :partial => 'shared/footer' -%>
+      <%= render :partial => 'shared/footer' -%>
     </div>
   </body>
 </html>

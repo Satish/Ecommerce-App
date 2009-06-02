@@ -31,6 +31,44 @@ function hideSpinner(id)
   {
     $(id).hide()
   }
+
+
+var PopupContainer = {
+  initialize: function(container_id, options ) {
+    
+    
+    default_options = { 
+                autoOpen: false,
+                bgiframe: true,
+                width: 500,
+                height: 200,
+                modal: true,
+                position: 'center',
+                resizable: true,
+                hide: 'slide',
+//                buttons: {
+//                  "Cancel": function(){
+//                    $(this).dialog("close");
+//                  }
+//                },
+                overlay:
+                  {
+                    background: '#000',
+                    opacity: 0.5
+                  }
+                };
+ 
+    $(container_id).dialog(jQuery.extend(default_options, options));
+  },
+
+  open: function(post_id, container_id) {
+    $(container_id).dialog('open');
+  },
+
+  close: function(container_id) {
+    $(container_id).dialog('close');
+  }
+};
   
 /*
 document.observe("dom:loaded", function() {r

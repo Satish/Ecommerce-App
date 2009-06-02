@@ -10,6 +10,7 @@
     <%= tiny_mce if using_tiny_mce? %>
     <%= javascript_include_tag :defaults %>
     <%= stylesheet_link_tag "sexy_flash" %>
+    <%= javascript_include_tag "application", "jquery", "jquery-ui", "jrails", :cache => true %>    
   </head>
   <body class="login">
   	<div id="page">

@@ -1,0 +1,21 @@
+.post { padding-bottom: 10px; border-bottom: 1px solid #ddd; margin-bottom: 10px; }  
+.post .postTitle { font-size: 20px; }
+.postTitle a:hover { text-decoration:underline; }
+.post .postDescription { padding: 5px 0px 10px; }
+.post .postTags { padding: 5px 0px; }
+.post .postDate { padding: 5px 0px; }
+.comment { padding: 10px 0px; border-bottom: 1px solid #ddd; margin-bottom: 10px;}
+.comment .commentAuthor { font-weight: bold; font-size: 14px;}
+.comment .commentDescription { padding: 5px 0px; }
+.formRow { padding: 5px 0px; }
+.formRow .textField, .formRow .textArea { border: 1px solid #333; }
+.formRow .textField { width: 300px; padding: 2px; }
+.formRow .textArea { width: 600px; padding: 2px; }
+.formRow label { display:block;}
+
+
+.fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select { background-color:#FAEAE4; border:1px solid #CC0000 !important; }
+#errorExplanation {	border: 1px solid #CC0000;	line-height:20px;	color:#CC0000;	width:450px; overflow:hidden; margin:0px 40px 15px 0px; }
+#errorExplanation h2 { background: #CC0000 url(/images/alertbad_icon.gif) no-repeat scroll left center; font-weight: normal; padding: 5px 5px 5px 35px;	font-size: 14px; border-bottom:1px solid #CC0000; color:#fff; }
+#errorExplanation p {	margin-top:5px; padding: 5px; font-size: 14px; }
+#errorExplanation ul li { font-size: 12px; ;list-style: square; margin: 2px 10px 2px 30px; width:100%; }	
