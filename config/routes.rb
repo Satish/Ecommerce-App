@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     controller.product '/products/:permalink', :action => 'show'
 #    controller.product '/products/:tag', :action => 'index'
   end
+
+  map.resource :cart, :except => [:new, :edit]
   map.resources :categories, :only => [:index]
   map.resources :brands, :only => [:index]
   map.resources :pages, :only => [:index]

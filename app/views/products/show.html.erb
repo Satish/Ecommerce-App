@@ -1,0 +1,45 @@
+<h1>Product Detail</h1>
+<style>
+#product { padding: 10px; overflow:hidden; }
+#product #productLeft { float:left; width:40%;}
+#productLeft .productOtherImages { padding: 20px 0px;}
+.productOtherImages h3 { padding-bottom:10px; }
+#product #productRight { width:56%; float: right; padding: 0px 10px;}
+#product h2.productName { font-size: 20px; padding-bottom: 10px;}
+</style>
+<div id="product">
+  <h2 class = "productName"><%= link_to h(truncate(@product.name.titleize, :length => 30)), @product -%></h2>
+  <div id = "productLeft">
+    <div class = "productMainImage"><%= link_to main_image(@product, :S280x280), @product -%></div>
+    <% if @product.images.size > 0 -%>
+      <div class = "productOtherImages">
+        <h3>click to enlarge</h3>
+        <% for product_image in @product.images -%>
+        <%= image_tag(product_image.public_filename(:S75x75)) -%>
+        <% end -%>
+      </div>
+    <% end -%>
+  </div>
+  <div id = "productRight">
+    <div class = "productOurPrice">Our Price: <%= number_to_currency(@product.our_price) -%></div>
+    <div class = "productOriginalPrice">Original Price: <%= number_to_currency(@product.price) -%></div>
+    <div class = "productSavedPrice">You Saved: <%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+  </div>
+  
+    <% form_for :cart, :url => cart_path do |f| -%>
+      <%= hidden_field_tag :item_id, @product.skus.first.id -%>
+      <%= text_field_tag :item_qty -%>
+      
+    <%= f.submit 'Add to Cart' -%>
+    <% end %>
+  <% if @product.respond_to?(:recommended_products) -%>
+  Recommended products list
+  <% for product in @product.recommended_products -%>
+    <% content_tag_for :ul, product do -%>
+    	<li class = "productImage"><%= link_to main_image(product, :S160x160), product -%></li>
+      <li class = "productName"><%= link_to h(truncate(product.name.titleize, :length => 30)), product -%></li>
+      <li class = "productOurPrice">Our Price: <%= number_to_currency(product.our_price) -%></li>
+    <% end -%>
+  <% end -%>
+  <% end %>
+</div>

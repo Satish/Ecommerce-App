@@ -57,5 +57,29 @@ class Sku < ActiveRecord::Base
       end
     end
   end
-   
+
+  def is_out_of_stock?
+    return !(self.quantity > 0)
+  end
+
+  def price
+    product.price
+  end
+  
+  def original_price
+    product.original_price + price_adjustment
+  end
+  
+  def total_discount
+    product.discount
+  end
+  
+  def percent_discount
+    ((product.discount * 100) / original_price).to_i
+  end
+  
+  def our_price
+    price - total_discount
+  end 
+
 end

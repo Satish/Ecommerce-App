@@ -33,7 +33,8 @@ class Comment < ActiveRecord::Base
   validates_uniqueness_of :description, :scope => [:author, :author_email, :commentable_id, :commentable_type]
   validates_format_of :author_email, :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :commentable, :polymorphic => true#, :counter_cache => true
+
 
   aasm_column :state
   aasm_initial_state :initial => :unapproved

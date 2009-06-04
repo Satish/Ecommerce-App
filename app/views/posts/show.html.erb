@@ -1,8 +1,17 @@
 <% content_tag_for :ul, @post do -%>
+  <li class = 'clear'>
+    <div class="postDate">
+      <%= @post.published_at.day -%>
+      <div> <%= @post.published_at.strftime("%b") -%></div>
+    </div>
+    <h1 class = "postTitle"><%= link_to h(@post.title), @post, :title => h(@post.title) -%></h2>
+    <div class = "postAuthor">
+      by <%= @post.owner.login -%> | <%= link_to pluralize(@post.comments.size, 'Comment'), @post -%>
+    </div>
+  </li>
   <li><h1 class = "postTitle"><%=link_to h(@post.title), @post %></h2></li>
-  <li class = "postDescription"><%= truncate(@post.description, :lenght => 300) -%></li>
+  <li class = "postDescription"><%= simple_format @post.description -%></li>
   <li class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => @post } -%></li>
-  <li class = "postDate">Date: <%= h @post.created_at -%></div>
 <% end %>
 <div id = "comments">
   <h2>Comments</h2><div><%= link_to 'Leave a Comment', "#newCommentForm" -%></div>

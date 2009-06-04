@@ -1,0 +1,21 @@
+<div class = "cartItem" id = "item_<%= item[:id] -%>">
+  <% cart_item = Sku.find_by_id(item[:item_id]) %>
+  <div id = "item_<%= item[:id] -%>_image"  class = "itemImage">
+    <% display_name = cart_item.product.name %>
+    <%= link_to(image_tag("#{cart_item.product.main_image.public_filename(:S75x75)}", :alt => h(display_name)), product_path(cart_item.product), :title => h(display_name)) -%>
+  </div>
+  <div class = "descriptionItem">
+    <div class = "heading"><%= link_to(h(display_name), cart_item.product) -%></div>
+    <div class = "itemName"><%#= sku.product.description -%></div>
+    <% for av in cart_item.attribute_values -%>
+      <%= av.product_attribute.name.titleize -%>: <%= av.value -%><br/>
+    <% end %>
+  </div>
+  <div class = "qtyItem" id = "item_<%= item[:id] -%>_qty" ><%= text_field_tag "cart_items[#{item[:id]}]", item[:qty], :size => 3, :class => "qtyTextField" -%></div>
+  <div class = "priceEachItem"><%= number_to_currency(cart_item.our_price) -%></div>
+  <div class = "priceTotalItem" id = "item_<%= item[:id] -%>_price"><%= number_to_currency(cart_item.our_price * item[:qty].to_f) -%></div>
+  <div class="removeItem">
+    <%= link_to "Update", cart_path(:id => item[:id]), :method => 'put', :class => 'updateCartItem' -%>
+    <%= link_to((image_tag('iconClose.png', :alt => "Remove")), cart_path(:id => item[:id]), :method => 'delete', :class => 'deleteCartItem') -%>
+  </div>
+</div>

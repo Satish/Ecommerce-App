@@ -57,6 +57,10 @@ module ApplicationHelper
   def formatted_date(object)
     object.created_at.strftime("%d/%m/%Y")
   end
+
+  def get_url_to_continue_shopping(default = products_path)
+    request.env["HTTP_REFERER"].blank? || request.env["HTTP_REFERER"] == cart_url ? default : request.env["HTTP_REFERER"]
+  end
   
   private ##################
 

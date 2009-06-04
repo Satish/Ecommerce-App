@@ -3,9 +3,10 @@
 
 class ApplicationController < ActionController::Base
   
-  before_filter :find_store
+  before_filter :find_store, :current_cart
+  before_filter :set_blog_time_zone
   append_after_filter :set_meta_attributes
-
+  helper_method :get_url_to_back
   # AuthenticatedSystem must be included for RoleRequirement, and is provided by installing acts_as_authenticates and running 'script/generate authenticated account user'.
   include AuthenticatedSystem
   # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.
@@ -20,6 +21,10 @@ class ApplicationController < ActionController::Base
   
   private #########################################
 
+  def set_blog_time_zone
+    Time.zone = @blog.time_zone if @blog
+  end
+
   def set_meta_attributes
     @meta_title = @store.meta_title unless @meta_title
     @meta_description = @store.meta_description unless @meta_description
@@ -30,6 +35,10 @@ class ApplicationController < ActionController::Base
     @store = Store.first  
   end
 
+  def current_cart
+    @cart ||= session[:cart] ||= Cart.new
+  end
+
   def find_order_by
     return ORDER_BY_OPTIONS[params[:sort_by]] ? ORDER_BY_OPTIONS[params[:sort_by]] : "name ASC"
   end
@@ -37,7 +46,7 @@ class ApplicationController < ActionController::Base
   def get_per_page_items(count)
     PER_PAGE_OPTIONS.include?(count.to_i) ? count : 16
   end
-  
+
   def render_products
     respond_to do |format|
       format.html # products.html.erb
@@ -52,6 +61,10 @@ class ApplicationController < ActionController::Base
 
   def parse_page_number(page)
     page.to_i == 0 ? 1 : page.to_i
+  end
+
+  def get_url_to_back(default = '/')
+    request.env["HTTP_REFERER"].blank? ? default : request.env["HTTP_REFERER"]
   end
 
 end

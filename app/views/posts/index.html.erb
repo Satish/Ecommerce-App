@@ -1,10 +1,18 @@
 <% @posts.each do |post| -%>
   <% content_tag_for :ul, post do -%>
-    <li><h1 class = "postTitle"><%= link_to h(post.title), post, :title => h(post.title) -%></h2></li>
+    <li class = 'clear'>
+      <div class="postDate">
+        <%= post.published_at.day -%>
+        <div> <%= post.published_at.strftime("%b") -%></div>
+      </div>
+      <h1 class = "postTitle"><%= link_to h(post.title), post, :title => h(post.title) -%></h2>
+      <div class = "postAuthor">
+        by <%= post.owner.login -%> | <%= link_to pluralize(post.comments.size, 'Comment'), post -%>
+      </div>
+    </li>
     <li class = "postDescription"><%= truncate(post.description, :length => 800) -%></li>
     <li class = "postTags">Tags: <%= render :partial => 'tags', :locals => { :post => post } -%></li>
-    <li class = "postDate">Date: <%= h post.created_at %></li>
-    <%= link_to_function 'Leave a comment', "PopupContainer.open(#{ post.id }, '#commentFormContainer');" %>
+    <%#= link_to_function 'Leave a comment', "PopupContainer.open(#{ post.id }, '#commentFormContainer');" %>
   <% end -%>
 <% end -%>
 <div class = "pagination"><%= will_paginate @posts -%></div>

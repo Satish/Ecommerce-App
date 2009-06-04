@@ -8,5 +8,6 @@
       <li><%= link_to 'My Account', "#", :title => 'My Account' -%></li>
     <% end %>
     <li><%= link_to "Home", root_path -%></li>
+    <li><%= link_to "Cart (#{ pluralize(@cart.cart_items.size, 'Item') })", cart_path -%></li>
   </ul>
 </div>

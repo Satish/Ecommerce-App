@@ -50,6 +50,22 @@ body#body {font-size: 85%; background-color: #eee}
 #category #categoryDetail, #brand #brandDetail { padding: 10px 15px;}
 #category #categoryImage, #category #categoryDesc, #brand #categorybrand, #brand #brandDesc { padding: 10px 0px;}
 
+
+.shoppingCart { padding: 10px;}
+#cartItems .listHeading { font-weight: bold; line-height:20px; vertical-align:middle; background-color: #ddd }
+#cartItems .listHeading, #cartItems .cartItem { overflow: hidden; padding:5px; text-align:center;}
+#cartItems .listHeading .itemImage, #cartItems .cartItem .itemImage { float:left; width: 12%;}
+#cartItems .listHeading .descriptionItem, #cartItems .cartItem .descriptionItem  { float:left; width: 40%; text-align:left;}
+#cartItems .listHeading .qtyItem, #cartItems .cartItem .qtyItem { float:left; width: 10%;}
+#cartItems .listHeading .priceEachItem, #cartItems .cartItem .priceEachItem { float:left; width: 12%; }
+#cartItems .listHeading .priceTotalItem, #cartItems .cartItem .priceTotalItem { float:left; width: 12%; }
+#cartItems .listHeading .removeItem, #cartItems .cartItem .removeItem { float:left; width: 14%; }
+.descriptionItem .heading { font-weight: bold; padding-bottom:5px; }
+.updateCartItem, .deleteCartItem { float:left; }
+.deleteCartItem { margin-left:10px }
+.qtyTextField { border:1px solid #555; width: 40px; padding: 2px;}
+
+
 /*  sidebar */
 .navSection { border: 1px solid #333; -moz-border-radius: 5px; margin-bottom:20px;}
 .navSection h1.navSectionTitle { border-bottom:1px solid #333; background:#858484 url(/images/bgNavigation.png); color:#FFF; font-size:1.4em; font-weight:bold; padding:5px 15px; }

@@ -1,0 +1,8 @@
+<h1>Shopping Cart</h1>
+<div class="shoppingCart">
+  <% unless @cart.empty? -%>
+     <%= render :partial => 'cart' -%>
+  <% else -%>
+   	<p>There aren't any items in your shopping bag</p>
+  <% end -%>
+</div>
