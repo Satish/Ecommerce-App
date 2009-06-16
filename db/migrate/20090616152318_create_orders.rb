@@ -2,7 +2,7 @@ class CreateOrders < ActiveRecord::Migration
   def self.up
     create_table :orders do |t|
       t.references    :user, :store, :shipping_address, :billing_address
-      t.string        :status, :default => "pending"
+      t.string        :state, :default => "pending"
       t.string        :tracking_number, :payment_type
       t.integer       :transaction_id, :order_id
       t.decimal       :total_amount, :tax_amount, :shipping_amount, :handling_amount, :total_discount, :default => 0.0, :precision => 8, :scale => 2

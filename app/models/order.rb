@@ -24,6 +24,8 @@
 
 class Order < ActiveRecord::Base
 
+  include AASM
+
   cattr_reader :per_page
   @@per_page = 15
 
@@ -46,63 +48,41 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
 
-#  acts_as_state_machine :initial => :stocking, :column => 'status'
-#  state :stocking
-#  state :checking_out,
-#    :enter => Proc.new{ |order| order.update_attribute(:billing_address, order.account.billing_address.to_s) }
-#  state :pending,
-#    :after => :deliver_mail
-#  state :approved,
-#    :after => :deliver_mail
-#  state :on_hold
-#  state :rejected
-#  state :fulfilled
-#
-#  event :check_out do
-#    transitions :from => :stocking, :to => :checking_out
-#  end
-#
-#  event :stock do
-#    transitions :from => :checking_out, :to => :stocking
-#    transitions :from => :pending, :to => :stocking
-#    transitions :from => :approved, :to => :stocking
-#  end
-#
-#  event :order do
-#    # Figure out a way to add a condition to the transition so that it uses the account credit logic
-#    # and sets it to either pending or approved
-#    transitions :from => :checking_out, :to => :pending
-#    transitions :from => :stocking, :to => :pending
-#  end
-#
-#  event :hold do
-#    transitions :from => :pending, :to => :on_hold
-#    transitions :from => :approved, :to => :on_hold
-#    transitions :from => :rejected, :to => :on_hold
-#    transitions :from => :fulfilled, :to => :on_hold
-#  end
-#
-#  event :approve do
-#    transitions :from => :pending, :to => :approved, :guard => :account_approved?
-#    transitions :from => :rejected, :to => :approved, :guard => :account_approved?
-#    transitions :from => :on_hold, :to => :approved, :guard => :account_approved?
-#    transitions :from => :stocking, :to => :approved, :guard => :account_approved?
-#    transitions :from => :checking_out, :to => :approved, :guard => :account_approved?
-#    transitions :from => :fulfilled, :to => :approved, :guard => :account_approved?
-#  end
-#
-#  event :reject do
-#    transitions :from => :pending, :to => :rejected
-#    transitions :from => :approved, :to => :rejected
-#    transitions :from => :on_hold, :to => :rejected
-#    transitions :from => :stocking, :to => :rejected
-#    transitions :from => :checking_out, :to => :rejected
-#    transitions :from => :fulfilled, :to => :rejected
-#  end
-#
-#  event :fulfilled do
-#    transitions :from => :approved, :to => :fulfilled
-#  end
+  aasm_column :state
+  aasm_initial_state :initial => :pending
+  aasm_state :pending, :enter => :do_pending
+  aasm_state :processing, :enter => :do_process
+  aasm_state :rejected, :enter => :do_reject
+  aasm_state :fullfilled, :enter => :do_fullfill
+  aasm_state :deleted, :enter => :do_delete
+
+  aasm_event :conceal do
+    transitions :from => [:published, :deleted], :to => :draft
+  end
+
+  aasm_event :publish do
+    transitions :from => [:draft, :deleted], :to => :published
+  end
+
+  aasm_event :delete do
+    transitions :from => [:draft, :published], :to => :deleted
+  end
+
+  aasm_event :hold do
+    transitions :from => [:pending, :processing, :rejected, :fullfilled], :to => :on_hold
+  end
+
+  event :process do
+    transitions :from => [:pending, :on_hold, :rejected, :fullfilled], :to => :processing
+  end
+
+  event :reject do
+    transitions :from => [:pending, :on_hold, :processing, :fullfilled], :to => :rejected
+  end
+
+  event :fulfilled do
+    transitions :from => :processing, :to => :fulfilled
+  end
 
 #  def self.unfulfilled
 #    Order.find(:all, :conditions => "status = 'approved'")
@@ -131,5 +111,28 @@ class Order < ActiveRecord::Base
 #      sum += li.calculate_price if li.sku && li.quantity
 #    end
 #  end
+
+  #-------------------------- private ----------------------------------
+  private
+
+  def do_pending
+  
+  end
+
+  def do_process
+
+  end
+
+  def do_reject
+
+  end
+
+  def do_fullfill
+
+  end
+
+  def do_delete
+
+  end
 
 end
