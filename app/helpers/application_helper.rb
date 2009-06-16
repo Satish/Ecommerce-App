@@ -61,7 +61,13 @@ module ApplicationHelper
   def get_url_to_continue_shopping(default = products_path)
     request.env["HTTP_REFERER"].blank? || request.env["HTTP_REFERER"] == cart_url ? default : request.env["HTTP_REFERER"]
   end
-  
+
+  def get_attribute_values(sku)
+    attribute_values = []
+    sku.attribute_values.find(:all, :include => [:product_attribute]).each{ |av| attribute_values << "#{ h av.product_attribute.name }: #{ h av.value }" }
+    attribute_values.join(', ')
+  end
+
   private ##################
 
   def currency_precision

@@ -1,0 +1,2 @@
+page["item_#{ params[:id] }"].remove()
+page.alert(flash[:message].blank? ? flash[:error] : flash[:message])

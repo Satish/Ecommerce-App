@@ -25,13 +25,6 @@ class Cart
     end
   end
 
-#  def only_skus(cart)
-#    cart.cart_items.each do |item|
-#      cart.cart_items.delete(item) if item[:item_type] == "GiftCertificate"
-#    end
-#    return cart
-#  end
-
   alias_method :update_item, :remove_item
 
   def cart_items

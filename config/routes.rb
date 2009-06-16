@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 #    controller.product '/products/:tag', :action => 'index'
   end
 
-  map.resource :cart, :except => [:new, :edit]
+  map.resource :cart, :except => [:new, :edit], :collection => { :update_item => :put }
   map.resources :categories, :only => [:index]
   map.resources :brands, :only => [:index]
   map.resources :pages, :only => [:index]

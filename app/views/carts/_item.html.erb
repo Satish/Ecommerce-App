@@ -1,3 +1,6 @@
+<style>
+.progressIndicator { width:20px; height:20px; float:right; margin-right: 10px;}
+</style>
 <div class = "cartItem" id = "item_<%= item[:id] -%>">
   <% cart_item = Sku.find_by_id(item[:item_id]) %>
   <div id = "item_<%= item[:id] -%>_image"  class = "itemImage">
@@ -7,15 +10,15 @@
   <div class = "descriptionItem">
     <div class = "heading"><%= link_to(h(display_name), cart_item.product) -%></div>
     <div class = "itemName"><%#= sku.product.description -%></div>
-    <% for av in cart_item.attribute_values -%>
-      <%= av.product_attribute.name.titleize -%>: <%= av.value -%><br/>
-    <% end %>
+    <div class = "attributeValues"><%= get_attribute_values(cart_item) -%></div>
   </div>
   <div class = "qtyItem" id = "item_<%= item[:id] -%>_qty" ><%= text_field_tag "cart_items[#{item[:id]}]", item[:qty], :size => 3, :class => "qtyTextField" -%></div>
-  <div class = "priceEachItem"><%= number_to_currency(cart_item.our_price) -%></div>
-  <div class = "priceTotalItem" id = "item_<%= item[:id] -%>_price"><%= number_to_currency(cart_item.our_price * item[:qty].to_f) -%></div>
-  <div class="removeItem">
-    <%= link_to "Update", cart_path(:id => item[:id]), :method => 'put', :class => 'updateCartItem' -%>
-    <%= link_to((image_tag('iconClose.png', :alt => "Remove")), cart_path(:id => item[:id]), :method => 'delete', :class => 'deleteCartItem') -%>
+  <div class = "priceEachItem" id = "priceEachItem_<%= item[:id] -%>"><%= number_to_currency(cart_item.our_price) -%></div>
+  <div class = "priceTotalItem" id = "priceTotalItem_<%= item[:id] -%>"><%= number_to_currency(item[:price] * item[:qty]) -%></div>
+  <div class="actions">
+    <%= link_to_remote "Update", :url => update_item_cart_path, :with => "'id=' + #{ item[:id] } + '&qty=' + $('#cart_items_#{ item[:id] }').val()", :method => 'put', :loading => "showSpinner('#itemUpdateIndicator_#{ item[:item_id] }')", :complete => "hideSpinner('#itemUpdateIndicator_#{ item[:item_id] }')", :html => { :class => 'submitButton updateCartItem'} -%>
+    <%= image_tag 'indicator.gif', :class => 'progressIndicator', :id => "itemUpdateIndicator_#{ item[:item_id] }", :style => "display:none" -%>
+    <%= link_to_remote "Remove", :url => cart_path, :with => "'id=' + '#{ item[:id] }'", :method => 'delete', :loading => "showSpinner('#itemRemoveIndicator_#{ item[:item_id] }')", :complete => "hideSpinner('#itemRemoveIndicator_#{ item[:item_id] }')", :html => { :class => 'submitButton deleteCartItem' } -%>
+    <%= image_tag 'indicator.gif', :class => 'progressIndicator', :id => "itemRemoveIndicator_#{ item[:item_id] }", :style => "display:none" -%>
   </div>
 </div>

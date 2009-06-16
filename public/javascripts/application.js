@@ -69,6 +69,15 @@ var PopupContainer = {
     $(container_id).dialog('close');
   }
 };
+
+
+var FlashMessage = {
+  show: function(message) {
+    $('#flash p').html(message);
+    $('#flash').fadeIn(2000).fadeTo(6000, 1).fadeOut(2000);
+  }
+};
+
   
 /*
 document.observe("dom:loaded", function() {r

@@ -1,7 +1,13 @@
+<style>
+.submitButton { cursor:pointer; font-weight:bold; border-width:1px 2px 2px 1px; border-style:solid; border-color: #ddd #999 #999 #ddd; padding: 5px 10px; background-color: #eee;}
+.buttons{ padding: 10px 0px; text-align:right;}
+.updateButton { padding:3px 10px; color:#1382B9; }
+</style>
+
 <% form_for :cart_item, :url => cart_path, :html => { :method => 'put' } do |f| -%>
 	<div class = "buttons">
-  	<%= link_to 'Continue Shopping', get_url_to_continue_shopping, :class => "continue", :rel => "nofollow", :title => "Continue Shopping" -%>
-    <%= f.submit 'Update', :class => 'orangeSubmit update', :title => "Update Cart" -%></span>
+    <%= link_to 'Continue Shopping', get_url_to_continue_shopping, :class => "submitButton continueButton", :rel => "nofollow", :title => "Continue Shopping" -%>
+    <%= f.submit 'Update', :class => 'submitButton updateButton', :title => "Update Cart" -%></span>
   </div>
   <div id = "cartItems" class = "cart">
     <div class = "listHeading">
@@ -10,12 +16,12 @@
       <div class = "qtyItem">qty</div>
       <div class = "priceEachItem">each</div>
       <div class = "priceTotalItem">total</div>
-      <div class = "removeItem">&nbsp;</div>  
+      <div class = "actions">&nbsp;</div>
     </div>
     <%= render :partial => 'carts/item', :collection => @cart.cart_items -%>
   </div>
   <div class = "buttons">
-    <%= link_to 'Continue shopping', get_url_to_continue_shopping , :class => "continue", :rel => "nofollow", :title => "Continue Shopping" -%>
-    <%= f.submit 'Update', :class => 'submitButton update', :title => "Update Cart" -%>
+    <%= link_to 'Continue shopping', get_url_to_continue_shopping , :class => "submitButton continueButton", :rel => "nofollow", :title => "Continue Shopping" -%>
+    <%= f.submit 'Update', :class => 'submitButton updateButton', :title => "Update Cart" -%>
 	</div>
 <% end -%>

@@ -52,17 +52,19 @@ body#body {font-size: 85%; background-color: #eee}
 
 
 .shoppingCart { padding: 10px;}
+.shoppingCart #cartItems { }
 #cartItems .listHeading { font-weight: bold; line-height:20px; vertical-align:middle; background-color: #ddd }
-#cartItems .listHeading, #cartItems .cartItem { overflow: hidden; padding:5px; text-align:center;}
+#cartItems .listHeading{ border:1px solid #ccc;}
+#cartItems .cartItem { border-bottom:1px solid #ddd;}
+#cartItems .listHeading, #cartItems .cartItem { overflow: hidden; padding:5px; text-align:center; border-bottom:1px solid #ddd;}
 #cartItems .listHeading .itemImage, #cartItems .cartItem .itemImage { float:left; width: 12%;}
 #cartItems .listHeading .descriptionItem, #cartItems .cartItem .descriptionItem  { float:left; width: 40%; text-align:left;}
 #cartItems .listHeading .qtyItem, #cartItems .cartItem .qtyItem { float:left; width: 10%;}
 #cartItems .listHeading .priceEachItem, #cartItems .cartItem .priceEachItem { float:left; width: 12%; }
 #cartItems .listHeading .priceTotalItem, #cartItems .cartItem .priceTotalItem { float:left; width: 12%; }
-#cartItems .listHeading .removeItem, #cartItems .cartItem .removeItem { float:left; width: 14%; }
+#cartItems .listHeading .removeItem, #cartItems .cartItem .actions { float:left; width: 14%; }
+.updateCartItem, .deleteCartItem { float:right; overflow:hidden; display:block; margin-bottom:10px; width:55px; padding:1px !important;}
 .descriptionItem .heading { font-weight: bold; padding-bottom:5px; }
-.updateCartItem, .deleteCartItem { float:left; }
-.deleteCartItem { margin-left:10px }
 .qtyTextField { border:1px solid #555; width: 40px; padding: 2px;}
 
 

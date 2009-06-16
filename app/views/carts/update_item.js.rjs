@@ -1,0 +1,2 @@
+page.replace_html "priceTotalItem_#{ @item[:id] }", number_to_currency( @item[:price] * @item[:qty])
+#page.alert(flash[:message].blank? ? flash[:error] : flash[:message])
