@@ -48,6 +48,8 @@ class User < ActiveRecord::Base
   has_many :posts#, :dependent => :destroy
   has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
   has_many :roles, :through => :roles_users
+  has_one :billing_address, :as => :addressable, :dependent => :destroy
+  has_one :shipping_addresses, :as => :addressable, :dependent => :destroy
   
   belongs_to :store
   

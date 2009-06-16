@@ -1,18 +1,20 @@
 # == Schema Information
 #
-# Table name: product_attributes
+# Table name: line_items
 #
 #  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  store_id   :integer(4)
-#  active     :boolean(1)      default(TRUE)
+#  order_id   :integer(4)
+#  sku_id     :integer(4)
+#  quantity   :integer(4)
+#  price      :decimal(8, 2)
+#  deleted_at :datetime
 #  created_at :datetime
 #  updated_at :datetime
 #
 
 require 'test_helper'
 
-class ProductAttributeTest < ActiveSupport::TestCase
+class LineItemTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
