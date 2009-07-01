@@ -1,11 +1,71 @@
-<h1>New order</h1>
+<style>
+.formRow { padding: 5px 0px; }
+.formRow label { float:left; width: 80px; }
+.formRow input.formField, .formRow textarea.formField { border: 1px solid #666; padding: 2px 5px; }
+.formRow .fieldWidth { width: 200px; }
+.formRow .fieldHeight { height: 30px; }
+.addressess { padding: 10px; overflow: hidden; }
+.address { width: 49%; padding-top: 10px; }
+.address .addressForm { padding-top: 10px; }
+.address .billingAddressForm { padding-top: 30px; }
+#billingAddress { float:left;}
+#shippingAddress { float:right;}
 
-<% form_for(@order) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', orders_path %>
+</style>
+<h1>Checkout</h1>
+<div class="shoppingCart">
+  <% unless @cart.empty? -%>
+    <%= render :partial => 'carts/cart' -%>
+  <% end -%>
+</div>
+    <%= error_messages_for :order -%>
+    <% form_for @order, :url =>{:action => 'create'} do |f| -%>
+      <div class="addressess">
+        <% fields_for "billing_address", @order.billing_address do |billing_address_fields| %>
+           <div id = "billingAddress" class="address">
+               <%= render :partial => 'billing_address', :locals => { :f => billing_address_fields } -%>
+           </div>
+        <% end -%>
+        <% fields_for "shipping_address", @order.shipping_address do |shipping_address_fields| %>
+          <div id = "shippingAddress" class = "address">
+            <%= render :partial => 'shipping_address', :locals => { :f => shipping_address_fields } -%>
+          </div>
+        <% end -%>
+      </div>
+      <div class="paymentDetail">
+        <div class = "formRow">
+          <%= f.label :payment_type -%>
+          <%= f.select :payment_type, options_for_payment_type_select(@store), {:include_blank => 'Select Payment Type'}, {:onchange => "hide_card_info(this)", :class => "fieldWidth", :style => "width:135px"} -%>
+        </div>
+        <div id = "creditCardInfo" style = "<%= 'display:none' unless @order.payment_type == 'creditcard' -%>">
+          <div class="formRow">
+            <%= f.label :card_number -%>
+            <%= f.text_field :card_number, {:autocomplete => 'off', :class => "formField fieldWidth", :style => "width:120px"} -%>
+          </div>
+          <div class="formRow">
+            <%= f.label :card_verification_value -%>
+            <%= f.text_field :card_verification_value, {:autocomplete => 'off', :class => "formField fieldWidth", :style => "width:50px"} -%>
+          </div>
+          <div class="formRow">
+            <%= f.label :card_type -%>
+            <%= f.select :card_type, card_type_options_for_select, {:include_blank => 'Select Card Type'}, {:class => "formField fieldWidth", :style => "width:135px"} -%>
+          </div>
+          <div class="formRow">
+            <%= f.label :card_expiration_month -%>
+            <%= f.select :card_expiration_month, month_options_for_select, {:include_blank => "Month"}, { :class => "formField fieldWidth", :style => "width:135px"} -%>
+          </div>
+          <div class="formRow">
+            <%= f.label :card_expiration_year -%>
+            <%= f.select :card_expiration_year, year_options_for_select, {:include_blank => "Year"}, { :class => "formField fieldWidth", :style => "width:135px"} -%>
+          </div>
+        </div>
+        <div ><%= f.submit 'Confirm Order' , :class => 'confirmOrder' -%></div>
+      <% end -%>
+    </div>
+</div>
+    <div class="pageRightBottom">&nbsp;</div>  
+  </div>
+  <div class="subPageRight">
+    <%#= liquidize(@store.liquid_contents('sidebar_three') , 'store' => StoreDrop.new(@store)) -%>
+  </div>
+</div>

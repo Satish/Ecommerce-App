@@ -1,0 +1,59 @@
+<div class="formRow">
+	<%= f.label :first_name -%>
+	<%= f.text_field :first_name, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :last_name -%>
+	<%= f.text_field :last_name, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :email -%>
+	<%= f.text_field :email, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :company -%>
+	<%= f.text_field :company, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :street1 -%> 
+	<%= f.text_area :street1, :class => "formField fieldWidth fieldHeight" -%>
+</div>
+<div class="formRow">
+	<%= f.label :street2 -%> 
+	<%= f.text_area :street2, :class => "formField fieldWidth fieldHeight" -%>
+</div>
+<div class="formRow">
+	<%= f.label :city -%>
+	<%= f.text_field :city, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :country -%>
+  <% if address.is_a?(ShippingAddress) %>
+	  <%#= f.select :country, @store.shipping_countries_names, {}, {:class => "formField fieldWidth"} -%>
+  <% else -%>
+	  <%#= f.country_select :country, ['United States'], {}, {:class => "formField fieldWidth"} -%>
+  <% end -%>
+</div>
+<%= observe_field  address.is_a?(ShippingAddress) ? 'shipping_address_country' : 'billing_address_country', :frequency => 0.5, :update => address.is_a?(ShippingAddress) ? 'shipping_address_state_block' : 'billing_address_state_block', :url => {:action=> address.is_a?(ShippingAddress) ? 'select_shipping_state' : 'select_billing_state', :only_path => false}, :with => "'country=' + encodeURIComponent(value)" %>
+<div class="formRow"> 
+<%= f.label :state %>
+<span id ="<%= address.is_a?(ShippingAddress) ? 'shipping_address_state_block' : 'billing_address_state_block'%>">
+  <% if STATE_FOR_STATE_SELECT.include?(address.country) -%>
+    <%#= f.state_select :state, country = (address.country == "United States" ? 'US' : address.country), {:selected => address.state}, {:class => "formField fieldWidth"} -%>
+  <% else -%>
+    <%= f.text_field :state, :class => "text formField fieldWidth", :value => address.state -%>
+  <% end -%>
+</span>
+</div>
+<div class="formRow">
+	<%= f.label :zipcode -%>
+	<%= f.text_field :zipcode, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :phone -%>
+	<%= f.text_field :phone, :class => "formField fieldWidth" -%>
+</div>
+<div class="formRow">
+	<%= f.label :fax -%>
+	<%= f.text_field :fax, :class => "formField fieldWidth" -%>
+</div>

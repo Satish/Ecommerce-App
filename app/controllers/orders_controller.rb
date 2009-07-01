@@ -1,5 +1,11 @@
 class OrdersController < ApplicationController
 
+  ssl_required :new, :create if Rails.env == 'production'
+  
+  before_filter :find_store
+  before_filter :login_required, :only => [:show, :destroy]
+  before_filter :find_order, :only => [:show, :destroy]
+
   # GET /orders
   # GET /orders.xml
   def index
@@ -26,7 +32,10 @@ class OrdersController < ApplicationController
   # GET /orders/new.xml
   def new
     @order = Order.new
-
+    @order.shipping_address = ShippingAddress.new(:country => "United States")
+    @order.billing_address = BillingAddress.new(:country => "United States")
+    @order.line_items.build
+    @order.total_amount = current_cart.total_price
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @order }
@@ -41,11 +50,9 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.xml
   def create
-    @order = Order.new(params[:order])
-
     respond_to do |format|
       if @order.save
-        flash[:notice] = 'Order was successfully created.'
+        flash[:notice] = 'Order created successfully.'
         format.html { redirect_to(@order) }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else

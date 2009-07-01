@@ -39,12 +39,13 @@ class Order < ActiveRecord::Base
   validates_presence_of :account_id, :billing_address_id, :shipping_address_id
 
   validates_associated :line_items
+  attr_accessor :order_number, :card_number, :card_type, :card_expiration_month, :card_expiration, :card_expiration_year, :card_verification_value
 
   has_many :line_items, :dependent => :destroy
   has_many :skus, :through => :line_items
   has_many :notes, :as => :noteable, :order => 'created_at DESC'
   has_one :billing_address, :as => :addressable, :dependent => :destroy
-  has_one :shipping_addresses, :as => :addressable, :dependent => :destroy
+  has_one :shipping_address, :as => :addressable, :dependent => :destroy
 
   belongs_to :user
 
@@ -56,32 +57,24 @@ class Order < ActiveRecord::Base
   aasm_state :fullfilled, :enter => :do_fullfill
   aasm_state :deleted, :enter => :do_delete
 
-  aasm_event :conceal do
-    transitions :from => [:published, :deleted], :to => :draft
-  end
-
-  aasm_event :publish do
-    transitions :from => [:draft, :deleted], :to => :published
-  end
-
-  aasm_event :delete do
-    transitions :from => [:draft, :published], :to => :deleted
+  aasm_event :process do
+    transitions :from => [:pending, :on_hold, :rejected, :fullfilled], :to => :processing
   end
 
   aasm_event :hold do
     transitions :from => [:pending, :processing, :rejected, :fullfilled], :to => :on_hold
   end
 
-  event :process do
-    transitions :from => [:pending, :on_hold, :rejected, :fullfilled], :to => :processing
-  end
-
-  event :reject do
+  aasm_event :reject do
     transitions :from => [:pending, :on_hold, :processing, :fullfilled], :to => :rejected
   end
 
-  event :fulfilled do
+  aasm_event :fulfilled do
     transitions :from => :processing, :to => :fulfilled
+  end
+
+  aasm_event :delete do
+    transitions :from => [:pending, :processing, :on_hold, :rejected, :fullfilled], :to => :deleted
   end
 
 #  def self.unfulfilled

@@ -66,6 +66,11 @@ body#body {font-size: 85%; background-color: #eee}
 .updateCartItem, .deleteCartItem { float:right; overflow:hidden; display:block; margin-bottom:10px; width:55px; padding:1px !important;}
 .descriptionItem .heading { font-weight: bold; padding-bottom:5px; }
 .qtyTextField { border:1px solid #555; width: 40px; padding: 2px;}
+.submitButton, .linkButton { cursor:pointer; font-weight:bold; border-width:1px; border-style:solid; border-color: #ddd #999 #999 #ddd; padding: 5px 10px; background-color: #F5F5F5;}
+.submitButton:hover, .linkButton:hover { border-color: #F09B35; background-color: #ddd;}
+.buttons{ padding: 10px 0px; text-align:right;}
+.updateButton { padding:3px 10px; color:#1382B9; }
+.progressIndicator { width:20px; height:20px; float:right; margin-right: 10px;}
 
 
 /*  sidebar */
