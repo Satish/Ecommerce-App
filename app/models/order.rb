@@ -36,10 +36,10 @@ class Order < ActiveRecord::Base
   named_scope :approved, :conditions => { :status => 'approved' }
   named_scope :on_hold, :conditions => { :status => 'on_hold' }
 
-  validates_presence_of :account_id, :billing_address_id, :shipping_address_id
-
-  validates_associated :line_items
   attr_accessor :order_number, :card_number, :card_type, :card_expiration_month, :card_expiration, :card_expiration_year, :card_verification_value
+
+  validates_presence_of :account_id#, :billing_address_id, :shipping_address_id
+  validates_associated :line_items, :billing_address, :shipping_address
 
   has_many :line_items, :dependent => :destroy
   has_many :skus, :through => :line_items
@@ -49,7 +49,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
 
-  aasm_column :state
+  aasm_column :status
   aasm_initial_state :initial => :pending
   aasm_state :pending, :enter => :do_pending
   aasm_state :processing, :enter => :do_process

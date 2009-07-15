@@ -42,6 +42,10 @@ class Store < ActiveRecord::Base
   after_create :create_blog, :create_admin
   before_create :build_pages
 
+
+  def shipping_countries_names
+    ['India', 'Pakistan', 'United States']
+  end
   private ################################
 
   def create_blog

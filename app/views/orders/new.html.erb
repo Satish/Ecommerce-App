@@ -1,17 +1,3 @@
-<style>
-.formRow { padding: 5px 0px; }
-.formRow label { float:left; width: 80px; }
-.formRow input.formField, .formRow textarea.formField { border: 1px solid #666; padding: 2px 5px; }
-.formRow .fieldWidth { width: 200px; }
-.formRow .fieldHeight { height: 30px; }
-.addressess { padding: 10px; overflow: hidden; }
-.address { width: 49%; padding-top: 10px; }
-.address .addressForm { padding-top: 10px; }
-.address .billingAddressForm { padding-top: 30px; }
-#billingAddress { float:left;}
-#shippingAddress { float:right;}
-
-</style>
 <h1>Checkout</h1>
 <div class="shoppingCart">
   <% unless @cart.empty? -%>
@@ -21,21 +7,21 @@
     <%= error_messages_for :order -%>
     <% form_for @order, :url =>{:action => 'create'} do |f| -%>
       <div class="addressess">
-        <% fields_for "billing_address", @order.billing_address do |billing_address_fields| %>
+        <% fields_for "billing_address", @order.billing_address do |billing_address| %>
            <div id = "billingAddress" class="address">
-               <%= render :partial => 'billing_address', :locals => { :f => billing_address_fields } -%>
+               <%= render :partial => 'billing_address', :locals => { :f => billing_address } -%>
            </div>
         <% end -%>
-        <% fields_for "shipping_address", @order.shipping_address do |shipping_address_fields| %>
+        <% fields_for "shipping_address", @order.shipping_address do |shipping_address| %>
           <div id = "shippingAddress" class = "address">
-            <%= render :partial => 'shipping_address', :locals => { :f => shipping_address_fields } -%>
+            <%= render :partial => 'shipping_address', :locals => { :f => shipping_address } -%>
           </div>
         <% end -%>
       </div>
       <div class="paymentDetail">
         <div class = "formRow">
           <%= f.label :payment_type -%>
-          <%= f.select :payment_type, options_for_payment_type_select(@store), {:include_blank => 'Select Payment Type'}, {:onchange => "hide_card_info(this)", :class => "fieldWidth", :style => "width:135px"} -%>
+          <%= f.select :payment_type, options_for_payment_type_select(@store), {:include_blank => 'Select Payment Type'}, {:onchange => "hide_card_info(this)", :class => "formField fieldWidth"} -%>
         </div>
         <div id = "creditCardInfo" style = "<%= 'display:none' unless @order.payment_type == 'creditcard' -%>">
           <div class="formRow">
@@ -59,7 +45,7 @@
             <%= f.select :card_expiration_year, year_options_for_select, {:include_blank => "Year"}, { :class => "formField fieldWidth", :style => "width:135px"} -%>
           </div>
         </div>
-        <div ><%= f.submit 'Confirm Order' , :class => 'confirmOrder' -%></div>
+        <div class="formRow"><%= f.submit 'Confirm Order' , :class => 'confirmOrder linkButton' -%></div>
       <% end -%>
     </div>
 </div>

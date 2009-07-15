@@ -68,6 +68,21 @@ module ApplicationHelper
     attribute_values.join(', ')
   end
 
+  def get_country_option(country)
+    case country
+    when "United States"
+      return 'US'
+    when "United Kingdom"
+      'UK'
+    else
+      country
+    end
+  end
+
+  def get_address_state_dom_id(address)
+    address.type.underscore + '_state_block'
+  end
+
   private ##################
 
   def currency_precision

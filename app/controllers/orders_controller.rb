@@ -42,6 +42,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def get_state_options
+    respond_to do |format|
+      format.html { redirect_to new_order_path }
+      format.js { render :partial => "state_options", :locals => {:country => params[:country], :state => nil,  :object => params[:address_type]} }
+    end
+  end
+
   # GET /orders/1/edit
   def edit
     @order = Order.find(params[:id])
@@ -50,6 +57,9 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.xml
   def create
+    @order = Order.new(params[:order])
+    @order.shipping_address = ShippingAddress.new(params[:shipping_address])
+    @order.billing_address = BillingAddress.new(params[:billing_address])
     respond_to do |format|
       if @order.save
         flash[:notice] = 'Order created successfully.'

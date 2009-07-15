@@ -49,7 +49,7 @@ a img {
 .pct95 { width: 95%; }
 .pct100 { width: 100%; }
 
-.height50px { height: 50px; }
+.height50px { height: 40px; }
 
 /*- THE MENUBAR */
 
@@ -277,7 +277,7 @@ body.login .create input.text, body.login .create label {
 	max-width: 900px;*/
 	width: 885px;
 	margin: 10px auto;
-	padding: 15px 30px;
+	padding: 10px 30px;
 	background: #fafafa;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -420,7 +420,7 @@ body.page-logs .item.expanded .more {
 }
 
 .create input.text.important, .create label.important {
-  font-size:1.5em;
+  font-size:1.3em;
 }
 
 .create input.text, .create label {

@@ -4,4 +4,4 @@ FEEDS_DESCRIPTION_OPTIONS = ["Full", 'Short']
 ORDER_BY_OPTIONS = {"Arrange by A-Z" => "name ASC", "Arrange by Z-A" => "name DESC", "Price (Low-High)" => "price ASC", "Price (High-Low)" => "price DESC" }
 PER_PAGE_OPTIONS = [16, 40, 80, 120, 500]
 PER_PAGE = 20
-STATE_FOR_STATE_SELECT = ['United States', 'India', 'Australia', 'Spain', 'Uganda', 'France', 'German', 'Canada']
+STATE_FOR_STATE_SELECT = ['United States', 'India', 'Australia', 'Spain', 'Uganda', 'France', 'German', 'Canada', 'Scotland', 'Ireland', 'Wales', 'United Kingdom' ]

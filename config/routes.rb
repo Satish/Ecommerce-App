@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :orders
+
+  map.resources :orders, :collection => { :get_state_options => :post }
 
   
   # Normal Routes
