@@ -5,7 +5,7 @@
 #  id         :integer(4)      not null, primary key
 #  name       :string(255)
 #  store_id   :integer(4)
-#  status     :boolean(1)      default(TRUE)
+#  status     :string(10)      default("Active")
 #  created_at :datetime
 #  updated_at :datetime
 #

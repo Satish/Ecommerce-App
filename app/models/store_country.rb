@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: store_countries
+#
+#  id         :integer(4)      not null, primary key
+#  store_id   :integer(4)
+#  country_id :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class StoreCountry < ActiveRecord::Base
   
   validates_presence_of :store_id, :country_id
