@@ -78,7 +78,32 @@ var FlashMessage = {
   }
 };
 
-  
+function onCheckCopyBillingToShipping(dom_element){
+  ele = ['first_name', 'last_name', 'email', 'company', 'street1', 'street2', 'city', 'country', 'zipcode', 'phone', 'fax', 'state' ]
+  if (dom_element.checked == true){
+    for(i=0; i < ele.length; i++){
+      $('#shipping_address_' + ele[i]).attr("value", $('#billing_address_' + ele[i]).attr("value"))
+    }
+  }
+  else {
+    
+  }
+}
+
+function hide_card_info(id) {
+	if ($(id).value == 'creditcard')
+	$('creditCardInfo').show()
+	else
+	$('creditCardInfo').hide()
+}
+
+function toggle_disable_message(dom_element) {
+  if ($('#store_status').attr('value') == 'false')
+    $('#storeDisableMessage').show()
+  else
+  	$('#storeDisableMessage').hide()
+}  
+
 /*
 document.observe("dom:loaded", function() {r
   // the element in which we will observe all clicks and capture

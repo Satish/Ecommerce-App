@@ -25,7 +25,7 @@
 
 class Address < ActiveRecord::Base
 
-  validates_presence_of :first_name, :last_name, :city, :state, :zipcode, :country, :phone
+  validates_presence_of :first_name, :last_name, :email, :street1, :city, :state, :zipcode, :country, :phone
 
   belongs_to :addressable, :polymorphic => true
 

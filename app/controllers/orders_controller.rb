@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   ssl_required :new, :create if Rails.env == 'production'
   
   before_filter :find_store
+  before_filter :cart_item_required, :only => [:new, :create]
+  before_filter :build_order, :only => [:create]
   before_filter :login_required, :only => [:show, :destroy]
   before_filter :find_order, :only => [:show, :destroy]
 
@@ -34,8 +36,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.shipping_address = ShippingAddress.new(:country => "United States")
     @order.billing_address = BillingAddress.new(:country => "United States")
-    @order.line_items.build
-    @order.total_amount = current_cart.total_price
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @order }
@@ -49,21 +50,13 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /orders/1/edit
-  def edit
-    @order = Order.find(params[:id])
-  end
-
   # POST /orders
   # POST /orders.xml
   def create
-    @order = Order.new(params[:order])
-    @order.shipping_address = ShippingAddress.new(params[:shipping_address])
-    @order.billing_address = BillingAddress.new(params[:billing_address])
     respond_to do |format|
-      if @order.save
+      if @store.orders << @order
         flash[:notice] = 'Order created successfully.'
-        format.html { redirect_to(@order) }
+        format.html { redirect_to( logged_in? ? @order : root_path) }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
         format.html { render :action => "new" }
@@ -72,22 +65,27 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PUT /orders/1
-  # PUT /orders/1.xml
-  def update
-    @order = Order.find(params[:id])
-
-    respond_to do |format|
-      if @order.update_attributes(params[:order])
-        flash[:notice] = 'Order was successfully updated.'
-        format.html { redirect_to(@order) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#  # GET /orders/1/edit
+#  def edit
+#    @order = Order.find(params[:id])
+#  end
+#
+#  # PUT /orders/1
+#  # PUT /orders/1.xml
+#  def update
+#    @order = Order.find(params[:id])
+#
+#    respond_to do |format|
+#      if @order.update_attributes(params[:order])
+#        flash[:notice] = 'Order was successfully updated.'
+#        format.html { redirect_to(@order) }
+#        format.xml  { head :ok }
+#      else
+#        format.html { render :action => "edit" }
+#        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+#      end
+#    end
+#  end
 
   # DELETE /orders/1
   # DELETE /orders/1.xml
@@ -100,4 +98,31 @@ class OrdersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #----------------------------------- private -----------------------------
+  private
+
+  def cart_item_required
+    flash[:notice] = "Please add an item to your cart to place an order." and redirect_to cart_path if current_cart.empty?
+  end
+
+ def build_order
+    @order = Order.new(params[:order])
+    @order.shipping_address = ShippingAddress.new(params[:shipping_address])
+    @order.billing_address = BillingAddress.new(params[:billing_address])
+    @order.user = current_user
+    build_order_items
+  end
+
+  def build_order_items
+    current_cart.cart_items.each do |item|
+      @order.line_items << LineItem.new( (item[:item_type] == "Sku" ? :sku_id : '') => item[:item_id], :quantity => item[:qty], :price => item[:price] * item[:qty])
+    end
+  end
+
+  def find_order
+    @order = current_user.orders.active.find_by_id(params[:id], :include => [:line_items])
+    flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and redirect_to orders_path and return unless @order
+  end
+
 end

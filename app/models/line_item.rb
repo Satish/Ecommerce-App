@@ -14,15 +14,19 @@
 
 class LineItem < ActiveRecord::Base
 
-  validates_presence_of :sku_id, :order_id
+  validates_presence_of :sku_id, :price, :quantity
   validates_numericality_of :price, :greater_than_or_equal_to => 0
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1
 
   belongs_to :order
   belongs_to :sku
 
-  def calculate_price(total_size=nil)
+  def calculate_price(total_size = nil)
     sku.our_price * (total_size || quantity)
+  end
+
+  def calculate_handling_fee
+    sku ? sku.product.handling_fee * quantity : 0.0
   end
 
 end

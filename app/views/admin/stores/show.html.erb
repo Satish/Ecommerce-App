@@ -1,0 +1,37 @@
+<div class="container">
+  <h1 class="postHeading">Configurations</h1>
+</div>
+<div class="container">
+  <div class="table">
+    <div class = "tableHeader">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20 textAlignLeft">system</span>
+      <span class = "pct35  textAlignLeft">description</span>
+    </div>
+    <div class = "tableRow odd">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20"><%= link_to "General Settings", [:edit, :admin, Store.new] -%></span>
+      <span class = "pct35">Configure general settings for your store.</span>
+    </div>
+    <div class = "tableRow even">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20"><%= link_to "Mail Server Settings", '#' -%></span>
+      <span class = "pct35">Configure email server settings.</span>
+    </div>
+    <div class = "tableRow even">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20"> <%= link_to "Gateway", "#" %></span>
+      <span class = "pct35">Select a payment gateway and configure its settings.</span>
+    </div>
+    <div class = "tableRow odd">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20"><%= link_to "Shipping Methods", "#" -%></span>
+      <span class = "pct35">Manage shipping methods</span>
+    </div>
+    <div class = "tableRow odd">
+      <span class = "pct5">&nbsp;</span>
+      <span class = "pct20"><%= link_to "Tax Settings", "#" %></span>
+      <span class = "pct35">Tax rates setup and configuration.</span>
+    </div>
+  </div>
+</div>

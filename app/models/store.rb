@@ -38,6 +38,7 @@ class Store < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_one :blog, :dependent => :destroy
   has_many :roles, :dependent => :destroy
+  has_many :orders, :dependent => :destroy
   
   after_create :create_blog, :create_admin
   before_create :build_pages

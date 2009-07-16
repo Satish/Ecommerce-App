@@ -1,4 +1,4 @@
-class Admin::TinyMcePhotosController < ApplicationController
+class Admin::TinyMcePhotosController < Admin::BaseController
 
   before_filter :login_required
   

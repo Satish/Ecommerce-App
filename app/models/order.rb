@@ -29,16 +29,13 @@ class Order < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15
 
-  TAX_RATE = 0.25
-  ESTIMATED_SHIPPING_AMOUNT = 90.00
-
+  named_scope :active, :conditions => { :deleted_at => nil }
   named_scope :pending, :conditions => { :status => 'pending' }
   named_scope :approved, :conditions => { :status => 'approved' }
   named_scope :on_hold, :conditions => { :status => 'on_hold' }
 
   attr_accessor :order_number, :card_number, :card_type, :card_expiration_month, :card_expiration, :card_expiration_year, :card_verification_value
 
-  validates_presence_of :account_id#, :billing_address_id, :shipping_address_id
   validates_associated :line_items, :billing_address, :shipping_address
 
   has_many :line_items, :dependent => :destroy
@@ -46,8 +43,10 @@ class Order < ActiveRecord::Base
   has_many :notes, :as => :noteable, :order => 'created_at DESC'
   has_one :billing_address, :as => :addressable, :dependent => :destroy
   has_one :shipping_address, :as => :addressable, :dependent => :destroy
-
   belongs_to :user
+  belongs_to :store
+
+  before_create :generate_order_number, :calculate_total_amount
 
   aasm_column :status
   aasm_initial_state :initial => :pending
@@ -77,36 +76,57 @@ class Order < ActiveRecord::Base
     transitions :from => [:pending, :processing, :on_hold, :rejected, :fullfilled], :to => :deleted
   end
 
-#  def self.unfulfilled
-#    Order.find(:all, :conditions => "status = 'approved'")
-#  end
-#
-#  def estimated_shipping_amount
-#  # It looks stupid when the cart is empty but estimated shipping is being charged...
-#    total_amount_before_shipping == 0 ? 0 : ESTIMATED_SHIPPING_AMOUNT
-#  end
-#
-#  def total_amount_before_shipping
-#    total_amount = cost_of_products + tax_amount
-#    total_amount || 0
-#  end
-#
-#  def total_amount
-#    total_amount_before_shipping + estimated_shipping_amount
-#  end
-#
-#  def tax_amount(cost_of_shipped_products = nil)
-#    (cost_of_shipped_products||cost_of_products) * TAX_RATE
-#  end
-#
-#  def cost_of_products
-#    line_items.inject(0) do |sum, li| 
-#      sum += li.calculate_price if li.sku && li.quantity
-#    end
-#  end
-
   #-------------------------- private ----------------------------------
   private
+
+  def calculate_total_amount
+    self.total_amount = total_amount_before_shipping + estimated_shipping_amount
+  end
+
+  def estimated_shipping_amount
+    self.shipping_amount = total_amount_before_shipping == 0 ? 0 : 0
+  end
+
+  def total_amount_before_shipping
+    amount = cost_of_products + calculate_tax_amount + calculate_handling_amount
+    amount || 0
+  end
+
+  def calculate_tax_amount
+    self.tax_amount = cost_of_products * 0 # should replace 0 with the tax rate
+#    store.tax_options.active.each do |to|
+#      self.tax_amount = self.total_amount * (to.tax_percent/100) and break if to.country == shipping_address.country and to.state == shipping_address.state
+#    end
+  end
+
+  def cost_of_products
+    line_items.collect(&:calculate_price).sum
+  end
+
+  def calculate_handling_amount
+    self.handling_amount =  products_handling_fee + store.handling_fee
+  end
+
+  def products_handling_fee
+    line_items.collect(&:calculate_handling_fee).sum
+  end
+
+  def generate_order_number
+    self.number = generate_unique_number
+  end
+
+  def generate_unique_number
+    begin
+      new_number = "OR#{ Time.now.strftime("%Y%d%m") }#{ Array.new(15){rand(9)}.join }"
+    end until !order_exists?(new_number)
+    new_number
+  end
+
+  # Checks the database to ensure the specified number is not taken
+  def order_exists?(new_number)
+    Order.find :first, :conditions => { :number => new_number }
+  end
+
 
   def do_pending
   
@@ -117,7 +137,8 @@ class Order < ActiveRecord::Base
   end
 
   def do_reject
-
+    restock_inventory
+    OrderMailer.rejected_order(self)
   end
 
   def do_fullfill
@@ -128,4 +149,9 @@ class Order < ActiveRecord::Base
 
   end
 
+  def restock_inventory
+#    line_items.each do |line_item|
+#      line_item.quantity
+#    end
+  end
 end

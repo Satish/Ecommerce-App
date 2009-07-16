@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   # Admin Routes (under admin namescope)
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
+    admin.resource :stores, :only => [:show, :edit, :update], :as => :store
     admin.resources :dashboard, :only => [:index]
     admin.resources :categories, :member => {:products => :get}
     admin.resources :brands, :member => {:products => :get}
