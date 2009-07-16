@@ -6,7 +6,6 @@
 #  domain                   :string(255)
 #  email                    :string(255)
 #  address                  :string(255)
-#  blog_title               :string(255)
 #  display_name             :string(255)
 #  toll_free_number         :string(255)
 #  meta_title               :string(255)
@@ -20,6 +19,7 @@
 #  deleted_at               :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
+#  handling_fee             :decimal(8, 2)   default(0.0)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

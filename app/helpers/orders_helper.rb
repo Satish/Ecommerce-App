@@ -16,4 +16,13 @@ module OrdersHelper
     (1..12).to_a
   end
 
+  def billing_country_options_for_select
+    Country.all.collect{|country| ["#{ country.name } (#{ country.iso })", country.name]}
+  end
+
+  def shipping_country_options_for_select
+    @store.countries.collect{|country| ["#{ country.name } (#{ country.iso })", country.name]}
+  end
+
+
 end

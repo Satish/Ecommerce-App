@@ -1,0 +1,2 @@
+page.replace "shipping_methods", :partial => "shipping_methods"
+page.replace_html "page_entries_info", :text => page_entries_info(@shipping_methods, :entry_name => '')

@@ -6,7 +6,6 @@
 #  domain                   :string(255)
 #  email                    :string(255)
 #  address                  :string(255)
-#  blog_title               :string(255)
 #  display_name             :string(255)
 #  toll_free_number         :string(255)
 #  meta_title               :string(255)
@@ -20,6 +19,7 @@
 #  deleted_at               :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
+#  handling_fee             :decimal(8, 2)   default(0.0)
 #
 
 class Store < ActiveRecord::Base
@@ -39,14 +39,17 @@ class Store < ActiveRecord::Base
   has_one :blog, :dependent => :destroy
   has_many :roles, :dependent => :destroy
   has_many :orders, :dependent => :destroy
+
+  has_many :store_countries, :dependent => :destroy
+  has_many :countries, :through => :store_countries
   
-  after_create :create_blog, :create_admin
+  has_many :shipping_methods, :dependent => :destroy
+  has_many :shipping_countries, :through => :shipping_methods
+
+  after_create :create_blog, :create_admin, :create_store_countries
   before_create :build_pages
 
 
-  def shipping_countries_names
-    ['India', 'Pakistan', 'United States']
-  end
   private ################################
 
   def create_blog
@@ -63,6 +66,12 @@ class Store < ActiveRecord::Base
     user.activate!
     self.roles << role
     user.roles << roles
+  end
+
+  def create_store_countries
+    Country.all.each do |country|
+      self.store_countries << country
+    end
   end
 
   def build_pages

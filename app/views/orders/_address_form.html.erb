@@ -29,9 +29,9 @@
 <div class="formRow">
 	<%= f.label :country -%>
   <% if address.is_a?(ShippingAddress) %>
-	  <%= f.select :country, @store.shipping_countries_names, {}, {:class => "formField fieldWidth"} -%>
+	  <%= f.select :country, shipping_country_options_for_select, {}, {:class => "formField fieldWidth"} -%>
   <% else -%>
-	  <%= f.country_select :country, ['United States'], {}, {:class => "formField fieldWidth"} -%>
+	  <%= f.select :country, billing_country_options_for_select, {}, {:class => "formField fieldWidth"} -%>
   <% end -%>
 </div>
 <%= observe_field  address.type.underscore + '_country', :frequency => 0.5, :update => get_address_state_dom_id(address), :url => {:action=> 'get_state_options', :only_path => false }, :with => "'country=' + encodeURIComponent(value) + '&address_type=' + '#{ address.type.underscore }'" %>

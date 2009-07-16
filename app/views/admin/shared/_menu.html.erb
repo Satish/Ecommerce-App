@@ -1,6 +1,6 @@
 <div id="menubar">
   <div id="menu" class="dropbutton">
-	  <h1 id="menubutton"><a href="/admin/<%= controller.controller_name -%>"><%= controller.controller_name -%></a></h1>
+	  <h1 id="menubutton"><a href="/admin/<%= controller.controller_name -%>"><%= controller.controller_name.titleize -%></a></h1>
 			<div id="menulist" class="dropbuttonlist">
 				<ul>
 				<li id="link-dashboard" class="" title="View your user dashboard"><%= link_to 'Dashboard', admin_root_path -%></li>				  

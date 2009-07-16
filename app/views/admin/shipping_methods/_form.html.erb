@@ -1,0 +1,22 @@
+<div class="addnewpost item">
+  <% form_for [:admin, @shipping_method] do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :name -%>
+   		<%= f.text_field :name, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :countries -%>
+      <%= f.select :selected_shipping_countries, country_options_for_select, {}, {:multiple => true , :size=>'10', :class => "text important styledFormElement" } %>
+      <div class = "fieldInfo">Press CTR to select multiple countries</div>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :status -%>
+      <%= f.select :status, ShippingMethod.aasm_states_for_select, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit @shipping_method.new_record?  ? "Create":"Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, ShippingMethod.new] -%>
+    </div>
+  <% end -%>
+</div>

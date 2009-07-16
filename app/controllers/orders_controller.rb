@@ -34,8 +34,8 @@ class OrdersController < ApplicationController
   # GET /orders/new.xml
   def new
     @order = Order.new
-    @order.shipping_address = ShippingAddress.new(:country => "United States")
-    @order.billing_address = BillingAddress.new(:country => "United States")
+    @order.shipping_address = ShippingAddress.new#(:country => "United States")
+    @order.billing_address = BillingAddress.new#(:country => "United States")
 
     respond_to do |format|
       format.html # new.html.erb
