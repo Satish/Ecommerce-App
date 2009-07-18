@@ -12,8 +12,8 @@ class CreateOrders < ActiveRecord::Migration
       t.timestamps
     end
     add_index :orders, [:created_at], :name => "index_orders_on_created_at"
-    add_index :orders, [:status], :name => "index_orders_on_status"
-    add_index :orders, [:user_id, :created_at, :status], :name => "index_orders_on_user_id_and_created_at_and_status"
+    add_index :orders, [:state], :name => "index_orders_on_state"
+    add_index :orders, [:user_id, :created_at, :state], :name => "index_orders_on_user_id_and_created_at_and_state"
   end
 
   def self.down

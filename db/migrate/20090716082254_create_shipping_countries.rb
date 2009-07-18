@@ -5,6 +5,8 @@ class CreateShippingCountries < ActiveRecord::Migration
   
       t.timestamps
     end
+    add_index :shipping_methods, [:shipping_method_id, :country_id]
+    add_index :shipping_methods, :country_id
   end
 
   def self.down

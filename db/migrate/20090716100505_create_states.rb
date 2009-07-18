@@ -7,6 +7,7 @@ class CreateStates < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :states, :country_id
   end
 
   def self.down

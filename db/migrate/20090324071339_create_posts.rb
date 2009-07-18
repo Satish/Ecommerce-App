@@ -10,6 +10,8 @@ class CreatePosts < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index :posts, [:blog_id, :permalink], :name => "index_blogs_on_blog_id_and_permalink", :uniq => true
+    add_index :posts, [:blog_id, :state], :name => "index_blogs_on_blog_id_and_state"
   end
 
   def self.down

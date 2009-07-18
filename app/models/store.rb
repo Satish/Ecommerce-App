@@ -40,8 +40,8 @@ class Store < ActiveRecord::Base
   has_many :roles, :dependent => :destroy
   has_many :orders, :dependent => :destroy
 
-  has_many :store_countries, :dependent => :destroy
-  has_many :countries, :through => :store_countries
+  #has_many :store_countries, :dependent => :destroy
+  has_many :countries#, :through => :store_countries
   
   has_many :shipping_methods, :dependent => :destroy
   has_many :shipping_countries, :through => :shipping_methods
@@ -63,15 +63,14 @@ class Store < ActiveRecord::Base
     user = User.new(:login => "login#{id}", :password => password, :password_confirmation => password, :email => email)
     role = Role.new(:name => 'admin')
     self.users << user
+    user.register!
     user.activate!
     self.roles << role
     user.roles << roles
   end
 
   def create_store_countries
-    Country.all.each do |country|
-      self.store_countries << country
-    end
+    Country.create(ISO_COUNTRIES){ |c| c.store_id = id }
   end
 
   def build_pages

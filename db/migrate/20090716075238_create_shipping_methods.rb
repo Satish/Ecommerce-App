@@ -7,6 +7,8 @@ class CreateShippingMethods < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :shipping_methods, :store_id
+    add_index :shipping_methods, :status
   end
 
   def self.down

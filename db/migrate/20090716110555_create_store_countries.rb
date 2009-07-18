@@ -5,6 +5,7 @@ class CreateStoreCountries < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :store_countries, :store_id
   end
 
   def self.down

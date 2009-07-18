@@ -5,6 +5,7 @@
       <li><%= link_to 'New Account', signup_path, :title => 'Click Here to Signup' -%></li>
     <% else %>
       <li class="last"><%= link_to 'Logout', logout_path, :title => 'Click Here to Logout' -%></li>
+      <li><%= link_to 'Admin Panel', admin_root_path, :title => 'Admin Panel' if current_user.has_role?('admin') -%></li>
       <li><%= link_to 'My Account', "#", :title => 'My Account' -%></li>
     <% end %>
     <li><%= link_to "Home", root_path -%></li>

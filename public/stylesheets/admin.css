@@ -69,8 +69,9 @@ a img {
 	outline: none;
 }
 
-#storeName { color: #fff; position: absolute; top: 5px; right: 20px; font: 18px 'Helvetica Neue Light', 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, Sans-Serif;	line-height: 22px;
-}
+#storeInfoMenu { color: #fff; position: absolute; top: 5px; right: 20px; font: 18px 'Helvetica Neue Light', 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, Sans-Serif;	line-height: 22px; width: 85%}
+#storeInfoMenu #storeName { float:right; font-size:25px;}
+#storeInfoMenu #userInfo { float:left; font-size:14px }
 
 
 /*- THE MENU */
@@ -79,7 +80,7 @@ a img {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 150px;
+	width: 11%;
 	padding: 5px 0 0;
 	margin-left: 5px;
 	height: 27px;

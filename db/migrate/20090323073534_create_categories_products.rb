@@ -6,7 +6,8 @@ class CreateCategoriesProducts < ActiveRecord::Migration
       
       t.timestamps
     end
-    add_index(:categories_products, [:product_id, :category_id])
+    add_index :categories_products, :product_id
+    add_index :categories_products, :category_id
   end
 
   def self.down

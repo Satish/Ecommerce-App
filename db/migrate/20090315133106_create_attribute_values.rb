@@ -7,7 +7,8 @@ class CreateAttributeValues < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index "attribute_values", ["sku_id"], :name => "index_attribute_values_on_sku_id"
+    add_index :attribute_values, [:sku_id], :name => "index_attribute_values_on_sku_id"
+    add_index :attribute_values, [:product_attribute_id], :name => "index_attribute_values_on_product_attribute"
   end
 
   def self.down

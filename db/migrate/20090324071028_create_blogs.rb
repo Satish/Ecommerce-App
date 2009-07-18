@@ -12,6 +12,7 @@ class CreateBlogs < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index :blogs, :store_id, :uniq => true
   end
 
   def self.down

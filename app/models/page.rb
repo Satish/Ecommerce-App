@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
   named_scope :inactive, :conditions => { :active=> false }
   
   validates_presence_of :title, :permalink, :description
-  validates_uniqueness_of :title, :permalink
+  validates_uniqueness_of :title, :permalink, :scope => :store_id
     
   def self.search(query, options)
     conditions = ["title like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?

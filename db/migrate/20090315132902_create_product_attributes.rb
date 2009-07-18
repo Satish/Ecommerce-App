@@ -7,6 +7,7 @@ class CreateProductAttributes < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index :product_attributes, [:store_id], :name => "index_product_attributes_on_store_id", :uniq => true
   end
 
   def self.down

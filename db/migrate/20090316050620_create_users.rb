@@ -10,7 +10,8 @@ class CreateUsers < ActiveRecord::Migration
       
       t.timestamps      
     end
-    add_index :users, :login, :unique => true
+    add_index :users, [:store_id, :login], :name => "index_users_on_store_id_and_login", :uniq => true
+    add_index :users, [:store_id, :state], :name => "index_users_on_store_id_and_state"
   end
 
   def self.down
