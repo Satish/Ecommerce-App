@@ -15,6 +15,25 @@ Running from sources
         git clone git://github.com/Satish/test_ec.git
 
 2. Create the necessary config/database.yml file
+
+                defaults:      &defaults
+                  adapter:     mysql
+                  encoding:    utf8
+                  username:    root
+                  password :   root
+                  host:        localhost
+
+                development:
+                  database:    ecommerceapp_development
+                  <<:          *defaults
+
+                test:
+                  database:    ecommerceapp_test
+                  <<:          *defaults
+
+                production:
+                  database:    ecommerceapp_production
+                  <<:          *defaults
         
 3. Bootstrap the database (run the migrations, create database)
 

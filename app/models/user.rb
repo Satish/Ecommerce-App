@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
   has_many :posts#, :dependent => :destroy
-  has_many :roles_users, :dependent => :destroy, :conditions => {:active => true}
+  has_many :roles_users, :dependent => :destroy#, :conditions => {:active => true}
   has_many :roles, :through => :roles_users
   has_many :orders
 
