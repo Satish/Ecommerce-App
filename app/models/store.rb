@@ -61,12 +61,10 @@ class Store < ActiveRecord::Base
   def create_admin
     password = "changeme"
     user = User.new(:login => "login#{id}", :password => password, :password_confirmation => password, :email => email)
-    role = Role.new(:name => 'admin')
     self.users << user
     user.register!
     user.activate!
-    self.roles << role
-    user.roles << roles
+    user.roles << Role.find_by_name('admin')
   end
 
   def create_store_countries
