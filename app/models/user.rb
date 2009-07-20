@@ -36,14 +36,14 @@ class User < ActiveRecord::Base
 
   validates_presence_of     :login, :email, :store_id
   validates_uniqueness_of   :login, :email
-  validates_length_of       :login,    :within => 3..40
+  validates_length_of       :login,    :within => 3..40, :if => Proc.new{ |u| !u.login.blank? }
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
 
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
 
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+  validates_length_of       :email,    :within => 6..100, :if => Proc.new{ |u| !u.email.blank? } #r@a.wk
+  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message, :if => Proc.new{ |u| !u.email.blank? }
   
   has_many :posts#, :dependent => :destroy
   has_many :roles_users, :dependent => :destroy#, :conditions => {:active => true}

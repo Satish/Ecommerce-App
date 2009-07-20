@@ -1,9 +1,13 @@
 <% @user.password = @user.password_confirmation = nil %>
-<%= error_messages_for :user -%>
-<% form_for :user, :url => admin_users_path do |f| -%>
+<% form_for [:admin, @user] do |f| -%>
+  <%= f.error_messages -%>
   <div class="formRow transparent">
     <%= f.label :login -%><br/>
     <%= f.text_field :login, :class => "text important styledFormElement" -%>
+  </div>
+  <div class="formRow transparent">
+    <%= f.label :name -%><br/>
+    <%= f.text_field :name, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow transparent">
     <%= f.label :email -%><br/>
@@ -19,6 +23,6 @@
   </div>
   <div class="formRow transparent">
     <%= f.label '' -%>
-    <%= f.submit 'Save' -%> or <%= link_to 'Cancel', :back -%>
+    <%= f.submit 'Save!' -%> or <%= link_to 'Cancel', [:admin, User.new] -%>
   </div>
 <% end -%>
