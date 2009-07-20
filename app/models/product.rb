@@ -41,7 +41,10 @@ class Product < ActiveRecord::Base
   
   has_many :images, :dependent => :destroy, :as => :attachable
   has_many :skus, :dependent => :destroy
-  
+
+  has_many :categories_products, :dependent => :destroy
+  has_many :categories, :through => :categories_products
+
   belongs_to :store
   belongs_to :brand
   
@@ -59,7 +62,7 @@ class Product < ActiveRecord::Base
   
   def self.search(query, options)
     conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    default_options = {:conditions => conditions, :order => "products.created_at DESC, products.name"}
     
     paginate default_options.merge(options)
   end

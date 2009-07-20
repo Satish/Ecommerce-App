@@ -6,4 +6,19 @@
 
 <div class="container">
   <%= render :partial => 'admin/products/products' -%>
+  <div class="addnewpost item">
+    <% form_for([:admin, @category]) do |f| -%>
+      <div class="formRow transparent"><%= f.submit "Add Products", :class => "button" -%></div>
+      <% @store.products.all(:include => [:categories]).each do |product| -%>
+        <% unless product.category_ids.include?(@category.id)%>
+          <div class="formRow transparent">
+            <%= check_box_tag "product_ids[]", product.id, false, :class => "styledFormElement" -%>
+            <%= link_to main_image(product, :S25x25), product -%>
+            <%= link_to h(product.name), [:admin, product] -%>
+          </div>
+        <% end -%>
+      <% end -%>
+      <div class="formRow transparent"><%= f.submit "Add Products", :class => "button" -%></div>
+    <% end -%>
+  </div>
 </div>

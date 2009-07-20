@@ -37,10 +37,15 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update
-    if @category.update_attributes((params[:category]))
-      redirect_to_categories_home
+    unless params[:product_ids]
+      if @category.update_attributes((params[:category]))
+        redirect_to_categories_home
+      else
+        render :action => :edit
+      end
     else
-      render :action => :edit
+      add_products_to_category
+      redirect_to [:products, :admin, @category]
     end
   end
 
@@ -78,5 +83,13 @@ class Admin::CategoriesController < Admin::BaseController
   def set_metas
     @meta_title = @category.title.titleize if @category
   end
-    
+
+  def add_products_to_category
+    begin
+      @category.products << @store.products.find(params[:product_ids])
+    rescue
+      flash[:error] = BAD_REQUEST_ERROR_MESSAGE
+    end
+  end
+
 end

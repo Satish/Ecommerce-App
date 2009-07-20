@@ -33,8 +33,10 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :title, :permalink, :scope => :store_id
   
   has_many :images, :dependent => :destroy, :as => :attachable
+
   has_many :categories_products, :dependent => :destroy
-  has_many :products, :through => :categories_products, :include => :images
+  has_many :products, :through => :categories_products, :include => [:images]
+
   belongs_to :store
   
   def before_validation
