@@ -1,5 +1,5 @@
 class Admin::BlogsController < Admin::BaseController
-  
+
   before_filter :find_blog
 
   # GET /blog

@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
@@ -58,11 +58,11 @@ class Admin::UsersController < Admin::BaseController
       if @user.update_attributes(params[:user])
         flash[:message] = message + "updated successfully."
       else
-        render :action => 'edit'
+        render :action => 'edit' and return
       end
     end
-    flash[:message] = "User state changed to #{ @order.state }" unless flash[:message]
-    redirect_to_users_home
+    flash[:message] = "User state changed to #{ @user.state }" unless flash[:message]
+    redirect_to_users_home and return
   end
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ protected ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,11 +70,11 @@ class Admin::UsersController < Admin::BaseController
 
   def find_user
     @user = User.find_by_id(params[:id])
-    redirect_to_users_home unless @user
+    redirect_to_users_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE unless @user
   end
 
   def redirect_to_users_home
-    flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and redirect_to [:admin, User.new] and return
+    redirect_to [:admin, User.new] and return
   end
 
 end

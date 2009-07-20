@@ -54,21 +54,11 @@ class User < ActiveRecord::Base
   has_one :shipping_addresses, :as => :addressable, :dependent => :destroy
 
   belongs_to :store
-  
-  def display_name
-    name.blank? ? login : name
-  end
-  
-  def update_visited_at
-    self.update_attribute(:visited_at, Time.now.utc)
-  end
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation
-
-
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -106,7 +96,15 @@ class User < ActiveRecord::Base
     (@_list.include?(role_in_question.to_s) )
   end
   # ---------------------------------------
-  
+
+  def display_name
+    name.blank? ? login : name
+  end
+
+  def update_visited_at
+    self.update_attribute(:visited_at, Time.now.utc)
+  end
+
   protected #############################
     
   def make_activation_code
