@@ -6,7 +6,7 @@
    		<%= f.text_area :description, :class => "mceEditor styledFormElement" -%>
    	</div>
     <div class="formRow transparent">
-      <%= f.submit @comment.new_record? ? "Create" : 'Update', :class => "button", :tabindex=>"4", :style => "margin-left: 5px;" -%>&nbsp; or &nbsp;
+      <%= f.submit @comment.new_record? ? "Create" : 'Update', :class => "button", :style => "margin-left: 5px;" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, @post, Comment.new] -%>
     </div>
   <% end -%>

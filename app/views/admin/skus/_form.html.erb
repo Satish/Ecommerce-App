@@ -17,7 +17,7 @@
       <%= render :partial => "attribute_value", :collection => @sku.attribute_values -%>
     </div>
     <div class="formRow transparent">
-      <%= f.submit @sku.new_record? ? "Create" : "Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= f.submit @sku.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, @product, Sku.new] -%>
     </div>
   <% end -%>

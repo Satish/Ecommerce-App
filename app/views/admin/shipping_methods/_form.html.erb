@@ -15,7 +15,7 @@
       <%= f.select :status, ShippingMethod.aasm_states_for_select, :class => "text important styledFormElement" -%>
    	</div>
     <div class="formRow transparent">
-      <%= f.submit @shipping_method.new_record?  ? "Create":"Update", :class => "button", :tabindex=>"4" -%>&nbsp; or &nbsp;
+      <%= f.submit @shipping_method.new_record?  ? "Create":"Update", :class => "button" -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, ShippingMethod.new] -%>
     </div>
   <% end -%>

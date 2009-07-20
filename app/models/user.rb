@@ -105,6 +105,10 @@ class User < ActiveRecord::Base
     self.update_attribute(:visited_at, Time.now.utc)
   end
 
+  def username
+    login
+  end
+
   protected #############################
     
   def make_activation_code
