@@ -14,6 +14,12 @@ Running from sources
 
         git clone git://github.com/Satish/test_ec.git
 
+
+        After cloning a fresh copy of the repository, run the following commands.
+
+        git submodule init
+        git submodule update
+
 2. Create the necessary config/database.yml file
 
                 defaults:      &defaults
@@ -37,6 +43,12 @@ Running from sources
         
 3. Bootstrap the database (run the migrations, create database)
 
+        rake db:create
+        rake db:migrate
+        rake db:rebuild
+
+        OR
+
         rake db:bootstrap
 
 5. Start the server
@@ -52,3 +64,6 @@ Browse Admin Interface
 ----------------------
 
 http://localhost:xxxx/admin
+
+        login     : login1
+        password  : changeme
