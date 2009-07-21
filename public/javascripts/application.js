@@ -104,6 +104,22 @@ function toggle_disable_message(dom_element) {
   	$('#storeDisableMessage').hide()
 }  
 
+
+var Product
+Product = {
+ selectAll:function(dom_ele, name){
+   coll = document.getElementsByName(name)
+   for( i=0; i < coll.length; i = i+1){
+       if (dom_ele.checked == true) {
+         coll[i].checked = true;
+       }
+       else {
+         coll[i].checked = false;
+       }
+     }
+  }
+}
+
 /*
 document.observe("dom:loaded", function() {r
   // the element in which we will observe all clicks and capture

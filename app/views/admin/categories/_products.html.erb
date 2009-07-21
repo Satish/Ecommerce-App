@@ -1,0 +1,38 @@
+<div id = "products">
+  <% unless @products.empty? -%>
+    <% paginated_section @products, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct15 textAlignLeft"><%= check_box_tag "select_box", 0, false, :onclick => "Product.selectAll(this, 'product_ids[]')", :class => "styledFormElement", :style => "margin:0px 10px;" -%>Select All</span>
+          <span class = "pct20">Product ID</span>
+          <span class = "pct30 textAlignLeft">Name</span>
+          <span class = "pct10">Price</span>
+          <span class = "pct10">Discount</span>
+          <span class = "pct10">Status</span>
+          <span class = "pct5">-</span>
+        </div>
+        <% @products.each_with_index do |product, index| -%>
+          <% div_for product, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+            <span class = "pct5 textAlignCenter"><%= check_box_tag "product_ids[]", product.id, false, :class => "styledFormElement" -%></span>
+            <span class = "pct10 textAlignCenter"><%= link_to main_image(product, :S25x25), product -%></span>
+            <span class = "pct20 textAlignCenter"><%= product.product_id -%></span>
+            <span class = "pct30"><h3 class = "title"><%= link_to h(truncate(product.name, :length => 25)), [:admin, product], :title => h(product.name) -%></h3></span>
+            <span class = "pct10 textAlignCenter"><%= number_to_currency(product.price) -%></span>
+            <span class = "pct10 textAlignCenter"><%= number_to_currency(product.discount) -%></span>
+            <span class = "pct10 textAlignCenter"><%= product.active? ? 'Active' : 'Inactive' -%></span>
+            <span class = "pct5 textAlignCenter">
+              <% if add_product_view? %>
+                <%= link_to_remote(image_tag("admin/iconAdd.png", :alt => "Add"),  :url => [:add_products, :admin, @category], :with => "'product_id=' + #{ product.id }", :title => "Add this product", :method => :put ) -%>
+              <% else %>
+                <%= link_to_remote(image_tag("admin/iconDelete.png", :alt => "X"), :url => [:remove_products, :admin, @category], :with => "'product_id=' + #{ product.id }", :title =>  'Delete this product', :method => :put, :confirm => "Deleting Product '#{ product.product_id }' form #{ h(@category.title) }'s products\n Are you Sure?") -%>
+              <% end %>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+  <% else %>
+    <div class = "noRecords">There are no products</div>     
+  <% end -%>
+</div>

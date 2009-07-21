@@ -35,7 +35,7 @@ class Category < ActiveRecord::Base
   has_many :images, :dependent => :destroy, :as => :attachable
 
   has_many :categories_products, :dependent => :destroy
-  has_many :products, :through => :categories_products, :include => [:images]
+  has_many :products, :through => :categories_products, :include => :images
 
   belongs_to :store
   
@@ -45,7 +45,7 @@ class Category < ActiveRecord::Base
   
   def self.search(query, options)
     conditions = ["title like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, title"}
+    default_options = {:conditions => conditions, :order => "created_at DESC, title", :include => [:products]}
     
     paginate default_options.merge(options)
   end

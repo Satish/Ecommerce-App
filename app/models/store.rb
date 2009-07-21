@@ -28,7 +28,6 @@ class Store < ActiveRecord::Base
   validates_uniqueness_of :domain
 
   has_many :categories, :dependent => :destroy, :include => :images
-#  has_many :parent_categories, :group => :parent_id, :class_name => "Category"
   has_many :products, :dependent => :destroy, :include => :images
   has_many :skus, :through => :products
   has_many :brands, :dependent => :destroy, :include => :images

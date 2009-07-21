@@ -1,0 +1,5 @@
+if @category.products.delete(product)
+  page.remove "product_#{ product.id }"
+else
+  page.alert(BAD_REQUEST_ERROR_MESSAGE)
+end
