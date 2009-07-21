@@ -14,7 +14,7 @@
   <body id = "body">
     <div id = "wrapper">
       <%= render :partial => 'shared/header' -%>
-      <%= sexy_flash :timeout => 2, :duration => 0.1 -%>
+      <%= sexy_flash :timeout => 1, :hide_duration => 1, :hide_effect => 'pulsate' -%>
       <div id = "container">
         <div id = "leftColumn"><%= render :partial => 'shared/sidebar' -%></div>
         <div id = "rightColumn"><%= yield -%></div>
