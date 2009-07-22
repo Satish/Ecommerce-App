@@ -1,3 +1,8 @@
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("li a").fancybox();
+		});
+	</script>
 <h1>Product Detail</h1>
 <style>
 #product { padding: 10px; overflow:hidden; }
@@ -7,6 +12,7 @@
 #product #productRight { width:56%; float: right; padding: 0px 10px;}
 #product h2.productName { font-size: 20px; padding-bottom: 10px;}
 .qtyField { width: 50px; border: 1px solid #555; padding: 2px 5px; }
+#product #productImages .productImage { float:left; padding:5px; }
 </style>
 <div id="product">
   <h2 class = "productName"><%= link_to h(truncate(@product.name.titleize, :length => 30)), @product -%></h2>
@@ -15,9 +21,13 @@
     <% if @product.images.size > 0 -%>
       <div class = "productOtherImages">
         <h3>click to enlarge</h3>
+        <ul id = "productImages" class = 'productImages'>
         <% for product_image in @product.images -%>
-        <%= image_tag(product_image.public_filename(:S75x75)) -%>
+          <li class = "productImage">
+            <%= link_to(image_tag(product_image.public_filename(:S25x25)), product_image.public_filename(:S550x440), :rel => "product-image", :title => "#{ product_image.filename }") -%>
+          </li>
         <% end -%>
+        </ul>
       </div>
     <% end -%>
   </div>
