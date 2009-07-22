@@ -1,29 +1,18 @@
-<script type="text/javascript">
-		$(document).ready(function() {
-			$("li a").fancybox();
-		});
-	</script>
+<%= javascript_tag "$(document).ready(function() { $('li.productOtherImage a').fancybox(); });" %>
 <h1>Product Detail</h1>
 <style>
-#product { padding: 10px; overflow:hidden; }
-#product #productLeft { float:left; width:40%;}
-#productLeft .productOtherImages { padding: 20px 0px;}
-.productOtherImages h3 { padding-bottom:10px; }
-#product #productRight { width:56%; float: right; padding: 0px 10px;}
-#product h2.productName { font-size: 20px; padding-bottom: 10px;}
-.qtyField { width: 50px; border: 1px solid #555; padding: 2px 5px; }
-#product #productImages .productImage { float:left; padding:5px; }
+
 </style>
 <div id="product">
   <h2 class = "productName"><%= link_to h(truncate(@product.name.titleize, :length => 30)), @product -%></h2>
   <div id = "productLeft">
-    <div class = "productMainImage"><%= link_to main_image(@product, :S280x280), @product -%></div>
+    <div id = "productMainImage"><%= link_to main_image(@product, :S280x280), @product -%></div>
     <% if @product.images.size > 0 -%>
       <div class = "productOtherImages">
         <h3>click to enlarge</h3>
-        <ul id = "productImages" class = 'productImages'>
+        <ul id = "productOtherImages" class = 'productOtherImages'>
         <% for product_image in @product.images -%>
-          <li class = "productImage">
+          <li class = "productOtherImage" id = "productOtherImage_<%= product_image.id -%>">
             <%= link_to(image_tag(product_image.public_filename(:S25x25)), product_image.public_filename(:S550x440), :rel => "product-image", :title => "#{ product_image.filename }") -%>
           </li>
         <% end -%>
@@ -32,25 +21,28 @@
     <% end -%>
   </div>
   <div id = "productRight">
+    <div class = "productDescription"><%= @product.description -%></div>
     <div class = "productOurPrice">Our Price: <%= number_to_currency(@product.our_price) -%></div>
     <div class = "productOriginalPrice">Original Price: <%= number_to_currency(@product.price) -%></div>
     <div class = "productSavedPrice">You Saved: <%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+    <div>
+      <% form_for :cart, :url => cart_path do |f| -%>
+        <% if true -%>
+        <!-- replace this block with select boxes -->
+          <% for sku in @product.skus -%>
+            <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
+          <% end -%>
+        <!-- replace this block with select boxes -->
+        <% else -%>
+          <% for sku in @product.skus -%>
+            <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
+          <% end -%>
+        <% end -%>
+        <%= text_field_tag :item_qty, 1, :class => "qtyField" -%>
+        <%= f.submit 'Add to Cart' -%>
+      <% end %>
+    </div>
   </div>
-  <% form_for :cart, :url => cart_path do |f| -%>
-    <% if true -%>
-    <!-- replace this block with select boxes -->
-      <% for sku in @product.skus -%>
-        <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
-      <% end -%>
-    <!-- replace this block with select boxes -->
-    <% else -%>
-      <% for sku in @product.skus -%>
-        <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
-      <% end -%>
-    <% end -%>
-    <%= text_field_tag :item_qty, 1, :class => "qtyField" -%>
-    <%= f.submit 'Add to Cart' -%>
-  <% end %>
   <% if @product.respond_to?(:recommended_products) -%>
   Recommended products list
   <% for product in @product.recommended_products -%>

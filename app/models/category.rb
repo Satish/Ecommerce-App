@@ -28,7 +28,6 @@ class Category < ActiveRecord::Base
   has_permalink :title, :permalink
   attr_protected :store_id
   
-  named_scope :parent_categories, :conditions => { :parent_id => nil }
   validates_presence_of :title, :permalink, :description, :store_id
   validates_uniqueness_of :title, :permalink, :scope => :store_id
   
@@ -51,7 +50,7 @@ class Category < ActiveRecord::Base
   end
     
   def category_options_for_optgroup
-    children
+    ([self] + children).flatten
   end
   
   def new_image_attributes=(image_attributes)

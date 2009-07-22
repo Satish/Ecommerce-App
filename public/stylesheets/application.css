@@ -67,6 +67,17 @@ body#body {font-size: 85%; background-color: #eee}
 #category #categoryDetail, #brand #brandDetail { padding: 10px 15px;}
 #category #categoryImage, #category #categoryDesc, #brand #categorybrand, #brand #brandDesc { padding: 10px 0px;}
 
+#product { padding: 10px; overflow:hidden; }
+#productMainImage img, .productOtherImage img { border:1px solid #CCCCCC; padding:2px;}
+#product #productLeft { float:left; width:40%;}
+#product .productDescription { padding: 10px 0px;}
+#productLeft .productOtherImages { padding: 20px 0px; overflow: hidden;}
+.productOtherImages h3 { padding-bottom:10px; overflow:hidden; }
+#product #productRight { width:56%; float: right; padding: 0px 10px;}
+#productRight div { padding: 2px 0px}
+#product h2.productName { font-size: 20px; padding-bottom: 10px;}
+.qtyField { width: 50px; border: 1px solid #555; padding: 2px 5px; }
+#product #productOtherImages .productOtherImage { float:left; padding:5px; }
 
 .shoppingCart { padding: 10px;}
 .shoppingCart #cartItems { }
