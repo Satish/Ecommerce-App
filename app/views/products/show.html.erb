@@ -1,8 +1,5 @@
 <%= javascript_tag "$(document).ready(function() { $('li.productOtherImage a').fancybox(); });" %>
 <h1>Product Detail</h1>
-<style>
-
-</style>
 <div id="product">
   <h2 class = "productName"><%= link_to h(truncate(@product.name.titleize, :length => 30)), @product -%></h2>
   <div id = "productLeft">
@@ -11,9 +8,9 @@
       <div class = "productOtherImages">
         <h3>click to enlarge</h3>
         <ul id = "productOtherImages" class = 'productOtherImages'>
-        <% for product_image in @product.images -%>
+        <% @product.images.each_with_index do |product_image, index| -%>
           <li class = "productOtherImage" id = "productOtherImage_<%= product_image.id -%>">
-            <%= link_to(image_tag(product_image.public_filename(:S25x25)), product_image.public_filename(:S550x440), :rel => "product-image", :title => "#{ product_image.filename }") -%>
+            <%= link_to(image_tag(product_image.public_filename(:S25x25)), product_image.public_filename(:S550x440), :rel => "product-image", :title => "Image ##{ index }") -%>
           </li>
         <% end -%>
         </ul>
@@ -22,24 +19,34 @@
   </div>
   <div id = "productRight">
     <div class = "productDescription"><%= @product.description -%></div>
-    <div class = "productOurPrice">Our Price: <%= number_to_currency(@product.our_price) -%></div>
-    <div class = "productOriginalPrice">Original Price: <%= number_to_currency(@product.price) -%></div>
-    <div class = "productSavedPrice">You Saved: <%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+    <div class = "productPriceContainer">
+      <div class = "productOurPrice"><div class = "title">Our Price:</div><%= number_to_currency(@product.our_price) -%></div>
+      <div class = "productOriginalPrice"><div class = "title">Original Price:</div><%= number_to_currency(@product.price) -%></div>
+      <div class = "productSavedPrice"><div class = "title">You Saved:</div><%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+    </div>
     <div>
-      <% form_for :cart, :url => cart_path do |f| -%>
-        <% if true -%>
-        <!-- replace this block with select boxes -->
-          <% for sku in @product.skus -%>
-            <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
+      <% unless @product.skus.empty? -%>
+        <% form_for :cart, :url => cart_path do |f| -%>
+          <% if @store.product_selection_option?('radio_buttons') -%>
+            <% for sku in @product.skus -%>
+              <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= h(get_attribute_values(sku)) -%></div>
+            <% end -%>
+          <% else -%>
+            <div class = "productSelectOptions">
+              <%  (product_attributes = @store.product_attributes).each_with_index do |product_attribute, index| -%>
+              <div class = "productOptionSelectBoxContainer">
+                <div class = "attributeName"><%= h(product_attribute.name.capitalize) %></div>
+                <%= select_tag :value, options_for_attribute_value_select(product_attribute), html_options_for_attribute_value_select(@product, product_attributes, index) -%>
+              </div>
+              <% end -%>
+            </div>
+            <%= hidden_field_tag :attribute_values, nil -%>
+            <%= hidden_field_tag :product_id, @product.id -%>
           <% end -%>
-        <!-- replace this block with select boxes -->
-        <% else -%>
-          <% for sku in @product.skus -%>
-            <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= get_attribute_values(sku) -%></div>
-          <% end -%>
-        <% end -%>
-        <%= text_field_tag :item_qty, 1, :class => "qtyField" -%>
-        <%= f.submit 'Add to Cart' -%>
+          <div class = "attributeName">Quantity</div>
+          <div><%= text_field_tag :item_qty, 1, :class => "qtyField" -%></div>
+          <div class = "addToCartButtonContainer"><%= f.submit 'Add to Cart', :class => "linkButton", :onclick => get_onclick_events -%></div>
+        <% end %>
       <% end %>
     </div>
   </div>

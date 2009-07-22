@@ -20,10 +20,13 @@ class Sku < ActiveRecord::Base
   
   validates_presence_of :number, :quantity, :additional_price, :product_id
   validates_uniqueness_of :number, :scope => :product_id
-  
+  #validates_associated :attribute_values
+
   has_many :attribute_values, :dependent => :destroy
 
   belongs_to :product
+
+  after_update :save_attribute_values
 
   def before_validation
     self.number = rand(5) if number.blank?
@@ -39,7 +42,6 @@ class Sku < ActiveRecord::Base
     
     paginate default_options.merge(options)
   end
-  
 
   def new_attribute_value_attributes=(attribute_value_attributes)
     attribute_value_attributes.each do |attributes|
@@ -50,11 +52,18 @@ class Sku < ActiveRecord::Base
   def existing_attribute_value_attributes=(attribute_value_attributes)
     attribute_values.reject(&:new_record?).each do |attribute_value|
       attributes = attribute_value_attributes[attribute_value.id.to_s]
-      if attributes
-        attribute_value.attributes = attributes
-      else
-        attribute_values.delete(attribute_value)
-      end
+      attribute_value.attributes = attributes if attributes
+#      if attributes
+#        attribute_value.attributes = attributes
+#      else
+#        attribute_values.delete(attribute_value)
+#      end
+    end
+  end
+
+  def save_attribute_values
+    attribute_values.each do |attribute_value|
+      attribute_value.save(false)
     end
   end
 
@@ -63,11 +72,11 @@ class Sku < ActiveRecord::Base
   end
 
   def price
-    product.price
+    product.price + additional_price
   end
   
   def original_price
-    product.original_price + price_adjustment
+    product.original_price + additional_price
   end
   
   def total_discount
@@ -77,9 +86,9 @@ class Sku < ActiveRecord::Base
   def percent_discount
     ((product.discount * 100) / original_price).to_i
   end
-  
+
   def our_price
-    price - total_discount
-  end 
+    original_price - total_discount
+  end
 
 end

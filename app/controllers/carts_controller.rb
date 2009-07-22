@@ -8,8 +8,8 @@ class CartsController < ApplicationController
   end
   
   def create
-    item_id, item_qty = params[:item_id].to_i, params[:item_qty].to_i
-    if item = @store.skus.find_by_id(item_id)
+    if item = find_item
+      item_qty = params[:item_qty] ? params[:item_qty].to_i : nil
       if item_qty > 0
         unless item.is_out_of_stock?
           @cart.add_item(item, item_qty)
@@ -29,6 +29,18 @@ class CartsController < ApplicationController
     end
   end
   
+  def find_item
+    item_id = params[:item_id]
+    attribute_values = params[:attribute_values] ? params[:attribute_values].split(',') : nil
+    item = @store.skus.find_by_id(item_id)
+    unless item
+      @store.skus.all(:conditions => { :product_id => params[:product_id] }).each do |sku|
+        item = sku and break if sku.attribute_values.collect(&:value) == attribute_values
+      end
+    end
+    item
+  end
+
   def update
     if params[:cart_items]
       params[:cart_items].each do |id, qty|

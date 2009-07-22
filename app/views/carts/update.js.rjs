@@ -1,2 +1,2 @@
 page.alert(flash[:message].blank? ? flash[:error] : flash[:message])
-flash[:message] = flash[:message] = nil
+flash.clear

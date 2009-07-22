@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :products, :only => [:index]
   map.with_options :controller => 'products' do |controller|
+    controller.update_select_options '/products/update_select_options/:id', :action => 'update_select_options'
     controller.product '/products/:permalink', :action => 'show'
 #    controller.product '/products/:tag', :action => 'index'
   end

@@ -10,7 +10,7 @@
     <div class = "attributeValues"><%= get_attribute_values(cart_item) -%></div>
   </div>
   <div class = "qtyItem" id = "item_<%= item[:id] -%>_qty" ><%= text_field_tag "cart_items[#{item[:id]}]", item[:qty], :size => 3, :class => "qtyTextField" -%></div>
-  <div class = "priceEachItem" id = "priceEachItem_<%= item[:id] -%>"><%= number_to_currency(cart_item.our_price) -%></div>
+  <div class = "priceEachItem" id = "priceEachItem_<%= item[:id] -%>"><%= number_to_currency(item[:price]) -%></div>
   <div class = "priceTotalItem" id = "priceTotalItem_<%= item[:id] -%>"><%= number_to_currency(item[:price] * item[:qty]) -%></div>
   <div class="actions">
     <%= link_to_remote "Update", :url => update_item_cart_path, :with => "'id=' + #{ item[:id] } + '&qty=' + $('#cart_items_#{ item[:id] }').val()", :method => 'put', :loading => "showSpinner('#itemUpdateIndicator_#{ item[:item_id] }')", :complete => "hideSpinner('#itemUpdateIndicator_#{ item[:item_id] }')", :html => { :class => 'linkButton updateCartItem'} -%>

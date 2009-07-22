@@ -41,6 +41,7 @@ class Product < ActiveRecord::Base
   
   has_many :images, :dependent => :destroy, :as => :attachable
   has_many :skus, :dependent => :destroy
+  has_many :attribute_values, :through => :skus
 
   has_many :categories_products, :dependent => :destroy
   has_many :categories, :through => :categories_products

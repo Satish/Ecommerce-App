@@ -30,9 +30,9 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def edit
-#    @store.product_attributes.each do |attr|
-#      @sku.attribute_values.build(:product_attribute_id => attr.id)
-#    end
+    @store.product_attributes.each do |attr|
+      @sku.attribute_values.build(:product_attribute_id => attr.id) unless @sku.attribute_values.collect(&:product_attribute_id).include?(attr.id)
+    end
   end
 
   def show

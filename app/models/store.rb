@@ -49,6 +49,10 @@ class Store < ActiveRecord::Base
   before_create :build_pages
 
 
+  def product_selection_option?(option)
+    option == 'drop_down' # allow admin to choose the options
+  end
+
   private ################################
 
   def create_blog

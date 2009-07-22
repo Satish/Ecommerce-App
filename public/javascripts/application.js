@@ -120,6 +120,30 @@ Product = {
   }
 }
 
+
+function is_selected(dom_ids){
+  for( i=0; i< dom_ids.length; i++ ){
+    var attr_value = $(dom_ids[i]).attr('value')
+    if ( attr_value == '') {
+      alert('You must select required options to add product to your cart.');
+      set_attribute_values(dom_ids)
+      return false;
+    }
+  }
+  set_attribute_values(dom_ids)
+  return true;
+}
+
+function set_attribute_values(dom_ids){
+  var attribute_values = []
+  for(i=0; i< dom_ids.length; i++){
+    var attr_value = $(dom_ids[i]).attr('value')
+    if(attr_value != '')
+    attribute_values[i] = attr_value
+  }
+  $('input#attribute_values').attr('value', attribute_values)
+}
+
 /*
 document.observe("dom:loaded", function() {r
   // the element in which we will observe all clicks and capture

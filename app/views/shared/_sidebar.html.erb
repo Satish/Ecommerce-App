@@ -1,6 +1,13 @@
 <% sidebar_navigation_section "Shop By Category" do %>
-  <% for category in @store.categories.parent_categories -%>
-    <li><%= link_to category.title, category, :title => category.title -%></li>
+  <% for category in @store.categories.roots -%>
+    <li>
+      <%= link_to h(category.title.capitalize), category, :title => h(category.title.capitalize) -%>
+      <ul class = "navSectionDesc">
+      <% for child_category in category.children -%>
+        <li style = "font-weight:normal; font-size: 1em;"><%= link_to h(child_category.title.capitalize), category, :title => h(child_category.title.capitalize) -%></li>
+      <% end -%>
+      </ul>
+    </li>
   <% end -%>
 <% end %>
 <% sidebar_navigation_section "Shop By Brand" do %>

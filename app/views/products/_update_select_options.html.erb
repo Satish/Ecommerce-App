@@ -1,0 +1,1 @@
+<%= options_for_select([["Select #{ h(params[:attribute].capitalize) }", '']] + attribute_values.collect{ |av| [av.value, av.value] }.uniq) -%>

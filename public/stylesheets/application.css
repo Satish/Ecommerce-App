@@ -74,10 +74,18 @@ body#body {font-size: 85%; background-color: #eee}
 #productLeft .productOtherImages { padding: 20px 0px; overflow: hidden;}
 .productOtherImages h3 { padding-bottom:10px; overflow:hidden; }
 #product #productRight { width:56%; float: right; padding: 0px 10px;}
-#productRight div { padding: 2px 0px}
 #product h2.productName { font-size: 20px; padding-bottom: 10px;}
-.qtyField { width: 50px; border: 1px solid #555; padding: 2px 5px; }
 #product #productOtherImages .productOtherImage { float:left; padding:5px; }
+.productPriceContainer { padding: 10px 0px; font-size:1.2em; font-weight:bold;}
+.productPriceContainer .productOurPrice, .productPriceContainer .productOriginalPrice, .productPriceContainer .productSavedPrice { padding: 2px 0px; overflow:hidden;}
+.productOurPrice .title, .productOriginalPrice .title, .productSavedPrice .title { width: 120px;float:left; margin-right: 10px;}
+.productSelectOptions input, .productSelectOptions select { border: 1px solid #ccc; padding: 2px 0px 2px 5px; }
+select.productOptionSelectBox { width: 150px; margin: 2px 0px;}
+.attributeName { width: 100px; font-weight: bold; float:left;}
+.productOptionSelectBoxContainer{ }
+.productSelectOptions { padding: 10px 0px !important;}
+.addToCartButtonContainer { margin: 20px 0px 0px 100px;}
+.qtyField { width: 50px; border: 1px solid #ccc; padding: 2px 5px; }
 
 .shoppingCart { padding: 10px;}
 .shoppingCart #cartItems { }
