@@ -13,6 +13,7 @@ class Role < ActiveRecord::Base
 
   @@per_page = PER_PAGE
   cattr_reader :per_page
+
   attr_accessible :name
 
   validates_presence_of :name

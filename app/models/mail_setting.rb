@@ -7,8 +7,8 @@
 #  mail_domain            :string(255)     default("localhost")
 #  mail_port              :integer(4)      default(25)
 #  mail_auth_type         :string(255)     default("none")
-#  smtp_username          :string(255)     default("test@example.com")
-#  smtp_password          :string(255)     default("test@example.com")
+#  smtp_username          :string(255)
+#  smtp_password          :string(255)
 #  mails_from             :string(255)     default("test@example.com")
 #  mail_bcc               :string(255)     default("test@example.com")
 #  order_from             :string(255)     default("test@example.com")
@@ -23,6 +23,8 @@
 class MailSetting < ActiveRecord::Base
 
   include Authentication
+
+  attr_protected :store_id
 
   validates_presence_of  :mail_host, :mail_domain, :mail_port, :mail_auth_type, :smtp_username, :smtp_password, :mails_from, :order_from, :if => Proc.new{ |u| u.enable_mail_delivery }
   validates_inclusion_of :secure_connection_type, :in => SECURE_CONNECTION_TYPES, :message => "{{value}} is not included in the list"

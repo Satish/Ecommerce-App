@@ -1,0 +1,7 @@
+<div class="container post">
+  <span class = "floatRight marginTop4"><%= link_to 'Back to Gateways', [:admin, Gateway.new] -%></span>
+  <h2 class="gatewayHeading">Edit Gateway Options <em>(<%= h(@store_gateway.gateway.name) -%>)</em></h2>
+  <div id='editGatewayForm' class="formContainer create">
+    <%= render :partial => 'form' -%>
+  </div>
+</div>

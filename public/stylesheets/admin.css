@@ -338,143 +338,50 @@ body.login .create input.text, body.login .create label {
 	padding-right: 40px;
 }
 
-a, a:visited, a:hover {
-	color: #333;
-	text-decoration: none;
-}
-
-ul {
-	list-style-type: none;
-	list-style-position: outside;
-	margin: 0;
-	padding: 0;
-}
-
-#spinner {
-	position: fixed;
-	top: 40px;
-	right: 8px;
-	z-index: 100;
-}
+a, a:visited, a:hover { color: #333;	text-decoration: none; }
+ul { list-style-type: none; list-style-position: outside; margin: 0; padding: 0; }
+#spinner { position: fixed;	top: 40px; right: 8px; z-index: 100; }
 
 /*- FORMS */
 
-input, textarea {
-	color: #333;
-}
+input, textarea { color: #333; }
+textarea { width: 100%; line-height: 1.3em; }
+.formRow select, .formRow input.fileField{ width: 45%; }
+label.abovecontent { font-size: 9px; line-height: 10px;	background: #d4d4d4; padding: 1px 10px 2px;	color: #444; font-weight: normal;	-webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px;	-moz-border-radius-topright: 5px;	position: absolute;	margin-top: -13px; margin-left: 5px; z-index: 2; }
+label.overcontent { font-weight: normal; position: absolute; width: auto; cursor: text; -webkit-box-shadow: none; }
+label.overcontent { cursor:text; font-weight:normal; position:absolute; width:auto; }
 
-textarea {
-	width: 100%;
-	line-height: 1.3em;
-}
+p:hover > label.abovecontent { display: block; }
 
-.formRow select, .formRow input.fileField{
-	width: 45%;
-}
-
-label.abovecontent {
-	font-size: 9px;
-	line-height: 10px;
-	background: #d4d4d4;
-	padding: 1px 10px 2px;
-	color: #444;
-	font-weight: normal;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-topright: 5px;
-	position: absolute;
-	margin-top: -13px;
-	margin-left: 5px;
-	z-index: 2;
-}
-
-label.overcontent {
-	font-weight: normal;
-	position: absolute;
-	width: auto;
-	cursor: text;
-	-webkit-box-shadow: none;
-}
-
-p:hover > label.abovecontent {
-	display: block;
-}
-
-body.page-logs .item.expanded .more {
-	display: block;
-}
-
-.container .item:hover {
-	background: #f3f3f3;
-}
+body.page-logs .item.expanded .more {	display: block; }
+.container .item:hover { background: #f3f3f3; }
+.container .item label { font-weight: normal;	color: #555; display:block; font-weight:bold; padding-bottom: 1px; }
 
 /*###########################################*/
 
-#page .formRow{
-  padding: 5px 0px;
-}
+#page .formRow{ padding: 5px 0px; }
 
-#page .formRow.transparent{
-  background:transparent none repeat scroll 0% 0%;
-  border:medium none;
-}
-
-.create input.text.important, .create label.important {
-  font-size:1.3em;
-}
-
-.create input.text, .create label {
-  font-size:1.1em;
-}
-
-.create {
-  color:#555;
-  margin-top:10px;
-}
-
-.create input.text, .create textarea, .create label, .search .text {
-  -moz-border-radius-bottomleft:3px;
-  -moz-border-radius-bottomright:3px;
-  -moz-border-radius-topleft:3px;
-  -moz-border-radius-topright:3px;
-  font-family:'Helvetica Neue Light','HelveticaNeue-Light','Helvetica Neue',Helvetica,Arial,Sans-Serif;
-}
-.create input.text, .create textarea {
-  padding:3px 5px;
-  width:98%;
-}
-
+#page .formRow.transparent{ background:transparent none repeat scroll 0% 0%; border:medium none; }
+.create input.text.important, .create label.important { font-size:1.3em; }
+.create input.text, .create label { font-size:1.1em; }
+.create { color:#555; margin-top:10px; }
+.create input.text, .create textarea, .create label, .search .text { -moz-border-radius-bottomleft:3px; -moz-border-radius-bottomright:3px; -moz-border-radius-topleft:3px; -moz-border-radius-topright:3px; font-family:'Helvetica Neue Light','HelveticaNeue-Light','Helvetica Neue',Helvetica,Arial,Sans-Serif; }
+.create input.text, .create textarea { padding:3px 5px; width:98%; }
+.create input.fieldWidth{ width:43%; }
+.create select.fieldWidth{ width:44%; }
+.create input.text, .create textarea, .create select{ padding:3px 5px; }
+.moreInfo { font-size: 1.3em; padding-left: 20px;}
 .search { font-size:1.5em; }
 .search .text { width: 75%; padding:5px; }
 .search .searchForm { float:left; width:95% }
 .search .searchProgressIndicatorBlock { float:right; }  
-.create input.text, .create textarea, .create select{
-  padding:3px 5px;
-}
 
-label.overcontent {
-  cursor:text;
-  font-weight:normal;
-  position:absolute;
-  width:auto;
-}
-
-.styledFormElement {
-  border:1px solid #BBBBBB;
-}
-
-.container .item label {
-	font-weight: normal;
-	color: #555;
-  display:block;
-  font-weight:bold;
-  padding-bottom: 1px;
-}
+.styledFormElement { border:1px solid #BBBBBB; }
 
 .floatRight {float:right }
-.marginTop4 { margin-top: 4px; }
 .floatLeft {float:left; }
+
+.marginTop4 { margin-top: 4px; }
 .pageLoadingIndicator{float:right; margin:10px 0px 10px 0px;}
 
 /* TABLE VIEW STYLE START */

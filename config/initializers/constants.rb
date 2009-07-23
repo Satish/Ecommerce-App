@@ -7,3 +7,4 @@ PER_PAGE = 20
 STATE_FOR_STATE_SELECT = ['United States', 'India', 'Australia', 'Spain', 'Uganda', 'France', 'German', 'Canada', 'Scotland', 'Ireland', 'Wales', 'United Kingdom' ]
 MAIL_AUTH = ['none', 'plain', 'login', 'cram_md5']
 SECURE_CONNECTION_TYPES = ['None','SSL','TLS']
+ACTIVE_INACTIVE_SELECT_OPTIONS = { "Active" => true, "Inactive" => false}

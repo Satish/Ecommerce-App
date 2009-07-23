@@ -17,6 +17,8 @@ class ShippingMethod < ActiveRecord::Base
   @@per_page = PER_PAGE
   cattr_reader :per_page
 
+  attr_protected :store_id
+
   validates_presence_of :name, :store_id
   validates_uniqueness_of :name, :scope => :store_id
   

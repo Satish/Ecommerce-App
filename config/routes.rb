@@ -47,21 +47,24 @@ ActionController::Routing::Routes.draw do |map|
   # Admin Routes (under admin namescope)
   map.namespace :admin do |admin|
     admin.root :controller => 'dashboard'
-    admin.resource :stores, :only => [:show, :edit, :update], :as => :store
+    admin.resource  :stores, :only => [:show, :edit, :update], :as => :store
+    admin.resource  :mail_settings, :only => [:show, :edit, :update]
+    admin.resource  :blog, :only => [:show, :edit, :update]
     admin.resources :dashboard, :only => [:index]
     admin.resources :categories, :member => {:products => :get, :add_products => [:get, :put], :remove_products => :put}
     admin.resources :brands, :member => {:products => :get}
     admin.resources :products, :has_many => [:skus]
     admin.resources :product_attributes, :except => [:show]
     admin.resources :images, :only => [:index, :destroy]
-    admin.resources :pages
-    admin.resource :blog, :only => [:show, :edit, :update]
     admin.resources :posts, :has_many => [:comments]
     admin.resources :tiny_mce_photos, :only => [:index, :create]
     admin.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
     admin.resources :shipping_methods
     admin.resources :currencies
-    admin.resource :mail_settings, :only => [:show, :edit, :update]
+    admin.resources :gateways, :only => [:index] do |gateways|
+      gateways.resource :gateway_options, :only => [:edit, :update]
+    end
+    admin.resources :pages
 
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'

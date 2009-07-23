@@ -1,0 +1,14 @@
+<div class="addnewpage item">
+  <% form_for(@store_gateway, :url => [:admin, @store_gateway.gateway, GatewayOption.new]) do |f| -%>
+    <%= f.error_messages -%>
+    <%= render :partial => @store_gateway.gateway_options -%>
+    <div class="formRow transparent">
+   		<%= f.label :state -%>
+   		<%= f.select :state, options_for_gateway_state {}, :class => "styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit "Save!", :class => "button" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, Gateway.new] -%>
+    </div>
+  <% end -%>
+</div> 

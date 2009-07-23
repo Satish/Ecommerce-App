@@ -12,7 +12,11 @@ class CreateMailSettings < ActiveRecord::Migration
 
       t.timestamps
     end
-    Store.all.each{ |store| MailSetting.create( :store_id => store.id ) }
+    Store.all.each do |store|
+      mail_setting = MailSetting.new
+      mail_setting.store = store
+      mail_setting.save!
+    end
   end
 
   def self.down

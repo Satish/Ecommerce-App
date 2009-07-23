@@ -1,0 +1,30 @@
+<div id = "store_gateways">
+  <% unless @store_gateways.empty? -%>
+    <% paginated_section @store_gateways, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="gatewayLoadingIndicator" id = "gatewayLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct10">Sr. NO.</span>
+          <span class = "pct30 textAlignLeft">Name</span>
+          <span class = "pct40">Description</span>
+          <span class = "pct10">State</span>
+          <span class = "pct10">-</span>
+        </div>
+        <% @store_gateways.each_with_index do |store_gateway, index| -%>
+          <% gateway = store_gateway.gateway %>
+          <% div_for store_gateway, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+            <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+            <span class = "pct30"><h3 class = "title"><%= h(gateway.name) -%></h3></span>
+            <span class = "pct40 textAlignCenter"><%= h(gateway.description) -%></span>
+            <span class = "pct10 textAlignCenter"><%= ACTIVE_INACTIVE_SELECT_OPTIONS.invert[store_gateway.state?] -%></span>
+            <span class = "pct10 textAlignCenter">
+              <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit options"), edit_admin_gateway_gateway_options_path(store_gateway), :title => "edit gateway options") -%>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+    <% else %>
+    <div class = "noRecords">There are no Gateways</div>
+  <% end -%>
+</div>

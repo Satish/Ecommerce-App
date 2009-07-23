@@ -9,7 +9,7 @@
             <ul class="submenu">
               <li id="link_general_settings" title="General Settings" class="first child"><%= link_to 'General Settings', [:edit, :admin, Store.new] -%></li>
               <li id="link_mail_server_settings" title="Mail Server Settings" class="child"><%= link_to 'Mail Server Settings', [:edit, :admin, MailSetting.new] -%></li>
-              <li id="link_gateway" title="Gateway" class="child"><%= link_to 'Gateway', [:edit, :admin, Store.new] -%></li>
+              <li id="link_gateway" title="Gateway" class="child"><%= link_to 'Gateway', [:admin, Gateway.new] -%></li>
               <li id="link_shipping_methods" title="Shipping Methods" class="child"><%= link_to 'Shipping Methods', [:edit, :admin, Store.new] -%></li>
               <li id="link_tax_settings" title="Tax Settings" class="last child"><%= link_to 'Tax Settings', [:edit, :admin, Store.new] -%></li>
             </ul>

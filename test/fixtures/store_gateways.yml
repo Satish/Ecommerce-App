@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: store_gateways
+#
+#  id         :integer(4)      not null, primary key
+#  store_id   :integer(4)
+#  gateway_id :integer(4)
+#  state      :boolean(1)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  store: 
+  state: false
+
+two:
+  store: 
+  state: false

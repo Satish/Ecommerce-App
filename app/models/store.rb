@@ -39,16 +39,19 @@ class Store < ActiveRecord::Base
   has_many :orders, :dependent => :destroy
   has_many :currencies, :dependent => :destroy
 
+  has_many :store_gateways, :dependent => :destroy
+  has_many :gateways, :through => :store_gateways
+
   #has_many :store_countries, :dependent => :destroy
   has_many :countries#, :through => :store_countries
-  
+
   has_many :shipping_methods, :dependent => :destroy
   has_many :shipping_countries, :through => :shipping_methods
 
   has_one :blog, :dependent => :destroy
   has_one :mail_setting, :dependent => :destroy
 
-  after_create :create_blog, :create_admin, :create_store_countries
+  after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways
   before_create :build_pages
 
 
@@ -80,6 +83,19 @@ class Store < ActiveRecord::Base
   def build_pages
     ['About US', "Contact US", "FAQ", "Privacy Policy"].each do |title|
       self.pages.build(:title => title, :description => "#{ title} description")
+    end
+  end
+
+  def create_mail_setting
+    mail_setting = MailSetting.new
+    mail_setting.store = self
+    mail_setting.save!
+  end
+
+  def create_gateways
+    self.gateways << Gateway.all
+     store_gateways.each do |sg|
+      sg.gateway_options << GatewayOption.create(GATEWAY_OPTIONS[sg.gateway.name])
     end
   end
 
