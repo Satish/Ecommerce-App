@@ -1,0 +1,59 @@
+<div class="addnewpost item">
+  <% form_for @mail_setting, :url => [:admin, MailSetting.new] do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :mail_host -%>
+   		<%= f.text_field :mail_host, :class => "text important styledFormElement" -%>
+      <div class = "fieldInfo">eg: enter <b>goodcommerce.com</b> for http://goodcommerce.com</div>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :mail_domain -%>
+   		<%= f.text_field :mail_domain, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :mail_port -%>
+   		<%= f.text_field :mail_port, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :smtp_username -%>
+      <%= f.text_field :smtp_username, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :smtp_password -%>
+      <%= f.text_field :smtp_password, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :mails_from -%>
+      <%= f.text_field :mails_from, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :mail_bcc -%>
+      <%= f.text_field :mail_bcc, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :order_from -%>
+      <%= f.text_field :order_from, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :order_bcc -%>
+      <%= f.text_field :order_bcc, :class => "text important styledFormElement" -%>
+   	</div>
+
+   	<div class="formRow transparent">
+   		<%= f.label :mail_auth_type -%>
+   		<%= f.select :mail_auth_type, options_for_mail_auth_type, {}, { :class => "text styledFormElement"} -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :secure_connection_type -%>
+   		<%= f.select :secure_connection_type, options_for_secure_connection_type, {}, { :class => "text styledFormElement"} -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :enable_mail_delivery -%>
+      <%= f.select :enable_mail_delivery, options_for_status, {}, { :class => "text styledFormElement"} -%>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit "Save!", :class => "button", :style => "margin-left: 5px;"  -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, MailSetting.new] -%>
+    </div>
+  <% end -%>
+</div>

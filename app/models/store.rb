@@ -35,7 +35,6 @@ class Store < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   has_many :users, :dependent => :destroy
   has_many :pages, :dependent => :destroy
-  has_one :blog, :dependent => :destroy
   has_many :roles, :dependent => :destroy
   has_many :orders, :dependent => :destroy
   has_many :currencies, :dependent => :destroy
@@ -45,6 +44,9 @@ class Store < ActiveRecord::Base
   
   has_many :shipping_methods, :dependent => :destroy
   has_many :shipping_countries, :through => :shipping_methods
+
+  has_one :blog, :dependent => :destroy
+  has_one :mail_setting, :dependent => :destroy
 
   after_create :create_blog, :create_admin, :create_store_countries
   before_create :build_pages

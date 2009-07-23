@@ -23,7 +23,6 @@ class Sku < ActiveRecord::Base
   #validates_associated :attribute_values
 
   has_many :attribute_values, :dependent => :destroy
-
   belongs_to :product
 
   after_update :save_attribute_values
@@ -33,12 +32,12 @@ class Sku < ActiveRecord::Base
   end
   
   def after_create
-    update_attribute(:number, "SKU#{id + 251}")
+    update_attribute(:number, "SKU#{ id + 251 }") if number.blank?
   end
   
   def self.search(query, options)
-    conditions = ["number like ?", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, number"}
+    conditions = ["skus.number like ? OR skus.quantity like ? OR attribute_values.value like ?", "%#{ query }%", "%#{ query }%", "%#{ query }%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "skus.created_at DESC, skus.number", :include => query.blank? ? nil : [:attribute_values]}
     
     paginate default_options.merge(options)
   end

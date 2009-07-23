@@ -61,6 +61,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
     admin.resources :shipping_methods
     admin.resources :currencies
+    admin.resource :mail_settings, :only => [:show, :edit, :update]
 
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'

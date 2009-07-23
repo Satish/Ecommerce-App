@@ -11,6 +11,8 @@
 #  separator  :string(255)     default(","), not null
 #  rate       :decimal(10, 8)
 #  precision  :integer(4)      default(2), not null
+#  store_id   :integer(4)
+#  state      :string(10)      default("inactive")
 #  created_at :datetime
 #  updated_at :datetime
 #
