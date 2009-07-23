@@ -86,11 +86,11 @@ module ApplicationHelper
   private ##################
 
   def currency_precision
-    2
+    @currency.precision rescue 2
   end
   
   def currency_unit
-    #'$'
+    @currency.symbol rescue '$'
   end
   
   def precision_percentage

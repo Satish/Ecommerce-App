@@ -1,0 +1,2 @@
+page.replace "currencies", :partial => "currencies"
+page.replace_html "page_entries_info", :text => page_entries_info(@currencies, :entry_name => '')

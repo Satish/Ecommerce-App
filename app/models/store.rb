@@ -38,6 +38,7 @@ class Store < ActiveRecord::Base
   has_one :blog, :dependent => :destroy
   has_many :roles, :dependent => :destroy
   has_many :orders, :dependent => :destroy
+  has_many :currencies, :dependent => :destroy
 
   #has_many :store_countries, :dependent => :destroy
   has_many :countries#, :through => :store_countries

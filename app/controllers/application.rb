@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
   end
 
   def find_store
-    @store = Store.first  
+    @store = Store.first
+    @currency = @store.currencies.active.first if @store
   end
 
   def current_cart

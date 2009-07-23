@@ -2,7 +2,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :orders, :collection => { :get_state_options => :post }
 
-  
   # Normal Routes
   map.root :controller => "products"
   map.resources :users
@@ -61,7 +60,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tiny_mce_photos, :only => [:index, :create]
     admin.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
     admin.resources :shipping_methods
-    
+    admin.resources :currencies
+
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'
 #      user.register '/register', :action => 'create'

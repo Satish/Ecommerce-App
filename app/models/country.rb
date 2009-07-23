@@ -10,6 +10,7 @@
 #  numcode    :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
+#  store_id   :integer(4)
 #
 
 class Country < ActiveRecord::Base
