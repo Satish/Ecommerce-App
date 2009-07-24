@@ -15,7 +15,7 @@
           <% div_for store_gateway, :class => "tableRow #{cycle('odd', 'even')}" do -%>
             <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
             <span class = "pct30"><h3 class = "title"><%= h(gateway.name) -%></h3></span>
-            <span class = "pct40 textAlignCenter"><%= h(gateway.description) -%></span>
+            <span class = "pct40"><%= h(gateway.description) -%></span>
             <span class = "pct10 textAlignCenter"><%= ACTIVE_INACTIVE_SELECT_OPTIONS.invert[store_gateway.state?] -%></span>
             <span class = "pct10 textAlignCenter">
               <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit options"), edit_admin_gateway_gateway_options_path(store_gateway), :title => "edit gateway options") -%>

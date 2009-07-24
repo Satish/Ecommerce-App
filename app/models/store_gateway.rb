@@ -30,7 +30,7 @@ class StoreGateway < ActiveRecord::Base
 
   def self.search(query, options)
     conditions = ["gateways.name like ? or gateways.description like ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
-    default_options = { :conditions => conditions, :order => "store_gateways.created_at DESC, gateways.name", :include => [:gateway] }
+    default_options = { :conditions => conditions, :order => "store_gateways.created_at DESC", :include => [:gateway] }
 
     paginate default_options.merge(options)
   end
