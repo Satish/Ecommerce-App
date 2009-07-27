@@ -22,7 +22,7 @@ class ShippingMethod < ActiveRecord::Base
   validates_presence_of :name, :store_id
   validates_uniqueness_of :name, :scope => :store_id
   
-  named_scope :active, :conditions => { :status => true}
+  named_scope :active, :conditions => { :status => 'active'}
   
   has_many :shipping_countries, :dependent => :destroy
   has_many :countries, :through => :shipping_countries

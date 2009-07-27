@@ -29,8 +29,12 @@ class Address < ActiveRecord::Base
 
   belongs_to :addressable, :polymorphic => true
 
-#  def to_s
-#    [stree1, street2, city, zip, country].reject(&:blank?).join(", ")
-#  end
+  def full_name
+    first_name + ' ' + last_name
+  end
+
+  def to_s
+    [full_name, street1, street2, city, state, country, zipcode, "Phone: #{ phone }", "Fax: #{ fax }"].reject(&:blank?).join(", ")
+  end
 
 end

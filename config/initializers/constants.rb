@@ -8,3 +8,5 @@ STATE_FOR_STATE_SELECT = ['United States', 'India', 'Australia', 'Spain', 'Ugand
 MAIL_AUTH = ['none', 'plain', 'login', 'cram_md5']
 SECURE_CONNECTION_TYPES = ['None','SSL','TLS']
 ACTIVE_INACTIVE_SELECT_OPTIONS = { "Active" => true, "Inactive" => false}
+CARD_TYPES = {'Visa'=> 'visa', 'MasterCard'=> 'master', 'American Express'=> 'american_express', 'Discover'=> 'discover'}
+PAYMENT_TYPES = ['creditcard']#, 'paypal', 'google checkout']

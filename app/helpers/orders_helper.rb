@@ -1,19 +1,35 @@
 module OrdersHelper
 
-  def options_for_payment_type_select(store)
-    []#store.payment_gateways.active.collect{|pg| [pg.name, pg.name] }
+  def select_options_for_payment_type
+    PAYMENT_TYPES
   end
 
-  def card_type_options_for_select
-    []#Order::CARD_TYPE
+  def select_options_for_shipping_method
+    @store.shipping_methods.active.collect{|shipping_method| [shipping_method.name, shipping_method.id] }
   end
-  
-  def year_options_for_select
-   (Time.now.year..Time.now.year+30).to_a
+
+  def select_options_for_card_type
+    CARD_TYPES
   end
-  
-  def month_options_for_select
-    (1..12).to_a
+
+#  def options_for_card_expiration_date_select
+#    { :include_blank => true,
+#      :add_month_numbers => true,
+#      :discard_day => true,
+#      :prompt => { :month => 'Select month', :year => "Select year" },
+#      :start_year => Time.zone.now.year,
+#      :end_year => Time.zone.now.year + 30,
+#      :order => [:day, :month, :year],
+#      :year_separator => '/'
+#    }
+#  end
+
+  def select_options_for_creditcard_month
+    Date::MONTHNAMES.compact
+  end
+
+  def select_options_for_creditcard_year
+    (Time.zone.now.year..Time.zone.now.year+30).to_a
   end
 
   def billing_country_options_for_select

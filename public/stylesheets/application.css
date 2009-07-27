@@ -33,13 +33,17 @@ body#body {font-size: 85%; background-color: #eee}
 #container #leftColumn { width: 23%; float:left;}
 #container #rightColumn { padding-bottom:20px; width: 75%; float:right; border:1px solid #444444; border: 1px solid; -moz-border-radius: 5px }
 
+#new_order h2 { font-size: 16px; font-weight: bold; padding-bottom: 15px;}
 .formRow { padding: 5px 0px; }
 .formRow label { float:left; width: 80px; }
 .formRow input.formField, .formRow textarea.formField, .formRow select.formField { border: 1px solid #666; padding: 2px 5px; }
 .formRow .fieldWidth { width: 200px; }
 .formRow .fieldHeight { height: 30px; }
 .formRow select.fieldWidth { width: 212px; padding:2px 0 2px 5px;}
-.addressess, .paymentDetail{ padding: 10px; overflow: hidden; }
+.addressess, .paymentDetail, .shippingDetail{ padding: 10px; overflow: hidden; }
+.paymentDetail .formRow label, .shippingDetail .formRow label { width:150px; }
+.paymentDetail .formRow select.monthSelect { width: 127px; float: left; margin-right: 5px; }
+.paymentDetail .formRow select.yearSelect { width: 80px}
 .address { width: 49%; padding-top: 10px; }
 .address input { border: 1px solid #666 }
 .address .addressForm { padding-top: 10px; }

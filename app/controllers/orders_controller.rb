@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
     flash[:notice] = "Please add an item to your cart to place an order." and redirect_to cart_path if current_cart.empty?
   end
 
- def build_order
+  def build_order
     @order = Order.new(params[:order])
     @order.shipping_address = ShippingAddress.new(params[:shipping_address])
     @order.billing_address = BillingAddress.new(params[:billing_address])
@@ -116,7 +116,7 @@ class OrdersController < ApplicationController
 
   def build_order_items
     current_cart.cart_items.each do |item|
-      @order.line_items << LineItem.new( (item[:item_type] == "Sku" ? :sku_id : '') => item[:item_id], :quantity => item[:qty], :price => item[:price] * item[:qty])
+      @order.line_items.build( (item[:item_type] == "Sku" ? :sku_id : '') => item[:item_id], :quantity => item[:qty], :price => item[:price] * item[:qty])
     end
   end
 

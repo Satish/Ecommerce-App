@@ -18,40 +18,49 @@
           </div>
         <% end -%>
       </div>
+      <div class="shippingDetail">
+        <h2>3. Choose Your Shipping Method</h2>
+        <div class = "formRow">
+          <%= f.label :shipping_method_id -%>
+          <%= f.select :shipping_method_id, select_options_for_shipping_method, { :include_blank => 'Select Payment Type' }, { :class => "formField fieldWidth" } -%>
+        </div>
+      </div>
       <div class="paymentDetail">
+        <h2>4. Payment Information</h2>
         <div class = "formRow">
           <%= f.label :payment_type -%>
-          <%= f.select :payment_type, options_for_payment_type_select(@store), {:include_blank => 'Select Payment Type'}, {:onchange => "hide_card_info(this)", :class => "formField fieldWidth"} -%>
+          <%= f.select :payment_type, select_options_for_payment_type, { :include_blank => 'Select Payment Type' }, { :onchange => "hide_card_info(this)", :class => "formField fieldWidth" } -%>
         </div>
         <div id = "creditCardInfo" style = "<%= 'display:none' unless @order.payment_type == 'creditcard' -%>">
           <div class="formRow">
-            <%= f.label :card_number -%>
-            <%= f.text_field :card_number, {:autocomplete => 'off', :class => "formField fieldWidth", :style => "width:120px"} -%>
+            <%= f.label :first_name -%>
+            <%= f.text_field :first_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
           </div>
           <div class="formRow">
-            <%= f.label :card_verification_value -%>
-            <%= f.text_field :card_verification_value, {:autocomplete => 'off', :class => "formField fieldWidth", :style => "width:50px"} -%>
+            <%= f.label :last_name -%>
+            <%= f.text_field :last_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
+          </div>
+          <div class="formRow">
+            <%= f.label :card_number -%>
+            <%= f.text_field :card_number, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
           </div>
           <div class="formRow">
             <%= f.label :card_type -%>
-            <%= f.select :card_type, card_type_options_for_select, {:include_blank => 'Select Card Type'}, {:class => "formField fieldWidth", :style => "width:135px"} -%>
+            <%= f.select :card_type, select_options_for_card_type, {:include_blank => 'Select Card Type'}, { :class => "formField fieldWidth" } -%>
           </div>
           <div class="formRow">
-            <%= f.label :card_expiration_month -%>
-            <%= f.select :card_expiration_month, month_options_for_select, {:include_blank => "Month"}, { :class => "formField fieldWidth", :style => "width:135px"} -%>
+            <%= label_tag :card_expiration_date -%>
+            <%= f.select :card_expiration_month, select_options_for_creditcard_month, { :include_blank => 'Month' },  { :class => "formField fieldWidth monthSelect" } -%>
+            <%= f.select :card_expiration_year, select_options_for_creditcard_year, { :include_blank => 'Year'}, { :class => "formField fieldWidth yearSelect" } -%>
           </div>
           <div class="formRow">
-            <%= f.label :card_expiration_year -%>
-            <%= f.select :card_expiration_year, year_options_for_select, {:include_blank => "Year"}, { :class => "formField fieldWidth", :style => "width:135px"} -%>
+            <%= f.label :card_verification_value -%>
+            <%= f.text_field :card_verification_value, { :autocomplete => 'off', :class => "formField fieldWidth", :style => "width:50px" } -%>
           </div>
         </div>
-        <div class="formRow"><%= f.submit 'Confirm Order' , :class => 'confirmOrder linkButton' -%></div>
+        <div class="formRow">
+          <%= f.submit 'Confirm Order' , :class => 'confirmOrder linkButton' -%>
+        </div>
       <% end -%>
     </div>
-</div>
-    <div class="pageRightBottom">&nbsp;</div>  
-  </div>
-  <div class="subPageRight">
-    <%#= liquidize(@store.liquid_contents('sidebar_three') , 'store' => StoreDrop.new(@store)) -%>
-  </div>
 </div>

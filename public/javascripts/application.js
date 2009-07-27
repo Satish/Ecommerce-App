@@ -90,11 +90,11 @@ function onCheckCopyBillingToShipping(dom_element){
   }
 }
 
-function hide_card_info(id) {
-	if ($(id).value == 'creditcard')
-	$('creditCardInfo').show()
+function hide_card_info(dom_id) {
+	if ($(dom_id).attr("value") == 'creditcard')
+	$('#creditCardInfo').show()
 	else
-	$('creditCardInfo').hide()
+	$('#creditCardInfo').hide()
 }
 
 function toggle_disable_message(dom_element) {
