@@ -20,4 +20,8 @@ class GatewayOption < ActiveRecord::Base
   has_one :gateway_option_value
   belongs_to :store_gateway
 
+  def get_gateway_option_value
+    gateway_option_value ? gateway_option_value.value : nil
+  end
+
 end

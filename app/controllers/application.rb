@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  filter_parameter_logging :password, :password_confirmation
-  
+  filter_parameter_logging :password, :password_confirmation, :card_number, :card_verification_value
   private #########################################
 
   def set_blog_time_zone
@@ -34,8 +33,8 @@ class ApplicationController < ActionController::Base
   end
 
   def find_store
-    @store = Store.first
-    @currency = @store.currencies.active.first if @store
+    @store = @store ||= Store.first
+    @currency = @currency ||= @store.currencies.active.first if @store
   end
 
   def current_cart

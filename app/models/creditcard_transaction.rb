@@ -12,11 +12,10 @@
 #  updated_at       :datetime
 #
 
-class CreditcardTransactions < ActiveRecord::Base
+class CreditcardTransaction < ActiveRecord::Base
 
- validates_presence_of :creditcard_id, :amount, :transaction_id, :transaction_type
+  validates_presence_of :creditcard_id, :amount, :transaction_id, :action
 
   belongs_to :creditcard
-
 
 end

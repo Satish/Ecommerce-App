@@ -27,7 +27,7 @@ class Store < ActiveRecord::Base
   validates_presence_of :domain, :email, :display_name
   validates_uniqueness_of :domain
 
-  has_many :categories, :dependent => :destroy, :include => :images
+  has_many :categories, :dependent => :destroy, :include => [:images, :children]
   has_many :products, :dependent => :destroy, :include => :images
   has_many :skus, :through => :products
   has_many :brands, :dependent => :destroy, :include => :images
@@ -40,7 +40,7 @@ class Store < ActiveRecord::Base
   has_many :currencies, :dependent => :destroy
 
   has_many :store_gateways, :dependent => :destroy
-  has_many :gateways, :through => :store_gateways
+#  has_many :gateways, :through => :store_gateways
 
   #has_many :store_countries, :dependent => :destroy
   has_many :countries#, :through => :store_countries
@@ -57,6 +57,10 @@ class Store < ActiveRecord::Base
 
   def product_selection_option?(option)
     option == 'drop_down' # allow admin to choose the options
+  end
+
+  def store_gateway
+    @store_gateway ||= store_gateways.active.first
   end
 
   private ################################

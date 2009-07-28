@@ -36,6 +36,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.shipping_address = ShippingAddress.new#(:country => "United States")
     @order.billing_address = BillingAddress.new#(:country => "United States")
+    @order.payment_type = 'creditcard'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -62,40 +63,6 @@ class OrdersController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-#  # GET /orders/1/edit
-#  def edit
-#    @order = Order.find(params[:id])
-#  end
-#
-#  # PUT /orders/1
-#  # PUT /orders/1.xml
-#  def update
-#    @order = Order.find(params[:id])
-#
-#    respond_to do |format|
-#      if @order.update_attributes(params[:order])
-#        flash[:notice] = 'Order was successfully updated.'
-#        format.html { redirect_to(@order) }
-#        format.xml  { head :ok }
-#      else
-#        format.html { render :action => "edit" }
-#        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
-#      end
-#    end
-#  end
-
-  # DELETE /orders/1
-  # DELETE /orders/1.xml
-  def destroy
-    @order = Order.find(params[:id])
-    @order.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(orders_url) }
-      format.xml  { head :ok }
     end
   end
 

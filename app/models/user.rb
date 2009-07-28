@@ -23,7 +23,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  
+
   @@per_page = PER_PAGE
   cattr_reader :per_page
   

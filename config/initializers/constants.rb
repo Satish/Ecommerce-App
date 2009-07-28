@@ -10,3 +10,5 @@ SECURE_CONNECTION_TYPES = ['None','SSL','TLS']
 ACTIVE_INACTIVE_SELECT_OPTIONS = { "Active" => true, "Inactive" => false}
 CARD_TYPES = {'Visa'=> 'visa', 'MasterCard'=> 'master', 'American Express'=> 'american_express', 'Discover'=> 'discover'}
 PAYMENT_TYPES = ['creditcard']#, 'paypal', 'google checkout']
+VALID_EXPIRY_YEARS = (Time.zone.now.year..Time.zone.now.year + 20).to_a
+VALID_MONTHS = (1..12).to_a.collect{|n| [Date::MONTHNAMES[n], n] }

@@ -35,6 +35,7 @@ class StoreGateway < ActiveRecord::Base
     paginate default_options.merge(options)
   end
 
+  after_save :do_after_save
   after_update :save_gateway_options
 
   def existing_gateway_option_attributes=gateway_option_attributes
@@ -53,6 +54,17 @@ class StoreGateway < ActiveRecord::Base
   def save_gateway_options
     gateway_options.each do |gateway_option|
       gateway_option.save(false)
+    end
+  end
+
+  #-------------------------- private ----------------------------------
+  private
+
+  def do_after_save
+    if state_changed? && state?
+      store.store_gateways.each do |store_gateway|
+        store_gateway.update_attribute(:state, false) unless store_gateway == self
+      end
     end
   end
 

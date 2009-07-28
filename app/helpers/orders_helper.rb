@@ -12,24 +12,12 @@ module OrdersHelper
     CARD_TYPES
   end
 
-#  def options_for_card_expiration_date_select
-#    { :include_blank => true,
-#      :add_month_numbers => true,
-#      :discard_day => true,
-#      :prompt => { :month => 'Select month', :year => "Select year" },
-#      :start_year => Time.zone.now.year,
-#      :end_year => Time.zone.now.year + 30,
-#      :order => [:day, :month, :year],
-#      :year_separator => '/'
-#    }
-#  end
-
   def select_options_for_creditcard_month
-    Date::MONTHNAMES.compact
+    VALID_MONTHS
   end
 
   def select_options_for_creditcard_year
-    (Time.zone.now.year..Time.zone.now.year+30).to_a
+    VALID_EXPIRY_YEARS
   end
 
   def billing_country_options_for_select

@@ -19,7 +19,7 @@ class Creditcard < ActiveRecord::Base
   
   validates_presence_of :first_name, :last_name, :cc_type, :month, :year, :number, :verification_value, :order_id
 
-  has_many :creditcard_transactions
+  has_many :creditcard_transactions, :dependent => :destroy
   belongs_to :order
 
 end
