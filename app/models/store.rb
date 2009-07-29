@@ -50,6 +50,8 @@ class Store < ActiveRecord::Base
 
   has_one :blog, :dependent => :destroy
   has_one :mail_setting, :dependent => :destroy
+  has_one :logo, :dependent => :destroy, :as => :attachable
+  has_one :favicon_icon, :dependent => :destroy, :as => :attachable
 
   after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways
   before_create :build_pages
@@ -61,6 +63,22 @@ class Store < ActiveRecord::Base
 
   def store_gateway
     @store_gateway ||= store_gateways.active.first
+  end
+
+  def logo_attributes=logo_attributes
+    unless logo
+      self.logo = Logo.new(:uploaded_data => logo_attributes)
+    else
+      self.logo.update_attributes(:uploaded_data => logo_attributes)
+    end
+  end
+
+  def favicon_icon_attributes=favicon_icon_attributes
+    unless favicon_icon
+      self.favicon_icon = FaviconIcon.new(:uploaded_data => favicon_icon_attributes)
+    else
+      self.favicon_icon.update_attributes(:uploaded_data => favicon_icon_attributes)
+    end
   end
 
   private ################################
@@ -86,7 +104,7 @@ class Store < ActiveRecord::Base
 
   def build_pages
     ['About US', "Contact US", "FAQ", "Privacy Policy"].each do |title|
-      self.pages.build(:title => title, :description => "#{ title} description")
+      self.pages.build(:title => title, :description => "#{ title } description")
     end
   end
 

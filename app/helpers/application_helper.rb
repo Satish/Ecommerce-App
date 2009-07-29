@@ -83,6 +83,19 @@ module ApplicationHelper
     address.type.underscore + '_state_block'
   end
 
+  def sanitize_html(html)
+    options = { :tags => %w(a href, b, br, i, p, strong, em, table, tr, td, tbody, th, ul, ol, li, img src, img, h1, h2, h3, h4), :attributes => %w(id class style) }
+    sanitize(html, options)
+  end
+
+  def favicon_tag
+    tag( :link,
+         :rel   => "shortcut icon",
+         :title => h(@store.display_name),
+         :href  => @store.favicon_icon ? @store.favicon_icon.public_filename : @store.logo ? @store.logo.public_filename(:favicon) : nil
+        )
+  end
+
   private ##################
 
   def currency_precision

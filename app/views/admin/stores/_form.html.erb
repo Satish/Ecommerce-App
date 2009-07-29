@@ -1,65 +1,71 @@
-<div class="addnewpost item">
+<div class="editStore item">
   <% form_for @store, :url => [:admin, Store.new], :html => {:multipart => true } do |f| -%>
     <%= f.error_messages -%>
     <div class="formRow transparent">
-   		<%= f.label :domain -%>
-   		<%= f.text_field :domain, :class => "text important styledFormElement" -%>
+      <%= f.label :domain -%>
+      <%= f.text_field :domain, :class => "text important styledFormElement" -%>
       <div class = "fieldInfo">eg: enter <b>goodcommerce.com</b> for http://goodcommerce.com</div>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :display_name -%>
-   		<%= f.text_field :display_name, :class => "text important styledFormElement" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :email -%>
-   		<%= f.text_field :email, :class => "text important styledFormElement" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :address -%>
-   		<%= f.text_area :address, :class => "mceNoEditor styledFormElement height50px" -%>
-   	</div>
+      <%= f.label :display_name -%>
+      <%= f.text_field :display_name, :class => "text important styledFormElement" -%>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :description -%>
+      <%= f.label :email -%>
+      <%= f.text_field :email, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :address -%>
+      <%= f.text_area :address, :class => "mceNoEditor styledFormElement height50px" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :description -%>
       <%= f.text_area :description, :class => "mceNoEditor styledFormElement height50px" -%>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :toll_free_number -%>
+      <%= f.label :toll_free_number -%>
       <%= f.text_field :toll_free_number, :class => "text important styledFormElement" -%>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :google_analytics_account -%>
+      <%= f.label :google_analytics_account -%>
       <%= f.text_field :google_analytics_account, :class => "text important styledFormElement" -%>
       <div class = "fieldInfo">(UA-xxxx-x)</div>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :add_this_username -%>
+      <%= f.label :add_this_username -%>
       <%= f.text_field :add_this_username, :class => "text important styledFormElement" -%>
       <div class = "fieldInfo">(With a free AddThis account, you can find out which of your pages and which destinations are the most popular with your users. <%= link_to 'Click Here', "http://www.addthis.com/register", :popup => true -%> to create a AddThis account)</div>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :meta_title -%>
+      <%= f.label :meta_title -%>
       <%= f.text_field :meta_title, :class => "text important styledFormElement" -%>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :meta_description -%>
+      <%= f.label :meta_description -%>
       <%= f.text_field :meta_description, :class => "mceNoEditor text styledFormElement height50px" -%>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :meta_keywords -%>
+      <%= f.label :meta_keywords -%>
       <%= f.text_field :meta_keywords, :class => "mceNoEditor text styledFormElement height50px" -%>
-   	</div>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :status -%>
+      <%= f.label :status -%>
       <%= f.select :status, options_for_status, {}, {:onchange => "toggle_disable_message(this)", :class => "text styledFormElement"} -%>
-   	</div>
+    </div>
     <div id = "storeDisableMessage" class="formRow transparent" style = "display:<%= 'none' if @store.status -%>">
-   		<%= f.label :disable_message -%>
+      <%= f.label :disable_message -%>
       <%= f.text_area :disable_message, :class => "styledFormElement height50px" -%>
-   	</div>
+    </div>
     <div class="formFields transparent">
-  		<%= f.label :logo_image -%>	
-  		<%= file_field :attachable, :uploaded_data, :class => "styledFormElement fileField", :size => "31px" -%>
-  	</div>
+      <%= f.label :logo_image -%>
+      <%= file_field :store, :logo_attributes, :class => "styledFormElement fileField", :size => "31px" -%>
+      <%= image_tag(@store.logo.public_filename(:small)) if @store.logo -%>
+    </div>
+    <div class="formFields transparent">
+      <%= f.label :favicon_icon -%>
+      <%= file_field :store, :favicon_icon_attributes, :class => "styledFormElement fileField", :size => "31px" -%>
+      <%= image_tag(@store.favicon_icon.public_filename) if @store.favicon_icon -%>
+    </div>
     <div class="formRow transparent">
       <%= f.submit "Save!", :class => "button", :style => "margin-left: 5px;"  -%>&nbsp; or &nbsp;
       <%= link_to "Cancel", [:admin, Store.new] -%>

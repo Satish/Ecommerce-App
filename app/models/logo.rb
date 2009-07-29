@@ -18,21 +18,11 @@
 #  store_id        :integer(4)
 #
 
-class Image < ActiveRecord::Base
+class Logo < Image
   
-  #validates_presence_of :attachable_type, :attachable_id#,  :store_id
-
-  THUMBNAILS = {:S25x25 => "25x25",
-                :S75x75 => "75x75",
-                :S100x120 => "100x120",
-                :S130x130 => "130x130",
-                :S160x160 => "160x160",
-                :S225x225 => "225x225",
-                :S280x280 => "280x280",
-                :S365x355 => "365x355",
-                :S550x440 => "550x440",
-                :S650x250 => "650x250",}
-
+  THUMBNAILS = {:small => "100x40",
+                :normal => "350x80",
+                :favicon => "10x10" }
   has_attachment :content_type => [:image],  
                  :thumbnails => THUMBNAILS,
                  :storage => :file_system, :path_prefix => 'public/images/photos',
@@ -40,13 +30,9 @@ class Image < ActiveRecord::Base
                  :processor => 'Rmagick'
                  
   validates_as_attachment
-
-#  validates_presence_of :attachable_id, :attachable_type, :type, :store_id
-  belongs_to :attachable, :polymorphic => true
-  belongs_to :store
   
   def before_save
-    self.store = attachable.store if attachable
+    self.store = attachable
   end
-  
+
 end

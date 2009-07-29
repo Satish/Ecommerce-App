@@ -7,7 +7,7 @@ class Admin::StoresController < Admin::BaseController
   def update
     if @store.update_attributes(params[:store])
       flash[:message] = "General Settings updated successfully"
-      redirect_to [:admin, Store.new]      
+      redirect_to [:edit, :admin, Store.new]
     else
       render :action => :edit
     end
