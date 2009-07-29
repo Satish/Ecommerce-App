@@ -5,11 +5,9 @@ class CreateCountries < ActiveRecord::Migration
       t.string      :iso,             :limit => 2
       t.string      :iso3,            :limit => 3
       t.integer     :numcode
-      t.references  :store
 
       t.timestamps
     end
-    add_index :countries, :store_id
   end
 
   def self.down

@@ -14,7 +14,9 @@ namespace :db do
 
   desc 'Insert sample data'
   task :insert_sample_data => :environment do
-    Rake::Task["roles:create_defaults"].invoke
+    Rake::Task["db:roles:create_defaults"].invoke
+    Rake::Task["db:countries:create_defaults"].invoke
+    Rake::Task["db:gateways:create_defaults"].invoke
     Rake::Task["db:insert_sample_store"].invoke
   end
 

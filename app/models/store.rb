@@ -40,10 +40,10 @@ class Store < ActiveRecord::Base
   has_many :currencies, :dependent => :destroy
 
   has_many :store_gateways, :dependent => :destroy
-#  has_many :gateways, :through => :store_gateways
+  has_many :gateways, :through => :store_gateways
 
-  #has_many :store_countries, :dependent => :destroy
-  has_many :countries#, :through => :store_countries
+  has_many :store_countries, :dependent => :destroy
+  has_many :countries, :through => :store_countries
 
   has_many :shipping_methods, :dependent => :destroy
   has_many :shipping_countries, :through => :shipping_methods
@@ -99,7 +99,7 @@ class Store < ActiveRecord::Base
   end
 
   def create_store_countries
-    Country.create(ISO_COUNTRIES){ |c| c.store_id = id }
+    self.countries << Country.all
   end
 
   def build_pages

@@ -7,8 +7,6 @@ class CreateGateways < ActiveRecord::Migration
 
       t.timestamps
     end
-    gateways = Gateway.create(GATEWAYS)
-    Store.all.each{ |store| store.gateways << gateways }
   end
 
   def self.down
