@@ -17,8 +17,8 @@ class State < ActiveRecord::Base
   cattr_reader :per_page
   attr_protected :store_country_id#, :country_id
 
-  validates_presence_of   :name, :abbr, :store_country_id
-  validates_uniqueness_of :name, :abbr
+  validates_presence_of   :name, :store_country_id#, :abbr
+  validates_uniqueness_of :name, :scope => :store_country_id#, :abbr
 
   belongs_to :country
   belongs_to :store_country
