@@ -66,7 +66,9 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :pages
     admin.resources :countries, :except => [:index]
-    admin.resources :store_countries, :except => [:new, :show, :edit, :update], :collection => { :remove => :post }
+    admin.resources :store_countries, :only => [:index, :create, :destroy], :collection => { :remove => :post } do |store_countries|
+      store_countries.resources :states, :except => [:show]
+    end
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'
 #      user.register '/register', :action => 'create'

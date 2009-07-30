@@ -12,9 +12,21 @@
 
 class State < ActiveRecord::Base
 
-  validates_presence_of   :name, :abbr, :country_id
+  @@per_page = PER_PAGE
+  cattr_reader :per_page
+  attr_protected :store_country_id, :country_id
+
+  validates_presence_of   :name, :abbr, :store_country_id
   validates_uniqueness_of :name, :abbr
 
   belongs_to :country
+  belongs_to :store_country
+
+  def self.search(query, options)
+    conditions = ["states.name like ? or states.abbr like ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "states.name" }
+
+    paginate default_options.merge(options)
+  end
 
 end

@@ -68,7 +68,7 @@ class Admin::SkusController < Admin::BaseController
 
   def find_product
     @product = @store.products.find_by_id(params[:product_id])
-    redirect_to [:admin, Product.new] and return and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @product
+    redirect_to [:admin, Product.new] and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @product
   end
   
   def find_sku

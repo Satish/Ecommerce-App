@@ -2,7 +2,7 @@ class Admin::StoreCountriesController < Admin::BaseController
 
   def index
     options = { :page => params[:page] }
-    @store_countries = @store.store_countries.search(params[:query], options)
+    @store_countries = @store.store_countries.search(params[:search], options)
   end
 
   def create

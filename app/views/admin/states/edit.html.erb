@@ -1,0 +1,7 @@
+<div class="container post">
+  <span class = "floatRight marginTop4"><%= link_to "back to #{ h(@store_country.country.name) }'s States", [:admin, @store_country, State.new] -%></span>
+  <h2 class="pageHeading">Edit State</h2>
+  <div id='editBrandForm' class="formContainer create">
+    <%= render :partial => 'form' -%>
+  </div>
+</div>

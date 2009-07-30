@@ -1,0 +1,18 @@
+<div class="addnewpost item">
+  <% form_for([:admin, @store_country, @state]) do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+   		<%= f.label :name -%>
+   		<%= f.text_field :name, :class => "text important styledFormElement" -%>
+   	</div>
+   	<div class="formRow transparent">
+   		<%= f.label :abbr -%>
+   		<%= f.text_field :abbr, :class => "text important styledFormElement" -%>
+      <div class = "fieldInfo">two letter abbreviation eg: <strong>ND</strong> for New Delhi</div>
+   	</div>
+    <div class="formRow transparent">
+      <%= f.submit @state.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:admin, @store_country, State.new] -%>
+    </div>
+  <% end -%>
+</div> 

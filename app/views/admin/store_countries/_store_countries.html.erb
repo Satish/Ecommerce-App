@@ -15,7 +15,7 @@
             <span class = "pct15" style = "margin-left:10px;"><%= check_box_tag "store_country_ids[]", store_country.id, false, :class => "styledFormElement" -%></span>
             <span class = "pct25"><%= h(store_country.country.name) -%></span>
             <span class = "pct5 textAlignCenter"><%= h(store_country.country.iso) -%></span>
-            <span class = "pct45"><%= store_country.states.collect(&:name).join(', ') -%>&nbsp;</span>
+            <span class = "pct45 textAlignCenter"><%= store_country.states.collect(&:name).join(', ') -%><br/><%= link_to pluralize(store_country.states.size, "State"), [:admin, store_country, State.new] -%></span>
             <span class = "pct5 textAlignCenter">
               <%= link_to_remote(image_tag("admin/iconDelete.png", :alt => "X"), :url => [:admin, store_country], :title =>  'Delete this Country', :method => :delete, :confirm => "Deleting '#{ h(store_country.country.name) }' from Store Countries\n Are you Sure?") -%>
             </span>

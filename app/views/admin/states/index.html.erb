@@ -1,0 +1,12 @@
+<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <span class = "floatRight marginTop4" id = "page_entries_info"><%= page_entries_info @states, :entry_name => '' -%></span>
+  <h1 class="pageHeading">
+    <%= h(@store_country.country.name) -%>'s States(<%= link_to "+", new_admin_store_country_state_path(@store_country), :title => "Create New State" -%>)
+    <%= link_to "back to store countries", [:admin, StoreCountry.new], :style => "font-size:12px; color:#999" -%>
+  </h1>
+</div>
+
+<div class="container">
+  <%= render :partial => 'states' -%>
+</div>
