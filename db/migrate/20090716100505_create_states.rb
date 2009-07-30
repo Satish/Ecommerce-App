@@ -3,7 +3,7 @@ class CreateStates < ActiveRecord::Migration
     create_table :states do |t|
       t.string      :name
       t.string      :abbr, :limit => 2
-      t.references  :store_country
+      t.references  :store_country, :country
 
       t.timestamps
     end
