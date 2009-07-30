@@ -1,7 +1,7 @@
 module Admin::ShippingMethodsHelper
 
-  def country_options_for_select
-    @store.countries.collect{|country| ["#{ country.name } (#{ country.iso })", country.id]}
+  def options_for_shipping_country_select
+    @store.store_countries.collect{|store_country| ["#{ store_country.country.name } (#{ store_country.country.iso })", store_country.id]}
   end
 
 end

@@ -81,7 +81,7 @@ class Admin::CategoriesController < Admin::BaseController
       end
     else
       options = { :page => params[:page] }
-      options.merge!(:conditions => ["id NOT IN (?)", @category.product_ids]) unless @category.product_ids.empty?
+      options.merge!(:conditions => "products.id NOT IN (#{ @category.product_ids.join(',') })") unless @category.product_ids.empty?
       @products = @store.products.search( params[:search], options )
       respond_to do |format|
         format.html #add_products.html.erb

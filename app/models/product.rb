@@ -62,9 +62,12 @@ class Product < ActiveRecord::Base
   end
   
   def self.search(query, options)
-    conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "products.created_at DESC, products.name", :include => [:skus] }
-    
+    default_conditions = query.blank? ? '' : "name like '%#{ query }%' or description like '%#{ query }%'"
+
+    default_conditions << ' and ' if options[:conditions] and !default_conditions.blank?
+    default_conditions << options.delete(:conditions) if options[:conditions]
+
+    default_options = {:conditions => default_conditions, :order => "products.created_at DESC, products.name", :include => [:skus] }
     paginate default_options.merge(options)
   end
   

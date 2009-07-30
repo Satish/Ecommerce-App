@@ -7,9 +7,9 @@
 <div class="container">
   <% unless @store_countries.empty? -%>
     <% form_for([:remove, :admin, StoreCountry.new]) do |f| -%>
-      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Countries", :class => "button" -%></div>
+      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Selected Countries", :class => "button" -%></div>
       <%= render :partial => 'store_countries' -%>
-      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Countries", :class => "button" -%></div>
+      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Selected Countries", :class => "button" -%></div>
     <% end -%>
   <% else %>
     <div class = "noRecords">There are no countries</div>  

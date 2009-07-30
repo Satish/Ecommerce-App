@@ -23,7 +23,7 @@
             <span class = "pct10 textAlignCenter"><%= product.active? ? 'Active' : 'Inactive' -%></span>
             <span class = "pct5 textAlignCenter">
               <% if add_product_view? %>
-                <%= link_to_remote(image_tag("admin/iconAdd.png", :alt => "Add"),  :url => [:add_products, :admin, @category], :with => "'product_id=' + #{ product.id }", :title => "Add this product", :method => :put ) -%>
+                <%= link_to_remote("Add",  :url => [:add_products, :admin, @category], :with => "'product_id=' + #{ product.id }", :title => "Add this product", :method => :put ) -%>
               <% else %>
                 <%= link_to_remote(image_tag("admin/iconDelete.png", :alt => "X"), :url => [:remove_products, :admin, @category], :with => "'product_id=' + #{ product.id }", :title =>  'Delete this product', :method => :put, :confirm => "Deleting Product '#{ product.product_id }' form #{ h(@category.title) }'s products\n Are you Sure?") -%>
               <% end %>

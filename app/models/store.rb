@@ -42,7 +42,7 @@ class Store < ActiveRecord::Base
   has_many :store_gateways, :dependent => :destroy
   has_many :gateways, :through => :store_gateways
 
-  has_many :store_countries, :dependent => :destroy
+  has_many :store_countries, :dependent => :destroy, :include => [:country]
   has_many :countries, :through => :store_countries
 
   has_many :shipping_methods, :dependent => :destroy

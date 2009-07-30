@@ -20,16 +20,15 @@ class Admin::ShippingMethodsController < Admin::BaseController
     @shipping_method = ShippingMethod.new(params[:shipping_method])
     if @store.shipping_methods << @shipping_method
       respond_to do |format|
-         flash[:message] = "Shipping Method has been created successfully"
+        flash[:message] = "Shipping Method has been created successfully"
         format.html {redirect_to [:admin, ShippingMethod.new] and return}
-        end
+      end
     else
       render :action => "new"
     end    
   end
   
   def update
-    @shipping_method.selected_shipping_countries = params[:shipping_method].delete(:selected_shipping_countries)
     if @shipping_method.update_attributes(params[:shipping_method]) 
       flash[:message] = "Shipping Method has been updated successfully"
       redirect_to [:admin, ShippingMethod.new] and return

@@ -35,10 +35,8 @@ class Admin::StoreCountriesController < Admin::BaseController
   def remove
     respond_to do |format|
       format.html do
-        if params[:store_country_ids]
-          @store_countries = @store.store_countries.find_all_by_id(params[:store_country_ids], :select => "id").collect(&:id)
-          flash[:message] = "#{ @store_countries.size } #{ @store_countries.size == 1 ? 'country' : 'countries' } removed successfully from your store countries" if StoreCountry.destroy_all(["store_countries.id IN (?)", @store_countries ])
-        end
+        @store_countries = @store.store_countries.find_all_by_id(params[:store_country_ids]).collect(&:id)
+        flash[:message] = "#{ @store_countries.size } #{ @store_countries.size == 1 ? 'country' : 'countries' } removed successfully from your store countries" if StoreCountry.destroy_all(["store_countries.id IN (?)", @store_countries ])
         redirect_to [:admin, StoreCountry.new] and return
       end
       format.js

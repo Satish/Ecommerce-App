@@ -22,12 +22,15 @@ class ShippingMethod < ActiveRecord::Base
   validates_presence_of :name, :store_id
   validates_uniqueness_of :name, :scope => :store_id
   
-  named_scope :active, :conditions => { :status => 'active'}
+  named_scope :active, :conditions => { :status => 'active' }
   
   has_many :shipping_countries, :dependent => :destroy
+  has_many :store_countries, :through => :shipping_countries
   has_many :countries, :through => :shipping_countries
 
   belongs_to :store
+
+  after_save :do_after_save
 
   aasm_column :status
   aasm_initial_state :initial => :active
@@ -42,31 +45,27 @@ class ShippingMethod < ActiveRecord::Base
     transitions :from => [:active], :to => :inactive
   end
 
-  def after_save
-    @deleted_countries.each{|shipping_country| shipping_country.destroy} if @deleted_countries
+  def store_country_ids=new_or_existing_store_country_ids
+    new_store_country_ids = StoreCountry.find_all_by_id(new_or_existing_store_country_ids.collect{|v| v.to_i} - store_country_ids, :select => "id").collect(&:id)
+    self.store_countries << StoreCountry.find_all_by_id(new_store_country_ids)
   end
 
-  def selected_shipping_countries=(ssc)
-    if ssc
-      @deleted_countries = []
-      shipping_countries.each{|shipping_country|  @deleted_countries << shipping_country unless ssc.include?(shipping_country.country_id)}
-      (ssc - shipping_country_ids).each{ |sc| shipping_countries.build(:country_id => sc) }
-    end
-  end
-  
-  def selected_shipping_countries
-    shipping_country_ids
-  end
-  
   def shipping_countries_names
-    shipping_countries.collect{|shipping_country| shipping_country.country.name }
+    shipping_countries.collect{ |shipping_country| shipping_country.country.name }.sort{|x,y| x <=> y }
   end
 
   def self.search(query, options)
     conditions = ["shipping_methods.name like ? OR countries.name like ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
-    default_options = {:conditions => conditions, :include => [:countries], :order => "shipping_methods.created_at DESC, shipping_methods.name"}
+    default_options = { :conditions => conditions, :include => [:countries], :order => "shipping_methods.created_at DESC, shipping_methods.name" }
 
     paginate default_options.merge(options)
+  end
+
+  #----------------------------------- private -----------------------------
+  private
+
+  def do_after_save
+    @deleted_countries.each{ |shipping_country| shipping_country.destroy } if @deleted_countries
   end
 
 end

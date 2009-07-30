@@ -10,6 +10,7 @@
 #  year               :string(255)
 #  number             :string(255)
 #  verification_value :string(255)
+#  display_number     :string(255)
 #  order_id           :integer(4)
 #  created_at         :datetime
 #  updated_at         :datetime

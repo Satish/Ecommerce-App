@@ -20,11 +20,11 @@ module OrdersHelper
     VALID_EXPIRY_YEARS
   end
 
-  def billing_country_options_for_select
+  def options_for_billing_country_select
     Country.all.collect{|country| ["#{ country.name } (#{ country.iso })", country.name]}
   end
 
-  def shipping_country_options_for_select
+  def options_for_shipping_country_select
     @store.countries.collect{|country| ["#{ country.name } (#{ country.iso })", country.name]}
   end
 

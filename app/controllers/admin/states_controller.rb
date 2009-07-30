@@ -46,7 +46,7 @@ class Admin::StatesController < Admin::BaseController
 
   def destroy
     respond_to do |format|
-      format.html { redirect_to [:admin, StoreCountry.new] and return }
+      format.html { redirect_to [:admin, @store_country, State.new] and return }
       format.js do
         @success = (@state and @state.destroy) ? true : false
       end
