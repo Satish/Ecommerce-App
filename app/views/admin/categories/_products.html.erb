@@ -4,7 +4,7 @@
     <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
       <div class="table">
         <div class = "tableHeader">
-          <span class = "pct15 textAlignLeft"><%= check_box_tag "select_box", 0, false, :onclick => "Product.selectAll(this, 'product_ids[]')", :class => "styledFormElement", :style => "margin:0px 10px;" -%>Select All</span>
+          <span class = "pct15 textAlignLeft"><%= check_box_tag "select_box", 0, false, :onclick => "CheckBox.selectAll(this, 'product_ids[]')", :class => "styledFormElement", :style => "margin:0px 10px;" -%>Select All</span>
           <span class = "pct20">Product ID</span>
           <span class = "pct30 textAlignLeft">Name</span>
           <span class = "pct10">Price</span>

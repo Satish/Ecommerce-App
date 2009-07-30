@@ -65,7 +65,8 @@ ActionController::Routing::Routes.draw do |map|
       gateways.resource :gateway_options, :only => [:edit, :update]
     end
     admin.resources :pages
-
+    admin.resources :countries, :except => [:index]
+    admin.resources :store_countries, :except => [:new, :show, :edit, :update], :collection => { :remove => :post }
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'
 #      user.register '/register', :action => 'create'

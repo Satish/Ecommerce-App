@@ -1,0 +1,29 @@
+<div id = "store_countries">
+  <% unless @store_countries.empty? -%>
+    <% paginated_section @store_countries, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct15 textAlignLeft"><%= check_box_tag "select_box", 0, false, :onclick => "CheckBox.selectAll(this, 'store_country_ids[]')", :class => "styledFormElement", :style => "margin:0px 10px;" -%>Select All</span>
+          <span class = "pct25 textAlignLeft">Name</span>
+          <span class = "pct5">ISO</span>
+          <span class = "pct45">States</span>
+          <span class = "pct5">-</span>
+        </div>
+        <% @store_countries.each_with_index do |store_country, index| -%>
+          <% div_for store_country, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+            <span class = "pct15" style = "margin-left:10px;"><%= check_box_tag "store_country_ids[]", store_country.id, false, :class => "styledFormElement" -%></span>
+            <span class = "pct25"><%= h(store_country.country.name) -%></span>
+            <span class = "pct5 textAlignCenter"><%= h(store_country.country.iso) -%></span>
+            <span class = "pct45"><%= store_country.states.collect(&:name).join(', ') -%>&nbsp;</span>
+            <span class = "pct5 textAlignCenter">
+              <%= link_to_remote(image_tag("admin/iconDelete.png", :alt => "X"), :url => [:admin, store_country], :title =>  'Delete this Country', :method => :delete, :confirm => "Deleting '#{ h(store_country.country.name) }' from Store Countries\n Are you Sure?") -%>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+  <% else %>
+    <div class = "noRecords">There are no countries</div>     
+  <% end -%>
+</div>

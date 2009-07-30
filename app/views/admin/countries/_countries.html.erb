@@ -1,0 +1,29 @@
+<div id = "countries">
+  <% unless @countries.empty? -%>
+    <% paginated_section @countries, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct15 textAlignLeft"><%= check_box_tag "select_box", 0, false, :onclick => "CheckBox.selectAll(this, 'country_ids[]')", :class => "styledFormElement", :style => "margin:0px 10px;" -%>Select All</span>
+          <span class = "pct40 textAlignLeft">Name</span>
+          <span class = "pct20">ISO Name</span>
+          <span class = "pct15">NumCode</span>
+          <span class = "pct5">-</span>
+        </div>
+        <% @countries.each_with_index do |country, index| -%>
+          <% div_for country, :class => "tableRow #{ cycle('odd', 'even') }" do -%>
+            <span class = "pct15" style = "margin-left:10px;"><%= check_box_tag "country_ids[]", country.id, false, :class => "styledFormElement" -%></span>
+            <span class = "pct40"><%= h(country.name) -%></span>
+            <span class = "pct20 textAlignCenter"><%= h(country.iso) -%></span>
+            <span class = "pct15 textAlignCenter"><%= country.numcode -%></span>
+            <span class = "pct5 textAlignCenter">
+              <%= link_to_remote("add", :url => [:admin, StoreCountry.new], :with => "'country_id=' + #{ country.id }", :title =>  'Delete this Country', :method => :post ) -%>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+  <% else %>
+    <div class = "noRecords">There are no countries</div>     
+  <% end -%>
+</div>

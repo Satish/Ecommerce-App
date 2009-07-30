@@ -1,0 +1,17 @@
+<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <span class = "floatRight marginTop4" id = "page_entries_info"><%= page_entries_info @store_countries, :entry_name => '' -%></span>
+  <h1 class="pageHeading">Store Countries (<%= link_to "+", [:admin, Country.new], :title => "Add more countries" -%>)</h1>
+</div>
+
+<div class="container">
+  <% unless @store_countries.empty? -%>
+    <% form_for([:remove, :admin, StoreCountry.new]) do |f| -%>
+      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Countries", :class => "button" -%></div>
+      <%= render :partial => 'store_countries' -%>
+      <div class="formRow transparent" style = "float:left"><%= f.submit "Remove Countries", :class => "button" -%></div>
+    <% end -%>
+  <% else %>
+    <div class = "noRecords">There are no countries</div>  
+  <% end %>
+</div>

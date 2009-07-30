@@ -1,0 +1,1 @@
+page.alert(BAD_REQUEST_ERROR_MESSAGE)

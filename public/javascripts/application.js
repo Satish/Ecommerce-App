@@ -105,8 +105,8 @@ function toggle_disable_message(dom_element) {
 }  
 
 
-var Product
-Product = {
+var CheckBox
+CheckBox = {
  selectAll:function(dom_ele, name){
    coll = document.getElementsByName(name)
    for( i=0; i < coll.length; i = i+1){

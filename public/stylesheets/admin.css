@@ -380,7 +380,7 @@ body.page-logs .item.expanded .more {	display: block; }
 
 .floatRight {float:right }
 .floatLeft {float:left; }
-
+.noRecords { padding:10px 0; clear:both; }
 .marginTop4 { margin-top: 4px; }
 .pageLoadingIndicator{float:right; margin:10px 0px 10px 0px;}
 

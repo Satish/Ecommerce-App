@@ -1,0 +1,5 @@
+if @success
+  page.remove "country_#{ @country.id }"
+else
+  page.alert(BAD_REQUEST_ERROR_MESSAGE)
+end
