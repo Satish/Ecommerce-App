@@ -35,7 +35,7 @@
   <% end -%>
 </div>
 <%= observe_field  address.type.underscore + '_country', :frequency => 0.5, :update => get_address_state_dom_id(address), :url => {:action=> 'get_state_options', :only_path => false }, :with => "'country=' + encodeURIComponent(value) + '&address_type=' + '#{ address.type.underscore }'" %>
-<div class="formRow"> 
+<div class="formRow">
 <%= f.label :state %>
 <span id ="<%= get_address_state_dom_id(address) -%>">
   <%= render :partial => "state_options", :locals => {:country => address.country, :state => address.state, :object => address.type.underscore } %>
