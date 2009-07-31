@@ -1,0 +1,7 @@
+<div class="shippingDetail">
+  <h2>3. Choose Your Shipping Method</h2>
+  <div class = "formRow">
+    <%= f.label :shipping_method_id -%>
+    <%= f.select :shipping_method_id, select_options_for_shipping_method, { :include_blank => 'Select Payment Type' }, { :class => "formField fieldWidth" } -%>
+  </div>
+</div>

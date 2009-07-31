@@ -1,66 +1,9 @@
-<h1>Checkout</h1>
-<div class="shoppingCart">
-  <% unless @cart.empty? -%>
-    <%= render :partial => 'carts/cart' -%>
-  <% end -%>
-</div>
-    <%= error_messages_for :order -%>
-    <% form_for @order, :url =>{:action => 'create'} do |f| -%>
-      <div class="addressess">
-        <% fields_for "billing_address", @order.billing_address do |billing_address| %>
-           <div id = "billingAddress" class="address">
-               <%= render :partial => 'billing_address', :locals => { :f => billing_address } -%>
-           </div>
-        <% end -%>
-        <% fields_for "shipping_address", @order.shipping_address do |shipping_address| %>
-          <div id = "shippingAddress" class = "address">
-            <%= render :partial => 'shipping_address', :locals => { :f => shipping_address } -%>
-          </div>
-        <% end -%>
-      </div>
-      <div class="shippingDetail">
-        <h2>3. Choose Your Shipping Method</h2>
-        <div class = "formRow">
-          <%= f.label :shipping_method_id -%>
-          <%= f.select :shipping_method_id, select_options_for_shipping_method, { :include_blank => 'Select Payment Type' }, { :class => "formField fieldWidth" } -%>
-        </div>
-      </div>
-      <div class="paymentDetail">
-        <h2>4. Payment Information</h2>
-        <div class = "formRow">
-          <%= f.label :payment_type -%>
-          <%= f.select :payment_type, select_options_for_payment_type, { :include_blank => 'Select Payment Type' }, { :onchange => "hide_card_info(this)", :class => "formField fieldWidth" } -%>
-        </div>
-        <div id = "creditCardInfo" style = "<%= 'display:none' unless @order.payment_type == 'creditcard' -%>">
-          <div class="formRow">
-            <%= f.label :first_name -%>
-            <%= f.text_field :first_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
-          </div>
-          <div class="formRow">
-            <%= f.label :last_name -%>
-            <%= f.text_field :last_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
-          </div>
-          <div class="formRow">
-            <%= f.label :card_number -%>
-            <%= f.text_field :card_number, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
-          </div>
-          <div class="formRow">
-            <%= f.label :card_type -%>
-            <%= f.select :card_type, select_options_for_card_type, {:include_blank => 'Select Card Type'}, { :class => "formField fieldWidth" } -%>
-          </div>
-          <div class="formRow">
-            <%= label_tag :card_expiration_date -%>
-            <%= f.select :card_expiration_month, select_options_for_creditcard_month, { :include_blank => 'Month' },  { :class => "formField fieldWidth monthSelect" } -%>
-            <%= f.select :card_expiration_year, select_options_for_creditcard_year, { :include_blank => 'Year'}, { :class => "formField fieldWidth yearSelect" } -%>
-          </div>
-          <div class="formRow">
-            <%= f.label :card_verification_value -%>
-            <%= f.text_field :card_verification_value, { :autocomplete => 'off', :class => "formField fieldWidth", :style => "width:50px" } -%>
-          </div>
-        </div>
-        <div class="formRow">
-          <%= f.submit 'Confirm Order' , :class => 'confirmOrder linkButton' -%>
-        </div>
-      <% end -%>
-    </div>
+<div id = "checkoutStepOne">
+  <h1>Checkout</h1>
+  <div class="shoppingCart">
+    <% unless @cart.empty? -%>
+      <%= render :partial => 'carts/cart' -%>
+    <% end -%>
+  </div>
+  <%= render :partial => 'form' -%>
 </div>

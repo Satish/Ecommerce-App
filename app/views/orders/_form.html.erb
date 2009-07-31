@@ -1,0 +1,10 @@
+<% form_for @order do |f| -%>
+  <%= f.error_messages -%>
+  <%= f.hidden_field :checkout_step -%>
+  <%#= error_messages_for 'order', :object => [@order.billing_address, @order.shipping_address] -%>
+  <%= render :partial => "form_step#{ @order.checkout_step }", :locals => { :f => f } -%>
+  <div class="formRow">
+    <%= f.submit @order.checkout_step == '3' ? 'Confirm Order' : 'Continue &raquo;' , :class => 'confirmOrder linkButton' -%>
+    <%= link_to '&laquo; back', edit_order_path(@order, :checkout_step => @order.checkout_step - 1 ) , :class => 'linkButton' if [2,3].include? @order.checkout_step -%>
+  </div>
+<% end -%>

@@ -28,26 +28,27 @@ class Order < ActiveRecord::Base
   @@per_page = 15
 
   named_scope :active, :conditions => { :deleted_at => nil }
-  named_scope :pending, :conditions => { :status => 'pending' }
-  named_scope :approved, :conditions => { :status => 'approved' }
-  named_scope :on_hold, :conditions => { :status => 'on_hold' }
+  named_scope :pending, :conditions => { :state => 'pending' }
+  named_scope :approved, :conditions => { :state => 'approved' }
+  named_scope :on_hold, :conditions => { :state => 'on_hold' }
+  named_scope :checking_out, :conditions => { :state => 'checking_out' }
 
   attr_accessor :shipping_method_id, :first_name, :last_name, :card_number, :card_type, :card_verification_value, :card_expiration_year, :card_expiration_month#, :card_expiration_day
 
-  validates_presence_of :shipping_method_id
+  validates_presence_of :shipping_method_id, :on => :update, :if => :checkout_step_two
 
-  validates_presence_of :first_name, :last_name, :card_number, :card_type, :card_expiration_year, :card_expiration_month, :card_verification_value, :if => :creditcard?
+#  validates_presence_of :first_name, :last_name, :card_number, :card_type, :card_expiration_year, :card_expiration_month, :card_verification_value, :if => :creditcard?
 
-  validates_inclusion_of :card_type,              :in => CARD_TYPES.values, :if => :creditcard_and_not_blank?
-  validates_inclusion_of :card_expiration_month,  :in => (1..12).to_a
-  validates_inclusion_of :card_expiration_year,   :in => VALID_EXPIRY_YEARS
+#  validates_inclusion_of :card_type,              :in => CARD_TYPES.values, :if => :creditcard_and_not_blank?
+#  validates_inclusion_of :card_expiration_month,  :in => (1..12).to_a
+#  validates_inclusion_of :card_expiration_year,   :in => VALID_EXPIRY_YEARS
 
-  validates_associated :line_items#, :billing_address, :shipping_address
+  validates_associated :line_items, :billing_address, :shipping_address
 
   has_many :line_items, :dependent => :destroy
   has_many :skus, :through => :line_items
-  has_many :shipments, :dependent => :destroy
-  has_many :creditcards, :dependent => :destroy
+  has_one :shipment, :dependent => :destroy
+  has_one :creditcard, :dependent => :destroy
 
   has_many :notes, :as => :noteable, :order => 'created_at DESC'
 
@@ -57,18 +58,27 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
 
-  before_validation :do_before_validation, :verify_card_information
-  before_validation_on_create :validate_shipping_method
-  before_create :calculate_total_amount, :process_order, :generate_order_number
-  after_save :create_shipment, :create_creditcard
+  before_create :calculate_total_amount, :generate_order_number
+  before_update :calculate_total_amount
+  before_validation_on_update :do_before_validation
+  before_validation_on_update :validate_shipping_method, :if => :checkout_step_two
+  before_validation_on_update :verify_card_information, :process_order, :if => :checkout_step_three
 
-  aasm_column :status
-  aasm_initial_state :initial => :pending
+  after_update :create_shipment, :if => :checkout_step_two
+  after_update :create_creditcard, :if => :checkout_step_three
+
+  aasm_column :state
+  aasm_initial_state :initial => :checking_out
+  aasm_state :checking_out
   aasm_state :pending, :enter => :do_pending
   aasm_state :processing, :enter => :do_process
   aasm_state :rejected, :enter => :do_reject
   aasm_state :fullfilled, :enter => :do_fullfill
   aasm_state :deleted, :enter => :do_delete
+
+  aasm_event :order do
+    transitions :from => [:checking_out], :to => :pending
+  end
 
   aasm_event :process do
     transitions :from => [:pending, :on_hold, :rejected, :fullfilled], :to => :processing
@@ -90,6 +100,10 @@ class Order < ActiveRecord::Base
     transitions :from => [:pending, :processing, :on_hold, :rejected, :fullfilled], :to => :deleted
   end
 
+  def to_param
+    number
+  end
+
   def capture(cc_txn)
     @response = gateway.capture(cc_txn.amount * 100, cc_txn.transaction_id, relevant_customer_info)
     if @response.success?
@@ -103,6 +117,10 @@ class Order < ActiveRecord::Base
     else
       self.errors.add_to_base("Unable to capture the amount because #{ @response.message }") and return false
     end
+  end
+
+  def checkout_step?(n)
+    checkout_step == n
   end
 
   #-------------------------- private ----------------------------------
@@ -122,7 +140,10 @@ class Order < ActiveRecord::Base
   end
 
   def verify_card_information
-    self.errors.add_to_base('Card information could not be validated') and return false unless credit_card.valid?
+    unless credit_card.valid?
+      credit_card.errors.full_messages.each{ |e| self.errors.add_to_base(e) }
+      return false
+    end
   end
 
   def calculate_total_amount
@@ -130,7 +151,7 @@ class Order < ActiveRecord::Base
   end
 
   def estimated_shipping_amount
-    self.shipping_amount = total_amount_before_shipping == 0 ? 0 : 0
+    self.shipping_amount = total_amount_before_shipping == 0 ? 0 : 0#shipment ? shipment.shipping_method : 0
   end
 
   def total_amount_before_shipping
@@ -245,26 +266,33 @@ class Order < ActiveRecord::Base
 
   # first (default) shipment for the order
   def create_shipment
-    self.shipments << Shipment.new(:shipping_method_id => @shipping_method, :shipping_address_id => shipping_address.id ) if shipments.empty?
+    unless shipment
+      Shipment.create(:order_id => id, :shipping_method_id => @shipping_method.id, :shipping_address_id => shipping_address.id )
+    else
+      shipment.update_attribute(:shipping_method_id, @shipping_method.id )
+    end
   end
 
   def create_creditcard
-    self.creditcards <<  @creditcard = Creditcard.new(
-      :number                   => card_number,
-      :display_number           => credit_card.display_number,
-      :cc_type                  => card_type,
-      :first_name               => first_name,
-      :last_name                => last_name,
-      :month                    => card_expiration_month,
-      :year                     => card_expiration_year,
-      :verification_value       => card_verification_value
-     )
-    @creditcard.creditcard_transactions.create(
-      :transaction_id => @response.params['transaction_id'],
-      :action         => 'authorized',
-      :amount         => total_amount,
-      :response_code  => @response.authorization
-    )
+    unless creditcard
+      @creditcard = Creditcard.create(
+        :order_id                 => id,
+        :number                   => card_number,
+        :display_number           => credit_card.display_number,
+        :cc_type                  => card_type,
+        :first_name               => first_name,
+        :last_name                => last_name,
+        :month                    => card_expiration_month,
+        :year                     => card_expiration_year,
+        :verification_value       => card_verification_value
+       )
+      @creditcard.creditcard_transactions.create(
+        :transaction_id => @response.params['transaction_id'],
+        :action         => 'authorized',
+        :amount         => total_amount,
+        :response_code  => @response.authorization
+      )
+    end
   end
 
   def do_pending;  end
@@ -288,6 +316,18 @@ class Order < ActiveRecord::Base
 
   def creditcard_and_not_blank?
     !card_type.blank? && creditcard?
+  end
+
+  def checkout_step_one
+    checkout_step?(1)
+  end
+
+  def checkout_step_two
+    checkout_step?(2)
+  end
+
+  def checkout_step_three
+    checkout_step?(3)
   end
 
 end

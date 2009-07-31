@@ -1,0 +1,12 @@
+<div class="addressess">
+  <% fields_for "billing_address", @order.billing_address do |billing_address| %>
+    <div id = "billingAddress" class="address">
+      <%= render :partial => 'billing_address', :locals => { :f => billing_address } -%>
+    </div>
+  <% end -%>
+  <% fields_for "shipping_address", @order.shipping_address do |shipping_address| %>
+    <div id = "shippingAddress" class = "address">
+      <%= render :partial => 'shipping_address', :locals => { :f => shipping_address } -%>
+    </div>
+  <% end -%>
+</div>

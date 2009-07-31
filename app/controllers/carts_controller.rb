@@ -28,7 +28,7 @@ class CartsController < ApplicationController
       format.js
     end
   end
-  
+
   def find_item
     item_id = params[:item_id]
     attribute_values = params[:attribute_values] ? params[:attribute_values].split(',') : nil

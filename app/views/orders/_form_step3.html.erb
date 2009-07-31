@@ -1,0 +1,34 @@
+<div class="paymentDetail">
+  <h2>4. Payment Information</h2>
+  <div class = "formRow">
+    <%= f.label :payment_type -%>
+    <%= f.select :payment_type, select_options_for_payment_type, { :include_blank => 'Select Payment Type' }, { :onchange => "hide_card_info(this)", :class => "formField fieldWidth" } -%>
+  </div>
+  <div id = "creditCardInfo" style = "<%= 'display:none' unless @order.payment_type == 'creditcard' -%>">
+    <div class="formRow">
+      <%= f.label :first_name -%>
+      <%= f.text_field :first_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
+    </div>
+    <div class="formRow">
+      <%= f.label :last_name -%>
+      <%= f.text_field :last_name, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
+    </div>
+    <div class="formRow">
+      <%= f.label :card_number -%>
+      <%= f.text_field :card_number, {:autocomplete => 'off', :class => "formField fieldWidth" } -%>
+    </div>
+    <div class="formRow">
+      <%= f.label :card_type -%>
+      <%= f.select :card_type, select_options_for_card_type, {:include_blank => 'Select Card Type'}, { :class => "formField fieldWidth" } -%>
+    </div>
+    <div class="formRow">
+      <%= label_tag :card_expiration_date -%>
+      <%= f.select :card_expiration_month, select_options_for_creditcard_month, { :include_blank => 'Month' },  { :class => "formField fieldWidth monthSelect" } -%>
+      <%= f.select :card_expiration_year, select_options_for_creditcard_year, { :include_blank => 'Year'}, { :class => "formField fieldWidth yearSelect" } -%>
+    </div>
+    <div class="formRow">
+      <%= f.label :card_verification_value -%>
+      <%= f.text_field :card_verification_value, { :autocomplete => 'off', :class => "formField fieldWidth", :style => "width:50px" } -%>
+    </div>
+  </div>
+</div>
