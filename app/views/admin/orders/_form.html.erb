@@ -1,9 +1,18 @@
 <div class="addnewpost item">
   <% form_for([:admin, @order]) do |f| -%>
     <%= f.error_messages -%>
-    <div class="formRow transparent">
-	    <%= f.label :total_amount -%>
-	    <%= f.text_field :total_amount, :class => "text important styledFormElement" -%>
+    <div style = "overflow:hidden">
+      <% fields_for "shipping_address", @order.shipping_address do |shipping_address| %>
+        <div id = "shippingAddress" class = "address" style = "float:left; width: 45%">
+          <%= render :partial => 'admin/orders/address_form', :locals => { :f => shipping_address, :address => @order.shipping_address } -%>
+        </div>
+      <% end -%>
+
+      <% fields_for "billing_address", @order.billing_address do |billing_address| %>
+        <div id = "billingAddress" class = "address" style = "float:left; width: 45%; margin-left:40px;">
+          <%= render :partial => 'admin/orders/address_form', :locals => { :f => billing_address, :address => @order.billing_address } -%>
+        </div>
+      <% end -%>
     </div>
     <div class="formRow transparent">
 	    <%= f.label :state -%>
@@ -14,4 +23,4 @@
       <%= link_to "Cancel", [:admin, @order] -%>
     </div>
   <% end -%>
-</div> 
+</div>

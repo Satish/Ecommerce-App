@@ -1,19 +1,16 @@
-class Admin::OrdersController < Admin::BaseController
+class Admin::ShipmentsController < Admin::BaseController
 
-  before_filter :find_order, :except => [:index]
+  before_filter :find_order
 
-  def index
-    options = { :page => params[:page], :conditions => conditions }
-    @orders = @store.orders.search(params[:search], options)
+  def edit
+    @shipment = @order.shipment
   end
 
-  def show; end
-
-  #----------------------------------- private -----------------------------
+  #------------------------- private ----------------------------
   private
 
   def find_order
-    @order = @store.orders.find_by_number(params[:id])
+    @order = @store.orders.find_by_number(params[:order_id])
     redirect_to_orders_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @order
   end
 
