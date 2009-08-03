@@ -35,13 +35,16 @@ class Order < ActiveRecord::Base
 
   attr_accessor :shipping_method_id, :first_name, :last_name, :card_number, :card_type, :card_verification_value, :card_expiration_year, :card_expiration_month#, :card_expiration_day
 
-  validates_presence_of :shipping_method_id, :on => :update, :if => :checkout_step_two
+  validates_presence_of :shipping_method_id,          :on => :update,                               :if => :checkout_step_two
 
-#  validates_presence_of :first_name, :last_name, :card_number, :card_type, :card_expiration_year, :card_expiration_month, :card_verification_value, :if => :creditcard?
-
-#  validates_inclusion_of :card_type,              :in => CARD_TYPES.values, :if => :creditcard_and_not_blank?
-#  validates_inclusion_of :card_expiration_month,  :in => (1..12).to_a
-#  validates_inclusion_of :card_expiration_year,   :in => VALID_EXPIRY_YEARS
+  validates_presence_of :payment_type,                :on => :update,                               :if => :checkout_step_three
+  validates_presence_of :first_name, :last_name,
+                        :card_number, :card_type,
+                        :card_expiration_year,
+                        :card_expiration_month,
+                        :card_verification_value,                                                   :if => :creditcard_and_checkout_step_three
+  validates_inclusion_of :payment_type,               :on => :update,    :in => PAYMENT_TYPES,      :if => :payment_type_and_checkout_step_three
+  validates_inclusion_of :card_type,                  :on => :update,    :in => CARD_TYPES.values,  :if => :card_type_and_checkout_step_three
 
   validates_associated :line_items, :billing_address, :shipping_address
 
@@ -61,11 +64,11 @@ class Order < ActiveRecord::Base
   before_create :calculate_total_amount, :generate_order_number
   before_update :calculate_total_amount
   before_validation_on_update :do_before_validation
-  before_validation_on_update :validate_shipping_method, :if => :checkout_step_two
-  before_validation_on_update :verify_card_information, :process_order, :if => :checkout_step_three
+  before_validation_on_update :validate_shipping_method,              :if => :checkout_step_two
+  validate_on_update :verify_card_information_and_process_creditcard, :if => :creditcard_and_checkout_step_three
 
-  after_update :create_shipment, :if => :checkout_step_two
-  after_update :create_creditcard, :if => :checkout_step_three
+  after_update :create_shipment,                                      :if => :checkout_step_two
+  after_update :create_creditcard,                                    :if => :creditcard_and_checkout_step_three
 
   aasm_column :state
   aasm_initial_state :initial => :checking_out
@@ -139,8 +142,11 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def verify_card_information
-    unless credit_card.valid?
+  def verify_card_information_and_process_creditcard
+    return false unless errors.empty? # make sure order is without errors before processing credit card
+    if credit_card.valid?
+      process_creditcard
+    else
       credit_card.errors.full_messages.each{ |e| self.errors.add_to_base(e) }
       return false
     end
@@ -210,8 +216,10 @@ class Order < ActiveRecord::Base
   end
 
   #authorize/capture payment
-  def process_order
+  def process_creditcard
     amount = total_amount * 100   # convert to cents
+
+    # We will Use CreditCard number = 1 and type = 'bogus' for success in case of Bogus Gateway
     credit_card.number = '1' and credit_card.type = 'bogus' if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
 
     @response = gateway.authorize(amount, credit_card, relevant_customer_info)
@@ -274,6 +282,7 @@ class Order < ActiveRecord::Base
   end
 
   def create_creditcard
+    return false unless errors.empty? # make sure order is without errors
     unless creditcard
       @creditcard = Creditcard.create(
         :order_id                 => id,
@@ -286,6 +295,7 @@ class Order < ActiveRecord::Base
         :year                     => card_expiration_year,
         :verification_value       => card_verification_value
        )
+
       @creditcard.creditcard_transactions.create(
         :transaction_id => @response.params['transaction_id'],
         :action         => 'authorized',
@@ -328,6 +338,18 @@ class Order < ActiveRecord::Base
 
   def checkout_step_three
     checkout_step?(3)
+  end
+
+  def payment_type_and_checkout_step_three
+    !payment_type.blank? && checkout_step_three
+  end
+
+  def creditcard_and_checkout_step_three
+    creditcard? && checkout_step_three
+  end
+
+  def card_type_and_checkout_step_three
+    creditcard? && checkout_step_three && !card_type.blank?
   end
 
 end

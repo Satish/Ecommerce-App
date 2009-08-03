@@ -83,7 +83,6 @@ class OrdersController < ApplicationController
     end
     if @order.save
       if @order.checkout_step?(3)
-        @order.order!
         session[:order_id] = nil
         flash[:message] = 'Order created successfully.'
         redirect_to( logged_in? ? @order : root_path) and return
