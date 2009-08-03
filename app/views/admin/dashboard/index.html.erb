@@ -1,4 +1,16 @@
-<div class = "container">
-<h1>Admin::Dashboard#index</h1>
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<div id = 'dashboard' class = "container">
+  <% unless @pending_orders.empty? || @incomplete_orders.empty? -%>
+    <div id = "ordersBlock">
+      <h1 class = "title">Orders</h1>
+      <% unless @pending_orders.empty? -%>
+        <div class = "description"><%= link_to(pluralize(@incomplete_orders.size, 'order is', 'orders are') + " incomplete", admin_orders_path(:status => 'checking_out')) -%></div>
+      <% end -%>
+      <% unless @pending_orders.empty? -%>
+        <div class = "description" ><%= link_to(pluralize(@pending_orders.size, 'order is', 'orders are') + " pending approval", admin_orders_path(:status => 'pending')) -%></div>
+      <% end -%>
+      <% unless @on_hold_orders.empty? -%>
+        <div class = "description" ><%= link_to(pluralize(@on_hold_orders.size, 'order is', 'orders are') + " on hold", admin_orders_path(:status => 'on_hold')) -%></div>
+      <% end -%>
+    </div>
+  <% end -%>
 </div>

@@ -90,4 +90,8 @@ class Sku < ActiveRecord::Base
     original_price - total_discount
   end
 
+  def display_name
+    product.name
+  end
+
 end

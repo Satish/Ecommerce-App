@@ -66,6 +66,13 @@
               <li id="link_manage_pages" title="Manage Pages" class="last child"><%= link_to 'Manage', [:admin, Page.new] -%></li>
             </ul>
           </li>
+          <li id="links_manage_orders" class="submenu" title="Manage Orders">
+            <%= link_to 'Orders', [:admin, Order.new], :class => "top" -%>
+            <ul class="submenu">
+              <li id="link_create_order" title="Create New order" class="first child"><%#= link_to 'New', new_admin_order_path -%></li>
+              <li id="link_manage_orders" title="Manage orders" class="last child"><%= link_to 'Manage', [:admin, Order.new] -%></li>
+            </ul>
+          </li>
           <li id="links_manage_users" class="submenu" title="Manage Users">
             <%= link_to 'Users', [:admin, User.new], :class => "top" -%>
             <ul class="submenu">

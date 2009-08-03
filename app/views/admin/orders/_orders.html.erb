@@ -1,0 +1,36 @@
+<div id = "orders">
+  <% if @orders.size > 0 -%>
+    <% paginated_section @orders, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct5">Sr. NO.</span>
+          <span class = "pct10">Date</span>
+          <span class = "pct20">Order#</span>
+          <span class = "pct15">Total Amount</span>
+          <span class = "pct20">Items</span>
+          <span class = "pct10">Status</span>
+          <span class = "pct20">-</span>
+        </div>
+        <% @orders.each_with_index do |order, index| -%>
+          <% div_for order, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+            <span class = "pct5 textAlignCenter"><%= index + 1 -%></span>
+            <span class = "pct10 textAlignCenter"><%= order_date(order.updated_at) -%></span>
+            <span class = "pct20 textAlignCenter"><%= link_to h(order.number), [:admin, order] -%></span>
+            <span class = "pct15 textAlignCenter"><%= number_to_currency(order.total_amount) -%></span>
+            <span class = "pct20 textAlignLeft"><%= line_items_detail(order) -%></span>
+            <span class = "pct10 textAlignCenter"><%= order.state -%></span>
+            <span class = "pct20 textAlignRight">
+              <%= link_to 'Shipment', "#", :class => 'linkButton', :title => "Shipment" -%>
+              <%= link_to 'Payment', "#", :class => 'linkButton', :title => "Payment" -%>
+              <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit"), [:edit, :admin, order], :title => "Edit") -%>
+              <%= link_to(image_tag("admin/iconDelete.png", :alt => "X"), [:admin, order], :title => "Delete", :method => :delete, :confirm => " Deleting order '#{ order.number }'\n Are you Sure?") -%>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+  <% else %>
+    <div class = "noRecords">There are no orders</div>     
+  <% end -%>
+</div>

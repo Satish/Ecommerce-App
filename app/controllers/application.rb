@@ -3,8 +3,6 @@
 
 class ApplicationController < ActionController::Base
 
-  audit User, Blog, Post, Comment, Brand, Category, Product, ShippingMethod, ShippingCountry, ProductAttribute, Page, Order, Note
-
   before_filter :find_store, :current_cart
   before_filter :set_blog_time_zone
   append_after_filter :set_meta_attributes

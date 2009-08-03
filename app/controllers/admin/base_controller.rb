@@ -1,5 +1,7 @@
 class Admin::BaseController < ApplicationController
-    
+
+  audit User, Blog, Post, Comment, Brand, Category, Product, ShippingMethod, ShippingCountry, ProductAttribute, Page, Order, Note
+
   layout 'admin'
   before_filter :login_required
   before_filter :set_default_metas

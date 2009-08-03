@@ -338,7 +338,8 @@ body.login .create input.text, body.login .create label {
 	padding-right: 40px;
 }
 
-a, a:visited, a:hover { color: #333;	text-decoration: none; }
+a, a:visited, a:hover { color:#777;	text-decoration: none; }
+.container a:hover { text-decoration: underline; }
 ul { list-style-type: none; list-style-position: outside; margin: 0; padding: 0; }
 #spinner { position: fixed;	top: 40px; right: 8px; z-index: 100; }
 
@@ -383,6 +384,15 @@ body.page-logs .item.expanded .more {	display: block; }
 .noRecords { padding:10px 0; clear:both; }
 .marginTop4 { margin-top: 4px; }
 .pageLoadingIndicator{float:right; margin:10px 0px 10px 0px;}
+
+#dashboard .title { font-size: 20px; padding: 10px 0px; }
+#dashboard .description { padding:5px 0px; font-size: 16px; }
+
+.container .headerLinks { float:left; line-height:3em; padding: 0px 20px; }
+.container .headerLinks .subLink { padding:2px 6px;}
+.container .headerLinks .selected { background-color: #333; color: #fff; font-weight:bold; }
+.submitButton, .linkButton { cursor:pointer; font-weight:bold; border-width:1px; border-style:solid; border-color: #ddd #999 #999 #ddd; padding: 2px 5px; background-color: #F5F5F5; text-decoration:none;}
+a.linkButton:hover { text-decoration:none;}
 
 /* TABLE VIEW STYLE START */
 .table { clear:both; background-color:#FAFAFA; border:1px solid #E7E7E7; -moz-border-radius-bottomleft:5px; -moz-border-radius-bottomright:5px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px; width:100%; overflow:hidden; }  

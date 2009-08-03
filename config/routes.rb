@@ -68,6 +68,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :store_countries, :only => [:index, :create, :destroy], :collection => { :remove => :post } do |store_countries|
       store_countries.resources :states, :except => [:show]
     end
+    admin.resources :orders
+
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'
 #      user.register '/register', :action => 'create'

@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
   include AASM
 
   cattr_reader :per_page
-  @@per_page = 15
+  @@per_page = PER_PAGE
 
   named_scope :active, :conditions => { :deleted_at => nil }
   named_scope :pending, :conditions => { :state => 'pending' }
@@ -48,7 +48,7 @@ class Order < ActiveRecord::Base
 
   validates_associated :line_items, :billing_address, :shipping_address
 
-  has_many :line_items, :dependent => :destroy
+  has_many :line_items, :dependent => :destroy, :include => [:sku]
   has_many :skus, :through => :line_items
   has_one :shipment, :dependent => :destroy
   has_one :creditcard, :dependent => :destroy
@@ -73,11 +73,12 @@ class Order < ActiveRecord::Base
   aasm_column :state
   aasm_initial_state :initial => :checking_out
   aasm_state :checking_out
-  aasm_state :pending, :enter => :do_pending
-  aasm_state :processing, :enter => :do_process
-  aasm_state :rejected, :enter => :do_reject
-  aasm_state :fullfilled, :enter => :do_fullfill
-  aasm_state :deleted, :enter => :do_delete
+  aasm_state :pending,    :enter => :on_pending
+  aasm_state :on_hold,    :enter => :on_hold
+  aasm_state :processing, :enter => :on_process
+  aasm_state :rejected,   :enter => :on_reject
+  aasm_state :fullfilled, :enter => :on_fullfill
+  aasm_state :deleted,    :enter => :on_delete
 
   aasm_event :order do
     transitions :from => [:checking_out], :to => :pending
@@ -124,6 +125,21 @@ class Order < ActiveRecord::Base
 
   def checkout_step?(n)
     checkout_step == n
+  end
+
+  def self.search(query, options)
+    conditions = options.delete(:conditions)
+    unless query.blank?
+    conditions << " AND " unless conditions.blank?
+    conditions << "orders.number like '%#{ query }%'"
+    conditions << "OR users.login like '%#{ query }%' OR users.name like '%#{ query }%'"
+#   conditions << "OR addresses.first_name like '%#{ query }%' OR addresses.first_name like '%#{ query }%'"
+
+    end
+
+    default_options = { :conditions => conditions, :order => "orders.created_at DESC, orders.number", :include => [:line_items, :user] }
+
+    paginate default_options.merge(options)
   end
 
   #-------------------------- private ----------------------------------
@@ -305,18 +321,20 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def do_pending;  end
+  def on_pending;  end
 
-  def do_process; end
+  def on_process; end
 
-  def do_reject
+  def on_hold; end
+
+  def on_reject
     restock_inventory
     OrderMailer.rejected_order(self)
   end
 
-  def do_fullfill; end
+  def on_fullfill; end
 
-  def do_delete; end
+  def on_delete; end
 
   def restock_inventory; end
 

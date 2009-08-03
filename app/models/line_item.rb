@@ -19,7 +19,7 @@ class LineItem < ActiveRecord::Base
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1
 
   belongs_to :order
-  belongs_to :sku
+  belongs_to :sku, :include => [:product]
 
   def calculate_price(total_size = nil)
     sku.our_price * (total_size || quantity)

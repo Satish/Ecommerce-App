@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   ssl_required :new, :create, :edit, :update if Rails.env == 'production'
-  
+
   before_filter :find_store
   before_filter :cart_item_required, :only => [:new, :create]
   before_filter :build_order, :only => [:create]

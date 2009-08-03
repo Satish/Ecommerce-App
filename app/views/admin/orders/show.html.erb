@@ -1,0 +1,7 @@
+<div class="container"><%#= render :partial => 'admin/shared/search' -%></div>
+<div class="container">
+  <%= h @order.number -%>
+  <%= h order_date(@order.updated_at) -%>
+  <%= link_to 'back', [:admin, Order.new] %>
+  <%= link_to 'delete', [:admin, @order], :method => :delete, :confirm => " Deleting order '#{ @order.number }'\n Are you Sure?" -%>
+</div>
