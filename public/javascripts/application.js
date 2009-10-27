@@ -98,7 +98,7 @@ function hide_card_info(dom_id) {
 }
 
 function toggle_disable_message(dom_element) {
-  if ($('#store_status').attr('value') == 'false')
+  if ($('#store_active').attr('value') == 'false')
     $('#storeDisableMessage').show()
   else
   	$('#storeDisableMessage').hide()

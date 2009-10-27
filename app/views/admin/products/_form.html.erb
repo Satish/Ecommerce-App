@@ -30,6 +30,18 @@
    		<%= f.text_field :product_id, :class => "text important styledFormElement" -%>
    	</div>
     <div class="formRow transparent">
+   		<%= f.label :price -%>
+   		<%= f.text_field :price, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :discount -%>
+   		<%= f.text_field :discount, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
+   		<%= f.label :handling_fee -%>
+   		<%= f.text_field :handling_fee, :class => "text important styledFormElement" -%>
+   	</div>
+    <div class="formRow transparent">
    		<%= f.label :brand_id -%>
    		<%= f.select :brand_id, @store.brands.collect{|b| [b.name, b.id]}, :class => "styledFormElement" -%>
    	</div>

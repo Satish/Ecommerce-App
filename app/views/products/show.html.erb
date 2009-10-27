@@ -27,7 +27,7 @@
     <div>
       <% unless @product.skus.empty? -%>
         <% form_for :cart, :url => cart_path do |f| -%>
-          <% if @store.product_selection_option?('radio_buttons') -%>
+          <% if @store.product_selection_option?('drop_down') -%>
             <% for sku in @product.skus -%>
               <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= h(get_attribute_values(sku)) -%></div>
             <% end -%>

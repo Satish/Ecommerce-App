@@ -49,10 +49,10 @@
       <%= f.text_field :meta_keywords, :class => "mceNoEditor text styledFormElement height50px" -%>
     </div>
     <div class="formRow transparent">
-      <%= f.label :status -%>
-      <%= f.select :status, options_for_status, {}, {:onchange => "toggle_disable_message(this)", :class => "text styledFormElement"} -%>
+      <%= f.label :active -%>
+      <%= f.select :active, options_for_status, {}, {:onchange => "toggle_disable_message(this)", :class => "text styledFormElement"} -%>
     </div>
-    <div id = "storeDisableMessage" class="formRow transparent" style = "display:<%= 'none' if @store.status -%>">
+    <div id = "storeDisableMessage" class="formRow transparent" style = "display:<%= 'none' if @store.active -%>">
       <%= f.label :disable_message -%>
       <%= f.text_area :disable_message, :class => "styledFormElement height50px" -%>
     </div>
@@ -64,7 +64,7 @@
     <div class="formFields transparent">
       <%= f.label :favicon_icon -%>
       <%= file_field :store, :favicon_icon_attributes, :class => "styledFormElement fileField", :size => "31px" -%>
-      <%= image_tag(@store.favicon_icon.public_filename) if @store.favicon_icon -%>
+      <%= image_tag(@store.favicon_icon.public_filename, :size => "100x20") if @store.favicon_icon -%>
     </div>
     <div class="formRow transparent">
       <%= f.submit "Save!", :class => "button", :style => "margin-left: 5px;"  -%>&nbsp; or &nbsp;

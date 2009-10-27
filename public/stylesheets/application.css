@@ -5,7 +5,7 @@ body { font-family: 'Trebuchet MS', sans-serif;}
 a img {	border: none; }
 a, a:active, a:hover, a:visited { text-decoration:none; color: #1382B9; }
 body#body {font-size: 85%; background-color: #eee}
-#body #wrapper { margin:0px auto; width:80%; background-color: #fff; border:1px solid #DDDDDD; }
+#body #wrapper { margin:0px auto; width:75%; background-color: #fff; border:1px solid #DDDDDD; }
 
 /* header */
 #header, #headerInner { clear:both; overflow:hidden; }

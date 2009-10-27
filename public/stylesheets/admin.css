@@ -182,4 +182,4 @@ a.linkButton:hover { text-decoration:none;}
 #errorExplanation ul li { width: 100%; font-size: 12px; list-style: square; margin: 2px 10px 2px 30px; background: none !important; padding-left: 0; }
 .fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select  { padding: 2px; border: 3px solid red !important; }
 
-#flash_notice, #flash_error, #flash_warning, #flash_info, #flash_message { width: 63.6%}
+#flash_notice, #flash_error, #flash_warning, #flash_info, #flash_message { width: 63.6% }

@@ -28,5 +28,4 @@ module OrdersHelper
     @store.countries.collect{|country| ["#{ country.name } (#{ country.iso })", country.name]}
   end
 
-
 end
