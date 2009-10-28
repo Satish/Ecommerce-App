@@ -2,7 +2,7 @@
   <% cart_item = Sku.find_by_id(item[:item_id]) %>
   <div id = "item_<%= item[:id] -%>_image"  class = "itemImage">
     <% display_name = cart_item.product.name %>
-    <%= link_to(image_tag("#{cart_item.product.main_image.public_filename(:S75x75)}", :alt => h(display_name)), product_path(cart_item.product), :title => h(display_name)) -%>
+    <%= link_to(main_image(cart_item.product, :S75x75), product_path(cart_item.product), :title => h(display_name)) -%>
   </div>
   <div class = "descriptionItem">
     <div class = "heading"><%= link_to(h(display_name), cart_item.product) -%></div>

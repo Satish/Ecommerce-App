@@ -5,7 +5,7 @@ module OrdersHelper
   end
 
   def select_options_for_shipping_method
-    @store.shipping_methods.active.collect{|shipping_method| [shipping_method.name, shipping_method.id] }
+    @store.shipping_methods.active.all(:conditions => ["countries.name = ?", @order.shipping_address.country], :include => [{ :shipping_countries => [:country]}]).collect{|shipping_method| [shipping_method.name, shipping_method.id] }
   end
 
   def select_options_for_card_type
