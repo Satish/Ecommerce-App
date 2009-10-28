@@ -14,6 +14,10 @@
 
 class LineItem < ActiveRecord::Base
 
+  liquid_methods << :quantity << :price << :unit_price << :sku_number << :sku_display_name
+
+  delegate :number, :display_name, :to => :sku, :prefix => true
+
   validates_presence_of :sku_id, :price, :quantity
   validates_numericality_of :price, :greater_than_or_equal_to => 0
   validates_numericality_of :quantity, :greater_than_or_equal_to => 1
@@ -27,6 +31,10 @@ class LineItem < ActiveRecord::Base
 
   def calculate_handling_fee
     sku ? sku.product.handling_fee * quantity : 0.0
+  end
+
+  def unit_price
+    price
   end
 
 end

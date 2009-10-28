@@ -1,8 +1,8 @@
-<h3>Hi {{ order.billing_address.full_name }}</h3>
+<h3>Hi {{ billing_address.full_name }}</h3>
 
-<h4>You have placed an order at {{ order.store.domain }} on {{ order.created_at | date: " %b %d, %Y" }} for the following items </h4>
+<h4>You have placed an order at {{ store.domain }} on {{ order.created_at | date: " %b %d, %Y" }} for the following items </h4>
 
-<p><strong>Your Order ID:</strong> {{ order.order_id }}</p>
+<p><strong>Your Order #:</strong> {{ order.number }}</p>
 
 <h3>Order Details</h3>
 <table width="70%" id="initial_cart">
@@ -15,16 +15,11 @@
   </tr>
 	{% for line_item in order.line_items %}
 		<tr style="text-align: center">
-		{% if line_item.is_product? %}
-		  <td style="width: 10%">{{ line_item.sku.sku_number }}</td>
-			<td style="width: 30%" align = "left">{{ line_item.sku.sku_display_name }}</td>
-		{% else %}
-			<td style="width: 10%">JBGC</td>
-			<td style="width: 30%" align = "left">{{ order.store.display_name }} Gift Certificate</td>
-		{% endif %}
+	  <td style="width: 10%">{{ line_item.sku_number }}</td>
+		<td style="width: 30%" align = "left">{{ line_item.sku_display_name }}</td>
 	  <td style="width: 20%">{{ line_item.quantity }}</td>
-	  <td style="width: 20%">{{ line_item.unit_price | currency }}</td>
-	  <td style="width: 20%" align = "right">{{ line_item.price | currency }}</td>
+	  <td style="width: 20%">{{ line_item.unit_price }}</td>
+	  <td style="width: 20%" align = "right">{{ line_item.price }}</td>
 	</tr>
 	{% endfor %}
 	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
@@ -32,32 +27,17 @@
   </tr>
 	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
     <td style="width: 20%" colspan = '4' align = "right">Shipping Amount</td>
-		<td style="width: 20%" align = "right">{{ order.shipping_amount | currency }}</td>
+		<td style="width: 20%" align = "right">{{ order.shipping_amount }}</td>
   </tr>
 	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
     <td style="width: 20%" colspan = '4' align = "right">Tax Amount</td>
-		<td style="width: 20%" align = "right">{{ order.tax_amount | currency }}</td>
+		<td style="width: 20%" align = "right">{{ order.tax_amount }}</td>
   </tr>
-  {% if order.total_discount > 0 %}
-   <tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
-    <td style="width: 20%" colspan = '4' align = "right">Discount</td>
-		<td style="width: 20%" align = "right">{{ order.total_discount | currency }}</td>
-  </tr>
-  {% endif %}
-  {% if order.gift_certificate_amount > 0 %}
-   <tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
-    <td style="width: 20%" colspan = '4' align = "right">Gift Certificate Amount</td>
-		<td style="width: 20%" align = "right">- {{ order.gift_certificate_amount | currency }}</td>
-  </tr>
-  {% endif %}
 	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
     <td style="width: 20%" colspan = '4' align = "right">Total Amount</td>
-		<td style="width: 20%" align = "right">{{ order.total_amount | currency }}</td>
+		<td style="width: 20%" align = "right">{{ order.total_amount }}</td>
   </tr>
 </table>
-
-<h3>Shipping Method</h3>
-{{ order.shipping_method_name }}<br/><br/>
 
 <table width = "60%">
 	<tr>
@@ -66,31 +46,36 @@
 	</tr>
 	<tr>
 		<td>
-			Name: {{ order.billing_address.full_name }}<br/>
-			Email: {{ order.billing_address.email }}<br/>
-			Phone: {{ order.billing_address.phone }}<br/>
-			Billing Address: {{ order.billing_address.address }}<br/>
-			City: {{ order.billing_address.city }}<br/>
-			State: {{ order.billing_address.state }}<br/>
-			Country: {{ order.billing_address.country }}<br/>
-			Zip Code: {{ order.billing_address.zip_code }}<br/><br/>
+			Name: {{ billing_address.full_name }}<br/>
+			Email: {{ billing_address.email }}<br/>
+			Phone: {{ billing_address.phone }}<br/>
+			Address: {{ billing_address.address }}<br/>
+			City: {{ billing_address.city }}<br/>
+			State: {{ billing_address.state }}<br/>
+			Country: {{ billing_address.country }}<br/>
+			Zip Code: {{ billing_address.zipcode }}<br/><br/>
 		</td>
 		<td>
-			Name: {{ order.shipping_address.full_name }}<br/>
-			Email: {{ order.shipping_address.email }}<br/>
-			Phone: {{ order.shipping_address.phone }}<br/>
-			Shipping Address: {{ order.shipping_address.address }}<br/>
-			City: {{ order.shipping_address.city }}<br/>
-			State: {{ order.shipping_address.state }}<br/>
-			Country: {{ order.shipping_address.country }}<br/>
-			Zip Code: {{ order.shipping_address.zip_code }}<br/><br/>
+			Name: {{ shipping_address.full_name }}<br/>
+			Email: {{ shipping_address.email }}<br/>
+			Phone: {{ shipping_address.phone }}<br/>
+			Address: {{ shipping_address.street1 }} {{ shipping_address.street2 }}<br/>
+			City: {{ shipping_address.city }}<br/>
+			State: {{ shipping_address.state }}<br/>
+			Country: {{ shipping_address.country }}<br/>
+			Zip Code: {{ shipping_address.zipcode }}<br/><br/>
 		</td>
 	</tr>
 </table>
 
+<div style = "padding: 5px 0px">
+  <div style = "padding: 5px 0px"><strong>Shipping Method:</strong> {{ order.shipping_method_name }}</div>
+</div>
+
+
 <p>To track the status of your order visit the <a href='{{ order_status_url }}' title = "click here to check status of your order">Order Status page</a> or <a href="{{ login_url }}" title = "click here to login">login</a> to your account control panel.</p>
 
 <div style = "padding: 20px 0px;">
-Thanks<br/>
-{{ order.store.domain }}
+  Thanks,<br/>
+  {{ store.display_name }}
 </div>

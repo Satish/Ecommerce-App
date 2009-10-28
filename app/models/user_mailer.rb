@@ -26,17 +26,17 @@ class UserMailer < ActionMailer::Base
     subject       "[www.#{store.domain}]"
     sent_on       Time.now
     content_type  "text/html"
-    @body[:user]= user
-    @body[:store] = store
+    @body[:user]= UserDrop.new(user)
+    @body[:store] = StoreDrop.new(store)
   end
 
-  def render_message(method_name, body)
+#  def render_message(method_name, body)
 #    mail_template = body[:order].store.mail_templates.find_by_name(method_name)
 #    template = Liquid::Template.parse(mail_template.body)
 #    template.render('order'=> OrderDrop.new(body[:order]), 'order_status_url'=> body[:url], 'login_url' => body[:login_url] )
-    template = Liquid::Template.parse(File.read(Rails.root + "/app/views/user_mailer/#{method_name}.html.erb"))
-    template.render('user'=> UserDrop.new(body[:user]), 'store'=> StoreDrop.new(body[:store]), 'url' => body[:url] )
-  end
+#    template = Liquid::Template.parse(File.read(Rails.root + "app/views/user_mailer/#{ method_name }.html.liquid"))
+#    template.render('user'=> UserDrop.new(body[:user]), 'store'=> StoreDrop.new(body[:store]), 'url' => body[:url] )
+#  end
 
   def get_activation_link(user, store)
     activate_url(:activation_code => user.activation_code, :host => "www.#{store.domain}")

@@ -1,7 +1,7 @@
-<h3>Hi {{ order.billing_address.full_name }}</h3>
+<h3>Hi {{ billing_address.full_name }}</h3>
 
-<h4>Your order(<strong>Order ID:</strong> {{ order.order_id }}) placed at {{ order.store.domain }} have been sent for proccessing</h4><br/>
+<p>Your <strong>Order #: {{ order.number }}</strong> placed at {{ store.domain }} have been sent for proccessing</p>
+<p>To track the status of your order visit the <a href='{{ order_status_url }}' title = "click here to check status of your order">Order Status page</a> or <a href="{{ login_url }}" title = "click here to login">login</a> to your account control panel.</p>
 
-
-Thanks<br/>
-{{ order.store.domain }}
+Thanks,<br/>
+{{ store.display_name }}

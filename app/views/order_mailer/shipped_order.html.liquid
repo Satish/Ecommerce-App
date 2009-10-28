@@ -1,34 +1,28 @@
-<h3>Hi {{ order.billing_address.full_name }}</h3>
-
-<h4>Your order(<strong>Order ID:</strong> {{ order.order_id }}) placed at {{ order.store.domain }} have been shipped to following address</h4><br/>
+<h3>Hi {{ billing_address.full_name }}</h3>
+<p style = "padding: 5px 0px">Your <strong>Order #: {{ order.number }} </strong> placed at {{ store.domain }} have been shipped to the following address.</p>
 
 <table width = "60%">
 	<tr>
-		<td><h3>Customer Shipping details</h3></td>
+		<td><strong>Customer Shipping detail</strong></td>
 	</tr>
 	<tr>
 		<td>
-			Name: {{ order.shipping_address.full_name }}<br/>
-			Email: {{ order.shipping_address.email }}<br/>
-			Phone: {{ order.shipping_address.phone }}<br/>
-			Shipping Address: {{ order.shipping_address.address }}<br/>
-			City: {{ order.shipping_address.city }}<br/>
-			State: {{ order.shipping_address.state }}<br/>
-			Country: {{ order.shipping_address.country }}<br/>
-			Zip Code: {{ order.shipping_address.zip_code }}<br/><br/>
+			Name: {{ shipping_address.full_name }}<br/>
+			Email: {{ shipping_address.email }}<br/>
+			Phone: {{ shipping_address.phone }}<br/>
+			Shipping Address: {{ shipping_address.street1 }} {{ shipping_address.street2 }}<br/>
+			City: {{ shipping_address.city }}<br/>
+			State: {{ shipping_address.state }}<br/>
+			Country: {{ shipping_address.country }}<br/>
+			Zip Code: {{ shipping_address.zipcode }}<br/><br/>
 		</td>
 	</tr>
-</table><br/><br/>
+</table>
 
+<div style = "padding: 5px 0px">
+  <div style = "padding: 5px 0px"><strong>Shipping Method:</strong> {{ order.shipping_method_name }}</div>
+  <div style = "padding: 5px 0px"><strong>Tracking Number:</strong> {{ order.tracking_number }}</div>
+</div>
 
-<h3>Shipping Method</h3>
-{{ order.shipping_method_name }}<br/><br/>
-
-
-<h3>Tracking Number</h3>
-{{ order.tracking_number }}<br/><br/>
-
-
-
-Thanks<br/>
-{{ order.store.domain }}
+Thanks,<br/>
+{{ store.display_name }}

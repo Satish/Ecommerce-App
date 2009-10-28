@@ -1,19 +1,19 @@
 def uploaded_file(path, filename='', content_type='image/jpg')
-    if filename.empty?
-      rindex = path.rindex(/\\|\//)
-      filename = path[rindex+1..-1] if rindex
-    end
-
-    t = Tempfile.new(filename)
-    t.binmode
-    FileUtils.copy_file(path, t.path)
-    (class << t; self; end).class_eval do
-      alias local_path path
-      define_method(:original_filename) {filename}
-      define_method(:content_type) {content_type}
-    end
-    return t
+  if filename.empty?
+    rindex = path.rindex(/\\|\//)
+    filename = path[rindex+1..-1] if rindex
   end
+
+  t = Tempfile.new(filename)
+  t.binmode
+  FileUtils.copy_file(path, t.path)
+  (class << t; self; end).class_eval do
+    alias local_path path
+    define_method(:original_filename) {filename}
+    define_method(:content_type) {content_type}
+  end
+  return t
+end
 
 #  # Don't forget to back up first!
 #  desc "Move all the photographs to s3 server with atachment_fu (back up first!)."

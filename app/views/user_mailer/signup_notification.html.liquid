@@ -1,5 +1,5 @@
 <div style = "padding:10px 0px 0px 50px">
-  <h4>Hi {{ user.login | html_escape }}</h4>
+  <h4>Hi {{ user.login | strip_html }}</h4>
   <div  style = "padding:10px 0px">Your account has been created and an activation email have been sent to you to make sure you're real.</div>
   <div style = "padding:10px 0px">
     <p>Please click the activation link below to activate your account:</p>
@@ -9,7 +9,7 @@
   </div>
   <div  style = "padding:10px 0px; font-size:16px;font-weight:lighter;">
     Admin<br/>
-    http://www.{{ store.domain | html_escape }}<br/>
-    {{ store.email | html_escape }}
+    http://www.{{ store.domain | strip_html }}<br/>
+    {{ store.email | strip_html }}
   </div>
 </div>
