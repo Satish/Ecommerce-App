@@ -19,7 +19,7 @@
    	</div>
     <div class="formRow transparent">
       <%= f.submit @page.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, Page.new] -%>
+      <%= link_to "Cancel", admin_pages_path -%>
     </div>
   <% end -%>
 </div> 

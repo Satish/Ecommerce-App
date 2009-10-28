@@ -32,7 +32,7 @@
     <%= render :partial => 'admin/images/images', :locals => {:attachable => @category, :prefix => 'category' } %>
     <div class="formRow transparent">
       <%= f.submit @category.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, Category.new] -%>
+      <%= link_to "Cancel", admin_categories_path -%>
     </div>
   <% end -%>
 </div>

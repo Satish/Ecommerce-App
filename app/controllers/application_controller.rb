@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_store
-    @store = @store ||= Store.first
+    @store = @store ||= Store.find(:first, :include => [:logo, :favicon_icon])
     @currency = @currency ||= @store.currencies.active.first if @store
   end
 

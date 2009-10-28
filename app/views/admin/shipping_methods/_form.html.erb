@@ -16,7 +16,7 @@
    	</div>
     <div class="formRow transparent">
       <%= f.submit @shipping_method.new_record?  ? "Create":"Update", :class => "button" -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, ShippingMethod.new] -%>
+      <%= link_to "Cancel", admin_shipping_methods_path -%>
     </div>
   <% end -%>
 </div>

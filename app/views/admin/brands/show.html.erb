@@ -2,6 +2,6 @@
 <div class="container">
   <%= h @brand.name %><br/><br/>
   <%= h @brand.description %><br/><br/><br/><br/>
-  <%= link_to 'back', [:admin, Brand.new] %>
+  <%= link_to 'back', admin_brands_path %>
   <%= link_to 'delete', [:admin, @brand], :method => :delete, :confirm => " Deleting Brand '#{ @brand.name }'\n Are you Sure?" -%>
 </div>

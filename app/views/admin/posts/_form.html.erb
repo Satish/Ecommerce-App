@@ -24,7 +24,7 @@
     <div class="formRow transparent">
       <%= f.submit "Publish", :class => "button publish" -%>
       <%= f.submit "Save", :class => "button", :style => "margin-left: 5px;" if @post.new_record? -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, Post.new] -%>
+      <%= link_to "Cancel", admin_posts_path -%>
     </div>
   <% end -%>
 </div> 

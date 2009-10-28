@@ -1,5 +1,5 @@
 <div class="container post">
-  <span class = "floatRight marginTop4"><%= link_to 'Back to Orders', [:admin, Order.new] -%></span>
+  <span class = "floatRight marginTop4"><%= link_to 'Back to Orders', admin_orders_path -%></span>
   <h2 class="pageHeading">Edit Order</h2>
   <div id='editOrderForm' class="formContainer create">
     <div class="addnewpost item">
@@ -20,7 +20,7 @@
         </div>
         <div class="formRow transparent">
           <%= f.submit "Save!", :class => "button" -%>&nbsp; or &nbsp;
-          <%= link_to "Cancel", [:admin, @order] -%>
+          <%= link_to "Cancel", admin_orders_path -%>
         </div>
       <% end -%>
     </div>

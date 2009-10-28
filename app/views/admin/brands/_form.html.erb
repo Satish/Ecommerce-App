@@ -28,7 +28,7 @@
     <%= render :partial => 'admin/images/images', :locals => {:attachable => @brand, :prefix => 'brand' } %>
     <div class="formRow transparent">
       <%= f.submit @brand.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", [:admin, Brand.new] -%>
+      <%= link_to "Cancel", admin_brands_path -%>
     </div>
   <% end -%>
 </div> 
