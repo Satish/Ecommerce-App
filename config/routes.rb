@@ -1,6 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :stores
 
+  # SuperAdmin Routes (under admin namescope)
+  map.namespace :superadmin do |superadmin|
+    superadmin.root :controller => 'stores'
+    superadmin.resources :stores
+  end
 
   # Normal Routes
   map.root :controller => "products"

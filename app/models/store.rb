@@ -24,6 +24,8 @@
 
 class Store < ActiveRecord::Base
 
+  default_scope :order => "stores.created_at DESC, stores.domain"
+
   validates_presence_of :domain, :email, :display_name
   validates_uniqueness_of :domain
 
@@ -79,6 +81,16 @@ class Store < ActiveRecord::Base
     else
       self.favicon_icon.update_attributes(:uploaded_data => favicon_icon_attributes)
     end
+  end
+
+  def self.search(query, options)
+    default_conditions = query.blank? ? '' : "domain like '%#{ query }%' or display_name like '%#{ query }%' or email like '%#{ query }%'"
+
+    default_conditions << ' and ' if options[:conditions] and !default_conditions.blank?
+    default_conditions << options.delete(:conditions) if options[:conditions]
+
+    default_options = {:conditions => default_conditions, :include => [:logo] }
+    paginate default_options.merge(options)
   end
 
   private ################################

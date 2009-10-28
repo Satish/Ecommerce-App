@@ -12,3 +12,5 @@ PAYMENT_TYPES = ['creditcard']#, 'paypal', 'google checkout']
 VALID_EXPIRY_YEARS = (Time.zone.now.year..Time.zone.now.year + 20).to_a
 VALID_MONTHS = (1..12).to_a.collect{|n| [Date::MONTHNAMES[n], n] }
 PER_PAGE = 20
+SUPERADMIN_NAME = 'superadmin'
+SUPERADMIN_PASSWORD = 'superadminp@$$'

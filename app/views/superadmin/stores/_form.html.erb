@@ -1,0 +1,30 @@
+<div class="editStore item">
+  <% form_for [:superadmin, @store] do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+      <%= f.label :domain -%>
+      <%= f.text_field :domain, :class => "text important styledFormElement" -%>
+      <div class = "fieldInfo">eg: enter <b>example.com</b> for http://example.com</div>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :display_name -%>
+      <%= f.text_field :display_name, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :email -%>
+      <%= f.text_field :email, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :active -%>
+      <%= f.select :active, options_for_status, {}, {:onchange => "toggle_disable_message(this)", :class => "text styledFormElement"} -%>
+    </div>
+    <div id = "storeDisableMessage" class="formRow transparent" style = "display:<%= 'none' if @store.active -%>">
+      <%= f.label :disable_message -%>
+      <%= f.text_area :disable_message, :class => "styledFormElement height50px" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.submit "Save!", :class => "button", :style => "margin-left: 5px;"  -%>&nbsp; or &nbsp;
+      <%= link_to "Cancel", [:superadmin, Store.new] -%>
+    </div>
+  <% end -%>
+</div>

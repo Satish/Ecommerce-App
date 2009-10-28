@@ -1,0 +1,32 @@
+<div id = "stores">
+  <% if @stores.size > 0 -%>
+    <% paginated_section @stores, :class => "pagination", :renderer => RemoteLinkRenderer do %>
+    <span class="pageLoadingIndicator" id = "pageLoadingIndicator" style = "display:none"><%= image_tag("/images/admin/indicator.gif", {:alt => "progressIndicator", :size => "15x15"}) -%></span>  
+      <div class="table">
+        <div class = "tableHeader">
+          <span class = "pct10">Sr. NO.</span>
+          <span class = "pct20">Logo</span>
+          <span class = "pct20 textAlignLeft">Domain</span>
+          <span class = "pct30 textAlignLeft">Email</span>
+          <span class = "pct10">Status</span>
+          <span class = "pct10">-</span>
+        </div>
+        <% @stores.each_with_index do |store, index| -%>
+          <% div_for store, :class => "tableRow #{cycle('odd', 'even')}" do -%>
+            <span class = "pct10 textAlignCenter"><%= index + 1 -%></span>
+            <span class = "pct20 textAlignCenter"><%= store.logo ? image_tag(store.logo.public_filename(:small)) : 'Logo' -%></span>
+            <span class = "pct20"><%= h(store.domain) -%></span>
+            <span class = "pct30"><%= h(store.email) -%></span>
+            <span class = "pct10 textAlignCenter"><%= store.active? ? 'Active' : 'Inactive' -%></span>
+            <span class = "pct10 textAlignCenter">
+              <%= link_to(image_tag("admin/iconEdit.png", :alt => "edit"), [:edit, :superadmin, store], :title => "Edit") -%>
+              <%= link_to(image_tag("admin/iconDelete.png", :alt => "X"), [:superadmin, store], :title => "Delete", :method => :delete, :confirm => " Deleting store '#{ h(store.domain) }'\n Are you Sure?") -%>
+            </span>
+          <% end -%>
+        <% end -%>
+      </div>
+    <% end %>
+	<% else %>
+    <div class = "noRecords">There are no stores</div>     
+  <% end -%>
+</div>
