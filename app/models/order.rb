@@ -5,16 +5,17 @@
 #  id              :integer(4)      not null, primary key
 #  user_id         :integer(4)
 #  store_id        :integer(4)
-#  status          :string(255)     default("pending")
+#  state           :string(255)     default("checking_out")
 #  tracking_number :string(255)
 #  payment_type    :string(255)
+#  number          :string(30)
 #  transaction_id  :integer(4)
-#  number          :string(255)
 #  total_amount    :decimal(8, 2)   default(0.0)
 #  tax_amount      :decimal(8, 2)   default(0.0)
 #  shipping_amount :decimal(8, 2)   default(0.0)
 #  handling_amount :decimal(8, 2)   default(0.0)
 #  total_discount  :decimal(8, 2)   default(0.0)
+#  checkout_step   :integer(1)      default(1)
 #  deleted_at      :datetime
 #  created_at      :datetime
 #  updated_at      :datetime

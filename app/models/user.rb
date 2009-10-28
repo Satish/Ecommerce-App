@@ -13,11 +13,11 @@
 #  activated_at              :datetime
 #  remember_token_expires_at :datetime
 #  deleted_at                :datetime
+#  visited_at                :datetime
 #  state                     :string(255)     default("passive")
+#  store_id                  :integer(4)
 #  created_at                :datetime
 #  updated_at                :datetime
-#  store_id                  :integer(4)
-#  visited_at                :datetime
 #
 
 require 'digest/sha1'

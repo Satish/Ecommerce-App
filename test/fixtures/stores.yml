@@ -15,11 +15,11 @@
 #  disable_message          :text
 #  meta_description         :text
 #  meta_keywords            :text
-#  status                   :boolean(1)      default(TRUE)
+#  active                   :boolean(1)      default(TRUE)
+#  handling_fee             :float           default(0.0)
 #  deleted_at               :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
-#  handling_fee             :decimal(8, 2)   default(0.0)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -11,9 +11,9 @@
 #  state            :string(15)      default("unapproved")
 #  commentable_id   :integer(4)
 #  commentable_type :string(255)
+#  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
-#  deleted_at       :datetime
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
