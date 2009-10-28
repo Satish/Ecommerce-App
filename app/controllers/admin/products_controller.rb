@@ -17,7 +17,8 @@ class Admin::ProductsController < Admin::BaseController
   def create
     @product = Product.new(params[:product])
     if @store.products << @product
-      redirect_to_products_home
+      flash[:notice] = "Atleast one SKU is required for a product. Otherwise customer will not be able to add this product to his/her shopping cart.", { :timeout => 100 }
+      redirect_to new_admin_product_sku_path(@product)
     else
       render :action => :new
     end

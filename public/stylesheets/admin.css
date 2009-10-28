@@ -183,3 +183,5 @@ a.linkButton:hover { text-decoration:none;}
 .fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select  { padding: 2px; border: 3px solid red !important; }
 
 #flash_notice, #flash_error, #flash_warning, #flash_info, #flash_message { width: 63.6% }
+
+.flash { width:79% !important; }
