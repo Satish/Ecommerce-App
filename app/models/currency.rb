@@ -27,9 +27,8 @@ class Currency < ActiveRecord::Base
   named_scope :active, :conditions => { :state => 'active' }
   named_scope :inactive, :conditions => { :state => 'inactive' }
 
-  validates_presence_of :name,:symbol, :rate, :store_id
+  validates_presence_of :name,:symbol, :store_id
   validates_uniqueness_of :name, :symbol, :scope => :store_id
-#  validates_numericality_of :rate, :if => Proc.new { |c| !c.rate.blank? }
 
   belongs_to :store
 
