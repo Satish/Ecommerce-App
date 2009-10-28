@@ -5,7 +5,7 @@
 <p><strong>Your Order #:</strong> {{ order.number }}</p>
 
 <h3>Order Details</h3>
-<table width="70%" id="initial_cart">
+<table width="70%" border = "1px" cellspacing = 0>
   <tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
     <td style="width: 10%">Item</td>
 		<td style="width: 30%; text-align: left">Name</td>
@@ -34,11 +34,15 @@
 		<td style="width: 20%" align = "right">{{ order.tax_amount }}</td>
   </tr>
 	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
+    <td style="width: 20%" colspan = '4' align = "right">Handling Amount</td>
+		<td style="width: 20%" align = "right">{{ order.handling_amount }}</td>
+  </tr>
+	<tr style="font-size:0.95em; color:#00681C; font-weight:bold; height:21px; text-align: center">
     <td style="width: 20%" colspan = '4' align = "right">Total Amount</td>
 		<td style="width: 20%" align = "right">{{ order.total_amount }}</td>
   </tr>
 </table>
-
+<br/>
 <table width = "60%">
 	<tr>
 		<td><h3>Billing details</h3></td>

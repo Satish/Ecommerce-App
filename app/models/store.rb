@@ -24,7 +24,7 @@
 
 class Store < ActiveRecord::Base
 
-  default_scope :order => "stores.created_at DESC, stores.domain"
+  default_scope :order => "stores.created_at, stores.domain"
 
   validates_presence_of :domain, :email, :display_name
   validates_uniqueness_of :domain

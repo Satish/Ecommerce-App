@@ -14,8 +14,6 @@
 
 class LineItem < ActiveRecord::Base
 
-  liquid_methods << :quantity << :price << :unit_price << :sku_number << :sku_display_name
-
   delegate :number, :display_name, :to => :sku, :prefix => true
 
   validates_presence_of :sku_id, :price, :quantity
@@ -34,7 +32,11 @@ class LineItem < ActiveRecord::Base
   end
 
   def unit_price
-    price
+    price/quantity
+  end
+
+  def to_liquid(options = {})
+    LineItemDrop.new(self, options)
   end
 
 end

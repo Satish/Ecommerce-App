@@ -36,7 +36,7 @@ class OrderMailer < ActionMailer::Base
     @body         = {:user              => UserDrop.new(order.user),
                     :order             => OrderDrop.new(order),
                     :store             => StoreDrop.new(store),
-                    :line_items        => order.line_items,
+                    :line_items        => order.line_items.collect(&:to_liquid),
                     :billing_address   => AddressDrop.new(order.billing_address),
                     :shipping_address  => AddressDrop.new(order.shipping_address),
                     :order_status_url  => "http://#{ store.domain }/orders/status",#status_orders_url(:host => store.domain),
