@@ -74,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :store_countries, :only => [:index, :create, :destroy], :collection => { :remove => :post } do |store_countries|
       store_countries.resources :states, :except => [:show]
     end
-    admin.resources :orders do |orders|
+    admin.resources :orders, :collection => { :get_state_options => :post } do |orders|
       orders.resource :shipments, :only => [:edit, :update]
     end
 

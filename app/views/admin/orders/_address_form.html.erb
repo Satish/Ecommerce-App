@@ -1,59 +1,59 @@
 <div class = "addressForm <%= address.class -%>Form">
   <h2><%= address.class -%></h2>
   <div class="formRow">
-  	<%= f.label :first_name -%>
-  	<%= f.text_field :first_name, :class => "text important styledFormElement" -%>
+    <%= child_form.label :first_name -%>
+    <%= child_form.text_field :first_name, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :last_name -%>
-  	<%= f.text_field :last_name, :class => "text important styledFormElement" -%>
+    <%= child_form.label :last_name -%>
+    <%= child_form.text_field :last_name, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :email -%>
-  	<%= f.text_field :email, :class => "text important styledFormElement" -%>
+    <%= child_form.label :email -%>
+    <%= child_form.text_field :email, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :company -%>
-  	<%= f.text_field :company, :class => "text important styledFormElement " -%>
+    <%= child_form.label :company -%>
+    <%= child_form.text_field :company, :class => "text important styledFormElement " -%>
   </div>
   <div class="formRow">
-  	<%= f.label :street1 -%> 
-  	<%= f.text_area :street1, :class => "text important styledFormElement fieldHeight height50px mceNoEditor" -%>
+    <%= child_form.label :street1 -%>
+    <%= child_form.text_area :street1, :class => "text important styledFormElement fieldHeight height50px mceNoEditor" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :street2 -%> 
-  	<%= f.text_area :street2, :class => "text important styledFormElement fieldHeight height50px mceNoEditor" -%>
+    <%= child_form.label :street2 -%>
+    <%= child_form.text_area :street2, :class => "text important styledFormElement fieldHeight height50px mceNoEditor" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :city -%>
-  	<%= f.text_field :city, :class => "text important styledFormElement" -%>
+    <%= child_form.label :city -%>
+    <%= child_form.text_field :city, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :country -%>
+    <%= child_form.label :country -%>
     <% if address.is_a?(ShippingAddress) %>
-  	  <%= f.select :country, options_for_shipping_country_select, {}, {:class => "text important styledFormElement"} -%>
+      <%= child_form.select :country, options_for_shipping_country_select, {}, {:class => "text important styledFormElement"} -%>
     <% else -%>
-  	  <%= f.select :country, options_for_billing_country_select, {}, {:class => "text important styledFormElement"} -%>
+      <%= child_form.select :country, options_for_billing_country_select, {}, {:class => "text important styledFormElement"} -%>
     <% end -%>
   </div>
-  <%= observe_field  address.type.underscore + '_country', :frequency => 0.5, :update => get_address_state_dom_id(address), :url => {:action=> 'get_state_options', :only_path => false }, :with => "'country=' + encodeURIComponent(value) + '&address_type=' + '#{ address.type.underscore }'" %>
+  <%= observe_field "#{ source }_#{ address.type.to_s.underscore}_attributes_country", :frequency => 0.5, :update => get_address_state_dom_id(address), :url => get_state_options_admin_orders_path, :with => "'country=' + encodeURIComponent(value) + '&address_type=' + '#{ address.type.to_s.underscore }' + '&source=' + '#{ source }'" -%>
   <div class="formRow">
-  <%= f.label :state %>
+  <%= child_form.label :state %>
   <span id ="<%= get_address_state_dom_id(address) -%>">
-    <%= render :partial => "/orders/state_options", :locals => {:country => address.country, :state => address.state, :object => address.type.underscore } %>
+    <%= render :partial => "admin/orders/state_options", :locals => {:country => address.country, :state => address.state, :address_type => address.type.to_s.underscore, :source => source } %>
   </span>
   </div>
   <div class="formRow">
-  	<%= f.label :zipcode -%>
-  	<%= f.text_field :zipcode, :class => "text important styledFormElement" -%>
+    <%= child_form.label :zipcode -%>
+    <%= child_form.text_field :zipcode, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :phone -%>
-  	<%= f.text_field :phone, :class => "text important styledFormElement" -%>
+    <%= child_form.label :phone -%>
+    <%= child_form.text_field :phone, :class => "text important styledFormElement" -%>
   </div>
   <div class="formRow">
-  	<%= f.label :fax -%>
-  	<%= f.text_field :fax, :class => "text important styledFormElement" -%>
+    <%= child_form.label :fax -%>
+    <%= child_form.text_field :fax, :class => "text important styledFormElement" -%>
   </div>
 </div>
 

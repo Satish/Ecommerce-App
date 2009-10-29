@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
       if @order.checkout_step?(3)
         session[:order_id] = nil
         flash[:message] = 'Order created successfully.'
-        OrderMailer.deliver_new_order(order)
+        OrderMailer.deliver_new_order(@order)
         redirect_to( logged_in? ? @order : root_path) and return
       else
         redirect_to_order_checkout_next_step and return

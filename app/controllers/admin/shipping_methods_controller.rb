@@ -15,7 +15,7 @@ class Admin::ShippingMethodsController < Admin::BaseController
   def new
     @shipping_method = ShippingMethod.new
   end
-    
+
   def create
     @shipping_method = ShippingMethod.new(params[:shipping_method])
     if @store.shipping_methods << @shipping_method

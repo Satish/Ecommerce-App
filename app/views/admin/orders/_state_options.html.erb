@@ -1,0 +1,5 @@
+<% if STATE_FOR_STATE_SELECT.include?(country) %>
+  <%= state_select "#{ source }[#{ address_type }_attributes]", :state, { :country => get_country_option(country), :selected => state }, {:class => "formField fieldWidth"} -%>
+<% else %>
+  <%= text_field "#{ source }[#{ address_type }_attributes]", :state, :value => state, :class => "text formField fieldWidth" -%>
+<% end %>

@@ -2,15 +2,15 @@
   <% form_for([:admin, @order]) do |f| -%>
     <%= f.error_messages -%>
     <div style = "overflow:hidden">
-      <% fields_for "shipping_address", @order.shipping_address do |shipping_address| %>
+      <% f.fields_for :shipping_address do |shipping_address| %>
         <div id = "shippingAddress" class = "address" style = "float:left; width: 45%">
-          <%= render :partial => 'admin/orders/address_form', :locals => { :f => shipping_address, :address => @order.shipping_address } -%>
+          <%= render :partial => 'admin/orders/address_form', :locals => { :child_form => shipping_address, :address => @order.shipping_address, :source => 'order' } -%>
         </div>
       <% end -%>
 
-      <% fields_for "billing_address", @order.billing_address do |billing_address| %>
+      <% f.fields_for :billing_address do |billing_address| %>
         <div id = "billingAddress" class = "address" style = "float:left; width: 45%; margin-left:40px;">
-          <%= render :partial => 'admin/orders/address_form', :locals => { :f => billing_address, :address => @order.billing_address } -%>
+          <%= render :partial => 'admin/orders/address_form', :locals => { :child_form => billing_address, :address => @order.billing_address, :source => 'order' } -%>
         </div>
       <% end -%>
     </div>

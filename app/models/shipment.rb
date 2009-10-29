@@ -16,10 +16,20 @@
 
 class Shipment < ActiveRecord::Base
 
+  delegate :price, :to => :shipping_method, :prefix => true
+
   validates_presence_of :order_id, :shipping_method_id, :shipping_address_id
-  
+
   belongs_to :order
   belongs_to :shipping_method
   belongs_to :shipping_address
+
+  accepts_nested_attributes_for :shipping_address
+
+  def after_update
+    if shipping_method_id && shipping_method_id_changed?
+      order.update_attribute(:shipping_amount, shipping_method_price)
+    end
+  end
 
 end

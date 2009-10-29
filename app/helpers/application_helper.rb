@@ -80,7 +80,7 @@ module ApplicationHelper
   end
 
   def get_address_state_dom_id(address)
-    address.type.underscore + '_state_block'
+    address.type.to_s.underscore + '_state_block'
   end
 
   def sanitize_html(html)

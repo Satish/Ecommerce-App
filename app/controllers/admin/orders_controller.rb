@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::BaseController
 
-  before_filter :find_order, :except => [:index]
+  before_filter :find_order, :except => [:index, :get_state_options]
 
   def index
     options = { :page => params[:page], :conditions => conditions }
@@ -8,6 +8,22 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def show; end
+
+  def update
+    if @order.update_attributes(params[:order])
+      flash[:message] = "Order updated successfully"
+      redirect_to edit_admin_order_path(@order)
+    else
+      render :edit
+    end
+  end
+
+  def get_state_options
+    respond_to do |format|
+      format.html { redirect_to new_order_path }
+      format.js { render :partial => "state_options", :locals => { :country => params[:country], :state => nil,  :address_type => params[:address_type], :source => params[:source] } }
+    end
+  end
 
   #----------------------------------- private -----------------------------
   private

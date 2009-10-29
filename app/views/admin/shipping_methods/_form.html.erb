@@ -5,6 +5,10 @@
    		<%= f.label :name -%>
    		<%= f.text_field :name, :class => "text important styledFormElement" -%>
    	</div>
+    <div class="formRow transparent">
+      <%= f.label :price -%>
+      <%= f.text_field :price, :class => "text important styledFormElement" -%>
+    </div>
    	<div class="formRow transparent">
    		<%= f.label :countries -%>
       <%= f.select :store_country_ids, options_for_store_country_select, {}, {:multiple => true , :size=>'10', :class => "text important styledFormElement" } %>

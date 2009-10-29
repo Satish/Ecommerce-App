@@ -58,6 +58,7 @@ class Order < ActiveRecord::Base
 
   has_one :billing_address, :as => :addressable, :dependent => :destroy
   has_one :shipping_address, :as => :addressable, :dependent => :destroy
+  accepts_nested_attributes_for :shipping_address, :billing_address
 
   belongs_to :user
   belongs_to :store
@@ -174,7 +175,7 @@ class Order < ActiveRecord::Base
   end
 
   def estimated_shipping_amount
-    self.shipping_amount = total_amount_before_shipping == 0 ? 0 : 0#shipment ? shipment.shipping_method : 0
+    self.shipping_amount = shipment ? shipment.shipping_method.price : 0
   end
 
   def total_amount_before_shipping
@@ -235,20 +236,24 @@ class Order < ActiveRecord::Base
   #authorize/capture payment
   def process_creditcard
     amount = total_amount * 100   # convert to cents
+    if gateway
+      # We will Use CreditCard number = 1 and type = 'bogus' for success in case of Bogus Gateway
+      credit_card.number = '1' and credit_card.type = 'bogus' if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
 
-    # We will Use CreditCard number = 1 and type = 'bogus' for success in case of Bogus Gateway
-    credit_card.number = '1' and credit_card.type = 'bogus' if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
-
-    @response = gateway.authorize(amount, credit_card, relevant_customer_info)
-    if @response.success?
-      @response.params['transaction_id'] = 0 if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
-    else
-      self.errors.add_to_base("Card information could not be validated because #{ @response.message }") and return false
+      @response = gateway.authorize(amount, credit_card, relevant_customer_info)
+      if @response.success?
+        @response.params['transaction_id'] = 0 if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
+      else
+        self.errors.add_to_base("Card information could not be validated because #{ @response.message }") and return false
+      end
     end
   end
 
   def gateway
-    store_gateway = store.store_gateway
+    unless store_gateway = store.store_gateway
+      self.errors.add_to_base("Credit Card processing gateway is inactive.")
+      return false unless errors.empty?
+    end
     @gateway ||= case store_gateway.gateway.name
     when 'Paypal - Website Payments Pro'
 

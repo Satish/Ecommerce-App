@@ -8,6 +8,7 @@
 #  status     :string(10)      default("Active")
 #  created_at :datetime
 #  updated_at :datetime
+#  price      :decimal(8, 2)   default(0.0)
 #
 
 class ShippingMethod < ActiveRecord::Base
@@ -19,9 +20,11 @@ class ShippingMethod < ActiveRecord::Base
 
   attr_protected :store_id
 
-  validates_presence_of :name, :store_id
+  validates_presence_of :name, :store_id, :price
   validates_uniqueness_of :name, :scope => :store_id
-  
+  validates_numericality_of :price, :greater_than_or_equal_to => 0
+
+  default_scope :order => "shipping_methods.created_at DESC, shipping_methods.name"
   named_scope :active, :conditions => { :status => 'active' }
   
   has_many :shipping_countries, :dependent => :destroy
@@ -30,7 +33,7 @@ class ShippingMethod < ActiveRecord::Base
 
   belongs_to :store
 
-  after_save :do_after_save
+  after_save :delete_unselected_shipping_countries
 
   aasm_column :status
   aasm_initial_state :initial => :active
@@ -46,7 +49,9 @@ class ShippingMethod < ActiveRecord::Base
   end
 
   def store_country_ids=new_or_existing_store_country_ids
+    new_or_existing_store_country_ids.collect!(&:to_i)
     new_store_country_ids = StoreCountry.find_all_by_id(new_or_existing_store_country_ids.collect{|v| v.to_i} - store_country_ids, :select => "id").collect(&:id)
+    @deleted_store_country_ids = store_country_ids - new_or_existing_store_country_ids
     self.store_countries << StoreCountry.find_all_by_id(new_store_country_ids)
   end
 
@@ -56,7 +61,7 @@ class ShippingMethod < ActiveRecord::Base
 
   def self.search(query, options)
     conditions = ["shipping_methods.name like ? OR countries.name like ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
-    default_options = { :conditions => conditions, :include => [:countries], :order => "shipping_methods.created_at DESC, shipping_methods.name" }
+    default_options = { :conditions => conditions, :include => [:countries] }
 
     paginate default_options.merge(options)
   end
@@ -64,8 +69,8 @@ class ShippingMethod < ActiveRecord::Base
   #----------------------------------- private -----------------------------
   private
 
-  def do_after_save
-    @deleted_countries.each{ |shipping_country| shipping_country.destroy } if @deleted_countries
+  def delete_unselected_shipping_countries
+    ShippingCountry.delete_all(["store_country_id IN (?)", @deleted_store_country_ids]) unless @deleted_store_country_ids.empty?
   end
 
 end

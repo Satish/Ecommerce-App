@@ -8,6 +8,7 @@
 #  status     :string(10)      default("Active")
 #  created_at :datetime
 #  updated_at :datetime
+#  price      :decimal(8, 2)   default(0.0)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
