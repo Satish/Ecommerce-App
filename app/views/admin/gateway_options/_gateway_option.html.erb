@@ -3,7 +3,6 @@
 <% fields_for prefix, gateway_option do |gateway_option_form| %>
   <div class="formRow transparent">
     <%= label_tag h(gateway_option.name) -%>
-    <%= gateway_option_form.text_field :gateway_option_value, :value => get_gateway_option_value(gateway_option), :class => "text important styledFormElement fieldWidth" -%>
-    <span class = "moreInfo"><%= h(gateway_option.description)%></span>
+    <%= gateway_option_form.text_field :gateway_option_value, :value => get_gateway_option_value(gateway_option), :class => "text important styledFormElement fieldWidth", :hint => h(gateway_option.description) -%>
   </div>
 <% end %>

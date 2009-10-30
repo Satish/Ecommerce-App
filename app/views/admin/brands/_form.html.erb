@@ -2,33 +2,33 @@
   <% form_for([:admin, @brand], :html => { :multipart => true }) do |f| -%>
     <%= f.error_messages -%>
     <div class="formRow transparent">
-   		<%= f.label :name -%>
-   		<%= f.text_field :name, :class => "text important styledFormElement" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :permalink -%>
-   		<%= f.text_field :permalink, :class => "text important styledFormElement" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :description -%>
-   		<%= f.text_area :description, :class => "mceEditor styledFormElement" -%>
-   	</div>
+      <%= f.label :name -%>
+      <%= f.text_field :name, :class => "text important styledFormElement" -%>
+    </div>
     <div class="formRow transparent">
-   		<%= f.label :meta_title -%>
-   		<%= f.text_field :meta_title, :class => "text important styledFormElement" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :meta_description -%>
-   		<%= f.text_area :meta_description, :class => "mceNoEditor styledFormElement height50px" -%>
-   	</div>
-   	<div class="formRow transparent">
-   		<%= f.label :meta_keywords -%>
-   		<%= f.text_area :meta_keywords, :class => "mceNoEditor styledFormElement height50px" -%>
-   	</div>
+      <%= f.label :permalink -%>
+      <%= f.text_field :permalink, :hint => "If left blank name will be used to creat permalink", :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :description -%>
+      <%= f.text_area :description, :class => "mceEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :meta_title -%>
+      <%= f.text_field :meta_title, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :meta_description -%>
+      <%= f.text_area :meta_description, :class => "mceNoEditor styledFormElement height50px" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :meta_keywords -%>
+      <%= f.text_area :meta_keywords, :class => "mceNoEditor styledFormElement height50px" -%>
+    </div>
     <%= render :partial => 'admin/images/images', :locals => {:attachable => @brand, :prefix => 'brand' } %>
     <div class="formRow transparent">
-      <%= f.submit @brand.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
-      <%= link_to "Cancel", admin_brands_path -%>
+     <%= f.submit @brand.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
+     <%= link_to "Cancel", admin_brands_path -%>
     </div>
   <% end -%>
 </div> 

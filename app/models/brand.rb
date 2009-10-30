@@ -39,8 +39,8 @@ class Brand < ActiveRecord::Base
   end
   
   def self.search(query, options)
-    conditions = ["name like ? or description like ?", "%#{query}%", "%#{query}%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, name"}
+    conditions = ["name like ? or description like ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
+    default_options = {:conditions => conditions, :order => "created_at DESC, name" }
     
     paginate default_options.merge(options)
   end
@@ -54,5 +54,5 @@ class Brand < ActiveRecord::Base
   def main_image
     images.first
   end
-  
+
 end

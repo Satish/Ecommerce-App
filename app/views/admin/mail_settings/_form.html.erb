@@ -3,8 +3,7 @@
     <%= f.error_messages -%>
     <div class="formRow transparent">
    		<%= f.label :mail_host -%>
-   		<%= f.text_field :mail_host, :class => "text important styledFormElement" -%>
-      <div class = "fieldInfo">eg: enter <b>goodcommerce.com</b> for http://goodcommerce.com</div>
+   		<%= f.text_field :mail_host, :class => "text important styledFormElement", :hint => "eg: enter <b>goodcommerce.com</b> for http://goodcommerce.com" -%>
    	</div>
     <div class="formRow transparent">
    		<%= f.label :mail_domain -%>

@@ -11,8 +11,7 @@
     </div>
    	<div class="formRow transparent">
    		<%= f.label :countries -%>
-      <%= f.select :store_country_ids, options_for_store_country_select, {}, {:multiple => true , :size=>'10', :class => "text important styledFormElement" } %>
-      <div class = "fieldInfo">Press CTR to select multiple countries</div>
+      <%= f.select :store_country_ids, options_for_store_country_select, {}, {:multiple => true , :size=>'10', :class => "text important styledFormElement", :hint => "Press CTR to select multiple countries" } %>
    	</div>
     <div class="formRow transparent">
    		<%= f.label :status -%>

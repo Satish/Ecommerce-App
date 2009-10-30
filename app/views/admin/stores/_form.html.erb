@@ -3,8 +3,7 @@
     <%= f.error_messages -%>
     <div class="formRow transparent">
       <%= f.label :domain -%>
-      <%= f.text_field :domain, :class => "text important styledFormElement" -%>
-      <div class = "fieldInfo">eg: enter <b>example.com</b> for http://example.com</div>
+      <%= f.text_field :domain, :class => "text important styledFormElement", :hint => "eg: enter <b>example.com</b> for http://example.com" -%>
     </div>
     <div class="formRow transparent">
       <%= f.label :display_name -%>
@@ -28,13 +27,11 @@
     </div>
     <div class="formRow transparent">
       <%= f.label :google_analytics_account -%>
-      <%= f.text_field :google_analytics_account, :class => "text important styledFormElement" -%>
-      <div class = "fieldInfo">(UA-xxxx-x)</div>
+      <%= f.text_field :google_analytics_account, :class => "text important styledFormElement", :hint => "UA-xxxx-x" -%>
     </div>
     <div class="formRow transparent">
       <%= f.label :add_this_username -%>
-      <%= f.text_field :add_this_username, :class => "text important styledFormElement" -%>
-      <div class = "fieldInfo">(With a free AddThis account, you can find out which of your pages and which destinations are the most popular with your users. <%= link_to 'Click Here', "http://www.addthis.com/register", :popup => true -%> to create a AddThis account)</div>
+      <%= f.text_field :add_this_username, :class => "text important styledFormElement", :hint => "With a free AddThis account, you can find out which of your pages and which destinations are the most popular with your users. #{ link_to 'Click Here', 'http://www.addthis.com/register', :popup => true }  to create a AddThis account" -%>
     </div>
     <div class="formRow transparent">
       <%= f.label :meta_title -%>

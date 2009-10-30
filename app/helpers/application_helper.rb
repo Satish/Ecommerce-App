@@ -96,7 +96,26 @@ module ApplicationHelper
         )
   end
 
+  def label(object_name, method, text = nil, options = {})
+    object = options[:object]
+    text = "#{ text ? text : method.to_s.humanize }<em title='required' style = 'color:red;margin-left:2px;'>*</em>" if object && object.class.required_attributes.include?(method.to_sym)
+    super
+  end
+
+  def text_field(object_name, method, options = {})
+    super + get_hint(options)
+  end
+
+  def select(object, method, choices, options = {}, html_options = {})
+    super + get_hint(options)
+  end
+
   private ##################
+
+  def get_hint(options)
+    hint = sanitize(options.delete(:hint))
+    hint ? "<div><em class = 'hint'>#{ hint }</em></div>" : ""
+  end
 
   def currency_precision
     @currency.precision rescue 2

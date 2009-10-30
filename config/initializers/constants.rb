@@ -14,3 +14,16 @@ VALID_MONTHS = (1..12).to_a.collect{|n| [Date::MONTHNAMES[n], n] }
 PER_PAGE = 20
 SUPERADMIN_NAME = 'superadmin'
 SUPERADMIN_PASSWORD = 'superadminp@$$'
+
+module ActiveRecord
+  class Base
+    def self.required_attributes
+      @required_attributes ||= []
+    end
+
+    def self.validates_presence_of(*attr_names)
+      @required_attributes = attr_names.collect{|attr| attr if attr.is_a?(Symbol)}.compact
+      super
+    end
+  end
+end
