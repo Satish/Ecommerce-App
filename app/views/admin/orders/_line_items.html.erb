@@ -1,0 +1,35 @@
+<h2 class="pageHeading">Order Items</h2><br/>
+<div id = "line_items">
+      <div class="table">
+        <div class = "tableRow odd">
+          <span class = "pct5">Sr. NO.</span>
+          <span class = "pct10 textAlignCenter">SKU ID</span>
+          <span class = "pct25">Product</span>
+          <span class = "pct20">Options</span>
+          <span class = "pct10 textAlignRight">Unit Price</span>
+          <span class = "pct10 textAlignCenter">Quantity</span>
+          <span class = "pct10 textAlignRight">Total</span>
+        </div>
+        <% @line_items.each_with_index do |line_item, index| -%>
+          <% div_for line_item, :class => "tableRow #{cycle('even', 'odd')}" do -%>
+            <span class = "pct5 textAlignCenter"><%= index + 1 -%></span>
+            <span class = "pct10 textAlignCenter"><%= h(line_item.sku_number) -%></span>
+            <span class = "pct25"><%= link_to h(h(line_item.sku.product.name)), [:admin, line_item.sku.product] -%></span>
+            <span class = "pct20"><%= h(get_attribute_values(line_item.sku)) -%></span>
+            <span class = "pct10 textAlignRight"><%= number_to_currency(line_item.unit_price) -%></span>
+            <span class = "pct10 textAlignCenter"><%= line_item.quantity -%></span>
+            <span class = "pct10 textAlignRight"><%= number_to_currency(line_item.price) -%></span>
+          <% end -%>
+        <% end -%>
+        <div class = "tableRow odd">
+          <span class = "pct80 textAlignRight">&nbsp;</span>
+          <span class = "pct15 textAlignRight">&nbsp;</span>
+        </div>
+        <% order_prices_hash.each do |key, value|%>
+          <div class = "tableRow <%= cycle('even', 'odd') %>" id = '<%= key.to_s %>' >
+            <span class = "pct80 textAlignRight"><%= key.to_s.titleize -%></span>
+            <span class = "pct15 textAlignRight"><%= number_to_currency(value) -%></span>
+          </div>
+        <% end -%>
+      </div>
+</div>

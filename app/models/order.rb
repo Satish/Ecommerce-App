@@ -79,7 +79,8 @@ class Order < ActiveRecord::Base
   aasm_state :on_hold,    :enter => :on_hold
   aasm_state :processing, :enter => :on_process
   aasm_state :rejected,   :enter => :on_reject
-  aasm_state :fullfilled, :enter => :on_fullfill
+  aasm_state :shipped,    :enter => :on_ship
+  aasm_state :fulfilled,  :enter => :on_fulfill
   aasm_state :deleted,    :enter => :on_delete
 
   aasm_event :order do
@@ -87,23 +88,27 @@ class Order < ActiveRecord::Base
   end
 
   aasm_event :process do
-    transitions :from => [:pending, :on_hold, :rejected, :fullfilled], :to => :processing
+    transitions :from => [:pending, :on_hold, :rejected], :to => :processing
   end
 
   aasm_event :hold do
-    transitions :from => [:pending, :processing, :rejected, :fullfilled], :to => :on_hold
+    transitions :from => [:pending, :processing], :to => :on_hold
   end
 
   aasm_event :reject do
-    transitions :from => [:pending, :on_hold, :processing, :fullfilled], :to => :rejected
+    transitions :from => [:pending, :on_hold, :processing], :to => :rejected
   end
 
-  aasm_event :fulfilled do
-    transitions :from => :processing, :to => :fulfilled
+  aasm_event :ship do
+    transitions :from => :processing, :to => :shipped
+  end
+
+  aasm_event :fulfill do
+    transitions :from => :shipped, :to => :fulfilled
   end
 
   aasm_event :delete do
-    transitions :from => [:pending, :processing, :on_hold, :rejected, :fullfilled], :to => :deleted
+    transitions :from => [:pending, :processing, :on_hold, :rejected, :fulfilled], :to => :deleted
   end
 
   def to_param
@@ -142,6 +147,10 @@ class Order < ActiveRecord::Base
     default_options = { :conditions => conditions, :order => "orders.created_at DESC, orders.number", :include => [:line_items, :user] }
 
     paginate default_options.merge(options)
+  end
+
+  def cost_of_products
+    line_items.collect(&:calculate_price).sum
   end
 
   #-------------------------- private ----------------------------------
@@ -188,10 +197,6 @@ class Order < ActiveRecord::Base
 #    store.tax_options.active.each do |to|
 #      self.tax_amount = self.total_amount * (to.tax_percent/100) and break if to.country == shipping_address.country and to.state == shipping_address.state
 #    end
-  end
-
-  def cost_of_products
-    line_items.collect(&:calculate_price).sum
   end
 
   def calculate_handling_amount
@@ -327,22 +332,38 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def on_pending;  end
+  def on_pending
+    restock_inventory('-')
+  end
 
-  def on_process; end
+  def on_process
+    OrderMailer.deliver_accepted_order(self)
+  end
 
   def on_hold; end
 
   def on_reject
-    restock_inventory
-    OrderMailer.rejected_order(self)
+    restock_inventory('+')
+    OrderMailer.deliver_rejected_order(self)
   end
 
-  def on_fullfill; end
+  def on_fulfill; end
 
-  def on_delete; end
+  def on_ship
+    OrderMailer.deliver_shipped_order(self)
+  end
 
-  def restock_inventory; end
+  def on_delete
+
+  end
+
+  def restock_inventory(option)
+    line_items.each do |li|
+      sku = li.sku
+      remaining_quantity = option == '+' ? (sku.quantity + li.quantity) : (sku.quantity - li.quantity)
+      sku.update_attribute(:quantity, remaining_quantity)
+    end
+  end
 
   def creditcard?
     payment_type == 'creditcard'

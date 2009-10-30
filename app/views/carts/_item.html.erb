@@ -7,7 +7,7 @@
   <div class = "descriptionItem">
     <div class = "heading"><%= link_to(h(display_name), cart_item.product) -%></div>
     <div class = "itemName"><%#= sku.product.description -%></div>
-    <div class = "attributeValues"><%= get_attribute_values(cart_item) -%></div>
+    <div class = "attributeValues"><%= h(get_attribute_values(cart_item)) -%></div>
   </div>
   <div class = "qtyItem" id = "item_<%= item[:id] -%>_qty" ><%= text_field_tag "cart_items[#{item[:id]}]", item[:qty], :size => 3, :class => "qtyTextField" -%></div>
   <div class = "priceEachItem" id = "priceEachItem_<%= item[:id] -%>"><%= number_to_currency(item[:price]) -%></div>

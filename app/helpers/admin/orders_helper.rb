@@ -21,4 +21,16 @@ module Admin::OrdersHelper
   def options_for_order_state_select
     Order.aasm_states_for_select
   end
+
+  def order_prices_hash
+    hash = ActiveSupport::OrderedHash.new
+    hash[:sub_total] = @order.cost_of_products
+    hash[:shipping_amount] = @order.shipping_amount
+    hash[:handling_amount] =  @order.handling_amount
+    hash[:tax_amount] =  @order.tax_amount
+    hash[:discount] =  @order.total_discount
+    hash[:total_amount] =  @order.total_amount
+    hash
+  end
+
 end

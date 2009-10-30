@@ -1,9 +1,11 @@
 class CartsController < ApplicationController
 
+  include ActionView::Helpers::TextHelper
   before_filter :find_store
   before_filter :current_cart
 
   def show
+    debugger
     @meta_title = "#{@store.display_name} | Cart"
   end
   
@@ -11,11 +13,15 @@ class CartsController < ApplicationController
     if item = find_item
       item_qty = params[:item_qty] ? params[:item_qty].to_i : nil
       if item_qty > 0
-        unless item.is_out_of_stock?
-          @cart.add_item(item, item_qty)
-          flash[:message] = "Product added to your cart successfully."
+        if item_qty <= item.quantity
+          unless item.is_out_of_stock?
+            @cart.add_item(item, item_qty)
+            flash[:message] = "Product added to your cart successfully."
+          else
+            flash[:notice] = "Soory, we are unable to add out of stock product to your cart."
+          end
         else
-          flash[:notice] = "Soory, we are unable to add out of stock product to your cart."
+          flash[:error] = "Soory, we have only #{ pluralize(item.quantity, 'item')} in stock"
         end
       else
         flash[:notice] = "Qty. must be at least one."

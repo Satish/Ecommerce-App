@@ -16,7 +16,7 @@
 
 class Shipment < ActiveRecord::Base
 
-  delegate :price, :to => :shipping_method, :prefix => true
+  delegate :price, :name, :to => :shipping_method, :prefix => true
 
   validates_presence_of :order_id, :shipping_method_id, :shipping_address_id
 

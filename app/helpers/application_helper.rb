@@ -64,8 +64,8 @@ module ApplicationHelper
 
   def get_attribute_values(sku)
     attribute_values = []
-    sku.attribute_values.find(:all, :include => [:product_attribute]).each{ |av| attribute_values << "#{ h av.product_attribute.name }: #{ h av.value }" }
-    attribute_values.join(', ')
+    sku.attribute_values.each{ |av| attribute_values << "#{ h av.product_attribute.name }: #{ h av.value }" }
+    attribute_values.join(', ').size > 0 ? attribute_values.join(', ') : 'N/A'
   end
 
   def get_country_option(country)

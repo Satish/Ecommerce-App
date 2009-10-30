@@ -1,0 +1,8 @@
+<span id = "events">
+  <%= link_to 'Edit', [:edit, :admin, @order], :class => "linkButton" %>
+  <% ["Process", "Hold", "Reject", "Ship"].each do |event| -%>
+    <%= link_to_remote event, :url => [:admin, @order], :with => "'status=' + '#{ event }'", :confirm => "You want to #{ event.downcase } this order\nAre you sure?", :method => :put, :loading => "showSpinner('#loadingIndicator');hideSpinner('#events');", :complete => "hideSpinner('#loadingIndicator');showSpinner('#events');", :html => { :class => "linkButton" } if @order.aasm_events_for_current_state.include?(event.downcase.to_sym) -%>
+  <% end %>
+  <%= link_to 'Delete', [:admin, @order], :confirm => "You want to delete this order\nAre you sure?", :class => "linkButton", :method => :delete if @order.aasm_events_for_current_state.include?(:delete) -%>
+</span>
+<%= image_tag("/images/admin/indicator.gif", {:alt => "loading...", :size => "25x25", :style => "display:none", :class => "loadingIndicator",  :id => "loadingIndicator"}) -%>

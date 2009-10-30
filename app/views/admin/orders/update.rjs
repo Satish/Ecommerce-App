@@ -1,0 +1,8 @@
+if @status
+  page.replace_html 'status', h(@order.state)
+  page.replace_html 'actions', :partial => "actions"
+  page.alert( "Order #{ @order.state } successfully")
+else
+  page.alert(BAD_REQUEST_ERROR_MESSAGE)  
+end
+  

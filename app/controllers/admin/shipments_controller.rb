@@ -1,6 +1,6 @@
 class Admin::ShipmentsController < Admin::BaseController
 
-  before_filter :find_order, :only => [:edit, :update]
+  before_filter :find_order
 
   def edit; end
 

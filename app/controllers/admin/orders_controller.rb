@@ -1,20 +1,45 @@
 class Admin::OrdersController < Admin::BaseController
 
-  before_filter :find_order, :except => [:index, :get_state_options]
+  before_filter :find_order, :only => [:show, :edit, :update, :delete]
 
   def index
     options = { :page => params[:page], :conditions => conditions }
     @orders = @store.orders.search(params[:search], options)
   end
 
-  def show; end
+  def show
+    @line_items = @order.line_items.all(:include => [{ :sku => [:product, { :attribute_values => [:product_attributes]} ] }])
+  end
 
   def update
-    if @order.update_attributes(params[:order])
-      flash[:message] = "Order updated successfully"
-      redirect_to edit_admin_order_path(@order)
-    else
-      render :edit
+    respond_to do |format|
+      format.html do
+        if @order.update_attributes(params[:order])
+          flash[:message] = "Order updated successfully"
+          redirect_to [:edit, :admin, @order]
+        else
+          render :edit
+        end
+      end
+      format.js do
+        @status = case params[:status]
+        when 'Process'
+          @order.process!
+        when 'Hold'
+          @order.hold!
+        when 'Reject'
+          @order.reject!
+        when 'Ship'
+          @order.ship!
+        when 'Fulfill'
+          @order.fulfill!
+        when 'Delete'
+          @order.delete!
+        else
+          false
+        end
+
+      end
     end
   end
 
@@ -29,7 +54,7 @@ class Admin::OrdersController < Admin::BaseController
   private
 
   def find_order
-    @order = @store.orders.find_by_number(params[:id])
+    @order = @store.orders.find_by_number(params[:id], :include => [{:shipment => [:shipping_method]}, :line_items] )
     redirect_to_orders_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @order
   end
 
