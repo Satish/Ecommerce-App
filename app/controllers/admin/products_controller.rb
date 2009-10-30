@@ -54,7 +54,7 @@ class Admin::ProductsController < Admin::BaseController
       end
     end
   end
-  
+
   private #######################
   
   def find_product

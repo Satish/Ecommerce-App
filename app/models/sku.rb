@@ -26,6 +26,16 @@ class Sku < ActiveRecord::Base
   belongs_to :product
 
   after_update :save_attribute_values
+  after_create :activate_product
+  after_destroy :deactivate_product
+
+  def activate_product
+    product.update_attribute(:active, true) if product.skus.count == 1
+  end
+
+  def deactivate_product
+    product.update_attribute(:active, false) if product.skus.count == 0
+  end
 
   def before_validation
     self.number = rand(5) if number.blank?

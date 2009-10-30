@@ -37,7 +37,7 @@ class Admin::SkusController < Admin::BaseController
 
   def show
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to_skus_home and return }
       format.xml  { render :xml => @sku }
     end
   end
@@ -53,8 +53,8 @@ class Admin::SkusController < Admin::BaseController
   def destroy
     respond_to do |format|
       format.html do
-        flash[:message] = "Sku '#{ @sku.title }'deleted successfully"# if @sku.destroy
-        redirect_to_skus_home
+        flash[:message] = "Sku '#{ @sku.number }' deleted successfully" if @sku.destroy
+        redirect_to_skus_home and return
       end
       format.js do
         render :update do |page|
@@ -77,7 +77,7 @@ class Admin::SkusController < Admin::BaseController
   end
   
   def redirect_to_skus_home
-    redirect_to [:admin, @product, Sku.new] and return
+    redirect_to admin_product_skus_path(@product) and return
   end
   
 end
