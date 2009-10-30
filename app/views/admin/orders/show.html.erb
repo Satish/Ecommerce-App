@@ -23,6 +23,7 @@
       <span class = "pct15">Total Amount</span>:
       <span><%= number_to_currency(@order.total_amount) -%></span>
     </li>
+    <% if @order.shipment -%>
     <li>
       <span class = "pct15">Shipping Method</span>:
       <span><%= h(@order.shipment.shipping_method_name) -%></span>
@@ -31,6 +32,7 @@
       <span class = "pct15">Tracking Number</span>:
       <span><%= h(@order.shipment.tracking_number) -%></span>
     </li>
+    <% end -%>
     <li>
       <span class = "pct15">State</span>:
       <span id = "status"><%= h(@order.state) -%></span>

@@ -1,8 +1,8 @@
 <div id = 'dashboard' class = "container">
-  <% unless @pending_orders.empty? || @incomplete_orders.empty? -%>
-    <div id = "ordersBlock">
-      <h1 class = "title">Orders</h1>
-      <% unless @pending_orders.empty? -%>
+  <div id = "ordersBlock">
+    <h1 class = "title">Orders</h1>
+    <% unless @pending_orders.empty? && @incomplete_orders.empty? && @on_hold_orders.empty? -%>
+      <% unless @incomplete_orders.empty? -%>
         <div class = "description"><%= link_to(pluralize(@incomplete_orders.size, 'order is', 'orders are') + " incomplete", admin_orders_path(:status => 'checking_out')) -%></div>
       <% end -%>
       <% unless @pending_orders.empty? -%>
@@ -11,6 +11,8 @@
       <% unless @on_hold_orders.empty? -%>
         <div class = "description" ><%= link_to(pluralize(@on_hold_orders.size, 'order is', 'orders are') + " on hold", admin_orders_path(:status => 'on_hold')) -%></div>
       <% end -%>
-    </div>
-  <% end -%>
+    <% else -%>
+      There are no pending/incomplete/on hold orders
+    <% end -%>
+  </div>
 </div>

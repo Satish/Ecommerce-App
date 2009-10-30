@@ -19,7 +19,7 @@
             <span class = "pct20 textAlignCenter"><%= link_to h(order.number), [:admin, order] -%></span>
             <span class = "pct15 textAlignCenter"><%= number_to_currency(order.total_amount) -%></span>
             <span class = "pct20 textAlignLeft"><%= line_items_detail(order) -%></span>
-            <span class = "pct10 textAlignCenter"><%= order.state -%></span>
+            <span class = "pct10 textAlignCenter"><%= order.state.gsub('_', ' ') -%></span>
             <span class = "pct20 textAlignRight">
               <%= link_to 'Shipment', [:edit, :admin, order, Shipment.new], :class => 'linkButton', :title => "Shipment" -%>
               <%= link_to 'Payment', "#", :class => 'linkButton', :title => "Payment" -%>
@@ -31,6 +31,6 @@
       </div>
     <% end %>
   <% else %>
-    <div class = "noRecords">There are no orders</div>     
+    <div class = "noRecords">There are no <%= params[:status].gsub('_', ' ') if Order.aasm_states.collect(&:name).include?(params[:status].downcase.to_sym) -%> orders</div>     
   <% end -%>
 </div>

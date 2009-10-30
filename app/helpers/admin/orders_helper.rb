@@ -33,4 +33,11 @@ module Admin::OrdersHelper
     hash
   end
 
+  def orders_status_links
+    html = ''
+    {"All" => nil, "In Complete" => "checking_out", "Pending" => "pending", "Approved/Processing" => "processing", "Rejected"  => "rejected", "On Hold" => 'on_hold', "Shipped" => 'shipped' }.each do |key, status|
+      html << (link_to key, admin_orders_path(:status => status), :class => "subLink #{ get_css_class_for_order_links(params[:status], status)}")
+    end
+    html
+  end
 end
