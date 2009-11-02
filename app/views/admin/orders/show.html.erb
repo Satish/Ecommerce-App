@@ -1,45 +1,40 @@
-<style>
-  #orderDetail { }
-  #orderDetail ul { padding: 20px 0px;}
-  #orderDetail ul li { padding: 5px; overflow:hidden; }
-  .item { padding:10px 45px; }
-  .table .tableRow span { padding: 0px 5px; }
-  .actions { padding: 10px 0px 20px 0px;}
-  .actions a { margin: 0px 2px;}
-</style>
-<div class="container" id = "orderDetail">
-  <span class = "floatRight marginTop4"><%= link_to 'Back to Orders', [:admin, Order.new] -%></span>
-  <h2 class="pageHeading">Order# <%= h @order.number -%></h2>
-  <ul>
-    <li>
-      <span class = "pct15">Number</span>:
-      <span class = ""><%= h @order.number -%></span>
-    </li>
-    <li>
-      <span class = "pct15">Date:</span>:
-      <span class = ""><%= h order_date(@order.updated_at) -%></span>
-    </li>
-    <li>
-      <span class = "pct15">Total Amount</span>:
-      <span><%= number_to_currency(@order.total_amount) -%></span>
-    </li>
-    <% if @order.shipment -%>
-    <li>
-      <span class = "pct15">Shipping Method</span>:
-      <span><%= h(@order.shipment.shipping_method_name) -%></span>
-    </li>
-    <li>
-      <span class = "pct15">Tracking Number</span>:
-      <span><%= h(@order.shipment.tracking_number) -%></span>
-    </li>
-    <% end -%>
-    <li>
-      <span class = "pct15">State</span>:
-      <span id = "status"><%= h(@order.state) -%></span>
-    </li>
-  </ul>
-  <div class = "actions" id = "actions"><%= render "actions" -%></div>
-  <%= render "line_items" -%>
-  <%#= link_to 'back', [:admin, Order.new] %>
-  <%#= link_to 'delete', [:admin, @order], :method => :delete, :confirm => " Deleting order '#{ @order.number }'\n Are you Sure?" -%>
-</div>
+<ul class="container" id = "pageDetail">
+  <li>
+    <span class = "floatRight marginTop4">
+      <%= link_to 'Back to Orders', [:admin, Order.new] -%>
+    </span>
+    <h2 class="pageHeading">Order# <%= h @order.number -%></h2>
+  </li>
+  <li>
+    <span class = "pct15">Number</span>:
+    <span class = ""><%= h @order.number -%></span>
+  </li>
+  <li>
+    <span class = "pct15">Date:</span>:
+    <span class = ""><%= h order_date(@order.updated_at) -%></span>
+  </li>
+  <li>
+    <span class = "pct15">Total Amount</span>:
+    <span><%= number_to_currency(@order.total_amount) -%></span>
+  </li>
+  <% if @order.shipment -%>
+  <li>
+    <span class = "pct15">Shipping Method</span>:
+    <span><%= h(@order.shipment.shipping_method_name) -%></span>
+  </li>
+  <li>
+    <span class = "pct15">Tracking Number</span>:
+    <span><%= h(@order.shipment.tracking_number) -%></span>
+  </li>
+  <% end -%>
+  <li>
+    <span class = "pct15">State</span>:
+    <span id = "status"><%= h(@order.state) -%></span>
+  </li>
+  <li>
+    <div class = "actions" id = "actions"><%= render "actions" -%></div>
+    <%= render "line_items" -%>
+    <%#= link_to 'back', [:admin, Order.new] %>
+    <%#= link_to 'delete', [:admin, @order], :method => :delete, :confirm => " Deleting order '#{ @order.number }'\n Are you Sure?" -%>
+  </li>
+</ul>

@@ -58,7 +58,7 @@ class Admin::ProductsController < Admin::BaseController
   private #######################
   
   def find_product
-    @product = @store.products.find_by_id(params[:id])
+    @product = @store.products.find_by_id(params[:id], :include => [:brand])
     redirect_to_products_home and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @product
   end
   

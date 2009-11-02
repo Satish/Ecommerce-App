@@ -36,6 +36,8 @@ class Product < ActiveRecord::Base
   has_permalink :name, :permalink
   attr_protected :store_id
 
+  delegate :name, :to => :brand, :prefix => true
+
   default_scope :conditions => { :deleted_at => nil }
   validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price, :product_id
   validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
@@ -84,10 +86,6 @@ class Product < ActiveRecord::Base
   
   def percent_discount
     100 * discount/price
-  end
-
-  def brand_name
-    brand.name
   end
 
   def original_price

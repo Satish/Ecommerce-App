@@ -1,7 +1,25 @@
-<div class="container"><%= render :partial => 'admin/shared/search' -%></div>
-<div class="container">
-  <%= h @brand.name %><br/><br/>
-  <%= h @brand.description %><br/><br/><br/><br/>
-  <%= link_to 'back', admin_brands_path %>
-  <%= link_to 'delete', [:admin, @brand], :method => :delete, :confirm => " Deleting Brand '#{ @brand.name }'\n Are you Sure?" -%>
-</div>
+<ul class="container" id = "pageDetail">
+  <li class="pageHeadingBlock">
+    <span class = "floatRight marginTop4">
+      <%= link_to 'back', admin_brands_path -%> |
+      <%= link_to 'edit', [:edit, :admin, @brand] -%> |
+      <%= link_to 'delete', [:admin, @brand], :method => :delete, :confirm => "Deleting Brand '#{ h(@brand.name) }'\n Are you Sure?" -%>
+    </span>
+    <h2 class="pageHeading"><%= h(@brand.name) -%></h1>
+  </li>
+  <li>
+    <% @brand.images.each_with_index do |image, index| -%>
+      <%= link_to(image_tag(image.public_filename(:S25x25)), image.public_filename(:S550x440), :rel => "brand-image", :title => "Image ##{ index + 1 }") -%>
+    <% end -%>
+  </li>
+  <li style = "margin-top:20px;">
+    <span><%= @brand.description -%></span>
+  </li>
+  <li>
+    <ol>
+      <% @brand.products.each do |product| -%>
+        <li><%= link_to h(product.name), [:admin, product] -%></li>
+      <% end -%>
+    </ol>
+  </li>
+</ul>

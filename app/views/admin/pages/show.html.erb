@@ -1,7 +1,13 @@
-<div class="container post">
-  <h2 class="pageHeading"><%= h @page.title %></h2>
-  <% div_for @page do -%>
-    <h3 class = "title"><%= h @page.title -%></h3>
-    <div class = "description"><%= @page.description -%></div>
-  <% end -%>
-</div>
+<ul class="container" id = "pageDetail">
+  <li class="pageHeadingBlock">
+    <span class = "floatRight marginTop4">
+      <%= link_to 'back', admin_pages_path -%> |
+      <%= link_to 'edit', [:edit, :admin, @page] -%> |
+      <%= link_to 'delete', [:admin, @page], :method => :delete, :confirm => "Deleting Page '#{ h(@page.title) }'\n Are you Sure?" -%>
+    </span>
+    <h2 class="pageHeading"><%= h(@page.title) -%></h1>
+  </li>
+  <li style = "margin-top:20px;">
+    <span><%= @page.description -%></span>
+  </li>
+</ul>

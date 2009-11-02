@@ -161,6 +161,16 @@ a.linkButton:hover { text-decoration:none;}
 .table .tableRow .textAlignLeft, .table .tableHeader .textAlignLeft { text-align:left; }
 /* TABLE VIEW STYLE END */
 
+
+ul#pageDetail { }
+ul#pageDetail { padding: 20px 0px;}
+ul#pageDetail li { padding: 5px; overflow:hidden; }
+ul#pageDetail li ol li { list-style-position:inside !important; }
+ul#pageDetail .item { padding:10px 45px; }
+ul#pageDetail .table .tableRow span { padding: 0px 5px; }
+ul#pageDetail .actions { padding: 10px 0px 20px 0px;}
+ul#pageDetail .actions a { margin: 0px 2px;}
+
 /* PAGINATION STYLE START (FROM WILLPAGINATE PLUGIN)*/
 .pagination { float:right; margin:10px 0px 10px 20px;}
 .pagination a, .pagination span { padding: .2em .5em; display: block; float: left; margin-right: 1px; }
