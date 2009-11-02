@@ -63,7 +63,7 @@ class Admin::SkusController < Admin::BaseController
       end
     end
   end
-  
+
   private #######################
 
   def find_product

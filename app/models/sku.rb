@@ -14,10 +14,12 @@
 #
 
 class Sku < ActiveRecord::Base
-  
+
   @@per_page = PER_PAGE
   cattr_reader :per_page
-  
+
+  default_scope :conditions => { :deleted_at => nil }
+
   validates_presence_of :number, :quantity, :additional_price, :product_id
   validates_uniqueness_of :number, :scope => :product_id
   #validates_associated :attribute_values
@@ -102,6 +104,12 @@ class Sku < ActiveRecord::Base
 
   def display_name
     product.name
+  end
+
+  alias :original_destroy :destroy
+
+  def destroy
+    self.update_attribute(:deleted_at, Time.zone.now)
   end
 
 end

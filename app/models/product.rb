@@ -32,7 +32,7 @@ class Product < ActiveRecord::Base
 
   @@per_page = PER_PAGE
   cattr_reader :per_page
-  
+
   has_permalink :name, :permalink
   attr_protected :store_id
 

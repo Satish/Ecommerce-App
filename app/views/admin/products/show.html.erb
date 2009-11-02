@@ -3,7 +3,8 @@
     <span class = "floatRight marginTop4">
       <%= link_to 'back', admin_products_path -%> |
       <%= link_to 'edit', [:edit, :admin, @product] -%> |
-      <%= link_to 'delete', [:admin, @product], :method => :delete, :confirm => "Deleting Product '#{ h(@product.name) }'\n Are you Sure?" -%>
+      <%= link_to 'delete', [:admin, @product], :method => :delete, :confirm => "Deleting Product '#{ h(@product.name) }'\n Are you Sure?" -%> |
+      <%= link_to 'skus', admin_product_skus_path(@product) -%>
     </span>
     <h2 class="pageHeading"><%= h(@product.name) -%></h1>
   </li>

@@ -3,5 +3,4 @@
   <span class = "floatRight marginTop4" id = "page_entries_info"><%= page_entries_info @skus, :entry_name => '' -%></span>
   <h1 class="pageHeading">SKUs(<%= link_to "+", new_admin_product_sku_path(@product), :title => "Create New Sku" -%>) <em style = "font-size:0.8em; text-transform:none;">for <%= link_to h(@product.name), [:admin, @product] -%></em> </h1>
 </div>
-
 <div class="container"><%= render :partial => 'skus' -%></div>
