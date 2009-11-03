@@ -30,7 +30,7 @@ class Brand < ActiveRecord::Base
   validates_uniqueness_of :name, :permalink, :scope => :store_id
   
   has_many :images, :dependent => :destroy, :as => :attachable
-  has_many :products, :dependent => :destroy, :include => :images
+  has_many :products, :dependent => :destroy, :conditions => { :deleted_at => nil }, :include => :images
   
   belongs_to :store
   

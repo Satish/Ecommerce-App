@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   has_many :images, :dependent => :destroy, :as => :attachable
 
   has_many :categories_products, :dependent => :destroy
-  has_many :products, :through => :categories_products, :include => :images
+  has_many :products, :through => :categories_products, :conditions => ["products.deleted_at IS ?", nil], :include => :images
 
   belongs_to :store
   

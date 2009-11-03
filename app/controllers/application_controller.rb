@@ -3,6 +3,8 @@
 
 class ApplicationController < ActionController::Base
 
+  include ERB::Util # h() or html_escape() helpers to be available in controller
+
   before_filter :find_store, :current_cart
   before_filter :set_blog_time_zone
   append_after_filter :set_meta_attributes
@@ -11,7 +13,6 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.
   include RoleRequirementSystem
-  
 
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   
   def find_category
     @category = @store.categories.find_by_permalink(params[:permalink])
-    redirect_to [Category.new] and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @category
+    redirect_to categories_path and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @category
   end
 
 end

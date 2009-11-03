@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :dashboard, :only => [:index]
     admin.resources :categories, :member => {:products => :get, :add_products => [:get, :put], :remove_products => :put}
     admin.resources :brands, :member => {:products => :get}
-    admin.resources :products, :has_many => [:skus]
+    admin.resources :products, :has_many => [:skus], :member => { :restore => :put }, :collection => { :deleted => :get }
     admin.resources :product_attributes, :except => [:show]
     admin.resources :images, :only => [:index, :destroy]
     admin.resources :posts, :has_many => [:comments]

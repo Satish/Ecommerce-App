@@ -5,7 +5,7 @@ class Admin::ProductsController < Admin::BaseController
   
   def index
     options = { :page => params[:page] }
-    @products = @store.products.search( params[:search], options )
+    @products = @store.products.published.search( params[:search], options )
     render_products
   end
 
@@ -52,6 +52,22 @@ class Admin::ProductsController < Admin::BaseController
           #page.remove("product_#{ @product.id }")
         end
       end
+    end
+  end
+
+  def deleted
+    options = { :page => params[:page] }
+    @products = @store.products.deleted.search( params[:search], options )
+    render_products
+  end
+
+  def restore
+    @product = @store.products.deleted.find_by_id(params[:id])
+    if @product.restore
+      flash[:message] = "Product with name <em>#{ h(@product.name) }</em> restored successfully."
+      redirect_to (get_url_to_back(deleted_admin_products_path))
+    else
+      render :edit
     end
   end
 

@@ -1,7 +1,7 @@
 class Admin::ProductAttributesController < Admin::BaseController
   
   before_filter :find_product_attribute, :only => [:show, :edit, :update, :destroy]
-  
+
   def index
     options = { :page => params[:page] }
     @product_attributes = @store.product_attributes.search( params[:search], options )

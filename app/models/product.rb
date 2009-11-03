@@ -38,9 +38,12 @@ class Product < ActiveRecord::Base
 
   delegate :name, :to => :brand, :prefix => true
 
-  default_scope :conditions => { :deleted_at => nil }
+#  default_scope :conditions => { :deleted_at => nil }
+  named_scope :deleted, :conditions => ["deleted_at IS NOT ?",  nil]
+  named_scope :published, :conditions => { :deleted_at => nil }
+
   validates_presence_of :name, :permalink, :description, :brand_id, :store_id, :price, :product_id
-  validates_uniqueness_of :name, :permalink, :product_id, :scope => :store_id
+  validates_uniqueness_of :name, :permalink, :product_id, :scope => [:store_id, :deleted_at]
   
   has_many :images, :dependent => :destroy, :as => :attachable
   has_many :skus, :dependent => :destroy
@@ -96,6 +99,11 @@ class Product < ActiveRecord::Base
 
   def destroy
     self.update_attribute(:deleted_at, Time.zone.now)
+  end
+
+  def restore
+    self.deleted_at = nil
+    self.save
   end
 
 end

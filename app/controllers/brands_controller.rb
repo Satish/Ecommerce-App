@@ -26,7 +26,7 @@ class BrandsController < ApplicationController
   
   def find_brand
     @brand = @store.brands.find_by_permalink(params[:permalink])
-    redirect_to [Product.new] and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @brand
+    redirect_to brands_path and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @brand
   end
 
 end
