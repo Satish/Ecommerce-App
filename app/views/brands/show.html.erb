@@ -1,10 +1,10 @@
 <div id = 'brand'>
   <h1><%= h @brand.name.titleize %></h1>
   <div id = "brandDetail">
-    <div id = "brandImage"><%= image_tag(@brand.main_image.public_filename(:S650x250)) -%></div>
+    <div id = "brandImage"><%= main_image(@brand, :S650x250) -%></div>
     <div id = "brandDesc"><%= @brand.description -%></div>
   </div>
   <div id="productsBox">
-    <%= render :partial => "products/products" -%>
+    <%= render :partial => "products/products" if @products.size > 0 -%>
   </div>
 </div>

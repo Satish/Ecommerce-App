@@ -5,8 +5,7 @@ class CartsController < ApplicationController
   before_filter :current_cart
 
   def show
-    debugger
-    @meta_title = "#{@store.display_name} | Cart"
+    @meta_title = "#{ @store.display_name } | Cart"
   end
   
   def create

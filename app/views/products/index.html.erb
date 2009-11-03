@@ -1,5 +1,5 @@
 <%#= javascript_tag "$(document).endlessScroll({ fireOnce: false, fireDelay: false, insertAfter: 'products', callback: function(p){ #{ remote_function :update => 'products', :url => products_path(:page => params[:page]), :method => :get } } });" %>
 <h1>Products</h1>
 <div id="productsBox">
-  <%= render :partial => "products" -%>
+  <%= render :partial => "products"  if @products.size > 0  -%>
 </div>

@@ -130,7 +130,7 @@ module ApplicationHelper
   end
   
   def main_image(source, thumbnail)
-    source.main_image ? image_tag(source.main_image.public_filename(thumbnail)) : image_tag('no-image.png', :size => Image::THUMBNAILS[thumbnail])
+    source.main_image ? image_tag(source.main_image.public_filename(thumbnail)) : image_tag("#{ thumbnail }.png", :size => Image::THUMBNAILS[thumbnail])
   end
 
 end

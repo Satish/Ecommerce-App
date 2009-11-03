@@ -6,6 +6,6 @@
     <div id = "categoryDesc"><%= @category.description -%></div>
   </div>
   <div id="productsBox">
-    <%= render :partial => "products/products" -%>
+    <%= render :partial => "products/products" if @products.size > 0 -%>
   </div>
 </div>
