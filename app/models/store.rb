@@ -28,7 +28,8 @@ class Store < ActiveRecord::Base
 
   validates_presence_of :domain, :email, :display_name
   validates_uniqueness_of :domain
-
+  validates_format_of :email, :with => Authentication.email_regex, :message => Authentication.bad_email_message, :if => Proc.new{ |u| !u.email.blank? }
+  
   has_many :categories, :dependent => :destroy, :include => [:images, :children]
   has_many :products, :dependent => :destroy, :include => :images
   has_many :skus, :through => :products
@@ -40,6 +41,7 @@ class Store < ActiveRecord::Base
   has_many :roles, :dependent => :destroy
   has_many :orders, :dependent => :destroy
   has_many :currencies, :dependent => :destroy
+  has_many :email_templates, :dependent => :destroy
 
   has_many :store_gateways, :dependent => :destroy
   has_many :gateways, :through => :store_gateways
@@ -55,7 +57,7 @@ class Store < ActiveRecord::Base
   has_one :logo, :dependent => :destroy, :as => :attachable
   has_one :favicon_icon, :dependent => :destroy, :as => :attachable
 
-  after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways, :activate_first_gateway
+  after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways, :activate_first_gateway, :create_email_templates
   before_create :build_pages
 
 
@@ -135,6 +137,10 @@ class Store < ActiveRecord::Base
 
   def activate_first_gateway
     store_gateways.first.reload.activate!
+  end
+
+  def create_email_templates
+    self.email_templates.create(["signup_notification", "activation", "resend_activation", "new_order", "rejected_order", "accepted_order", "shipped_order"].collect{ |name| { :name => name, :from => self.email, :body => File.read(Rails.root + "lib/email_templates/#{ name }.html.liquid") } } )
   end
 
 end

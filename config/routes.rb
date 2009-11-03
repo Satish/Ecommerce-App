@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :orders, :collection => { :get_state_options => :post } do |orders|
       orders.resource :shipments, :only => [:edit, :update]
     end
-
+    admin.resources :email_templates, :only => [:index, :edit, :update]
 #    admin.with_options :controller => 'users' do |user|
 #      user.signup '/signup', :action => 'new'
 #      user.register '/register', :action => 'create'

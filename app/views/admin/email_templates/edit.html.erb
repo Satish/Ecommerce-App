@@ -1,0 +1,7 @@
+<div class="container post">
+  <span class = "floatRight marginTop4"><%= link_to 'Back to Email Templates', admin_email_templates_path -%></span>
+  <h2 class="pageHeading">Edit Email Template (<%= h(@email_template.name.titleize) -%>)</h2>
+  <div id='editEmailTemplateForm' class="formContainer create">
+    <%= render :partial => 'form' -%>
+  </div>
+</div>

@@ -29,21 +29,29 @@ class OrderMailer < ActionMailer::Base
   private
 
   def setup_email(order, store)
-    @subject      = "[#{ store.domain }] Order updates for order ID ##{ order.number }."
+    email_template(store)
+    @subject      = ""
     @recipients   = order.billing_address.email
     @bcc          = store.email
-    @from         = store.email
-    @body         = {:user              => UserDrop.new(order.user),
+    @from         = @email_template.from
+    @cc           = @email_template.cc
+    @bcc          = @email_template.bcc
+    @subject      = @email_template.subject.blank? ? "[#{ store.domain }] Order updates for order ID ##{ order.number }." : @email_template.subject
+    @body         = @email_template.render({:user             => UserDrop.new(order.user),
                     :order             => OrderDrop.new(order),
                     :store             => StoreDrop.new(store),
                     :line_items        => order.line_items.collect(&:to_liquid),
                     :billing_address   => AddressDrop.new(order.billing_address),
                     :shipping_address  => AddressDrop.new(order.shipping_address),
                     :order_status_url  => "http://#{ store.domain }/orders/status",#status_orders_url(:host => store.domain),
-                    :login_url         => login_url(:host => store.domain) }
+                    :login_url         => login_url(:host => store.domain) }.stringify_keys!)
 
     @content_type  = "text/html"
     @sent_on       = Time.now
+  end
+
+  def email_template(store)
+    @email_template ||= store.email_templates.find_by_name(template)
   end
 
 end

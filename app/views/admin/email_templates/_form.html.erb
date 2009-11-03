@@ -1,0 +1,29 @@
+<div class="addnewpost item">
+  <% form_for([:admin, @email_template]) do |f| -%>
+    <%= f.error_messages -%>
+    <div class="formRow transparent">
+      <%= f.label :from -%>
+      <%= f.text_field :from, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :cc -%>
+      <%= f.text_field :cc, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :bcc -%>
+      <%= f.text_field :bcc, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :subject -%>
+      <%= f.text_field :subject, :class => "text important styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :body -%>
+      <%= f.text_area :body, :class => "mceNoEditor styledFormElement" -%>
+    </div>
+    <div class="formRow transparent">
+     <%= f.submit @email_template.new_record? ? "Create" : "Update", :class => "button" -%>&nbsp; or &nbsp;
+     <%= link_to "Cancel", admin_email_templates_path -%>
+    </div>
+  <% end -%>
+</div> 
