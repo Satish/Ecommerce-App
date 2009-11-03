@@ -65,7 +65,7 @@ class Admin::ProductsController < Admin::BaseController
     @product = @store.products.deleted.find_by_id(params[:id])
     if @product.restore
       flash[:message] = "Product with name <em>#{ h(@product.name) }</em> restored successfully."
-      redirect_to (get_url_to_back(deleted_admin_products_path))
+      redirect_back_or_default(deleted_admin_products_path)
     else
       render :edit
     end
