@@ -55,7 +55,7 @@ class Store < ActiveRecord::Base
   has_one :logo, :dependent => :destroy, :as => :attachable
   has_one :favicon_icon, :dependent => :destroy, :as => :attachable
 
-  after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways
+  after_create :create_blog, :create_admin, :create_store_countries, :create_mail_setting, :create_gateways, :activate_first_gateway
   before_create :build_pages
 
 
@@ -131,6 +131,10 @@ class Store < ActiveRecord::Base
      store_gateways.each do |sg|
       sg.gateway_options << GatewayOption.create(GATEWAY_OPTIONS[sg.gateway.name])
     end
+  end
+
+  def activate_first_gateway
+    store_gateways.first.reload.activate!
   end
 
 end

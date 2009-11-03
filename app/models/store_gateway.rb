@@ -57,6 +57,10 @@ class StoreGateway < ActiveRecord::Base
     end
   end
 
+  def activate!
+    update_attribute(:state, true)
+  end
+
   #-------------------------- private ----------------------------------
   private
 

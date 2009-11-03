@@ -9,20 +9,28 @@ namespace :db do
 
   desc 'Rebuild the db with sample data'
   task :rebuild => :environment do
+    Rake::Task["db:roles:create_defaults"].invoke
+    Rake::Task["db:countries:create_defaults"].invoke
+    Rake::Task["db:gateways:create_defaults"].invoke
     Rake::Task["db:insert_sample_data"].invoke
   end
 
   desc 'Insert sample data'
   task :insert_sample_data => :environment do
-    Rake::Task["db:roles:create_defaults"].invoke
-    Rake::Task["db:countries:create_defaults"].invoke
-    Rake::Task["db:gateways:create_defaults"].invoke
     Rake::Task["db:insert_sample_store"].invoke
   end
 
   desc 'Insert sample(test) store'
   task :insert_sample_store => :environment do
+    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts "Creating Store ..."
     store = Store.create(:domain => 'ecommerce.dev', :display_name => 'Ecommerce', :email => 'ecommerce@example.com' )
+    puts "      -----------------------------------------------"
+    puts "      |         domain: #{ store.domain }               |"
+    puts "      |          email: #{ store.email }       |"
+    puts "      |          admin: #{ store.users.first.login }                      |"
+    puts "      |       password: changeme                    |"
+    puts "      -----------------------------------------------"
   end 
 
   desc 'Reset database and reload ALL sample data.'
