@@ -27,9 +27,9 @@
     <div>
       <% unless @product.skus.empty? -%>
         <% form_for :cart, :url => cart_path do |f| -%>
-          <% if @store.product_selection_option?('drop_down') -%>
-            <% for sku in @product.skus -%>
-              <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id -%> <%= h(get_attribute_values(sku)) -%></div>
+          <% unless @store.product_selection_option?('radio_button') -%>
+            <% @product.skus.each do |sku|  -%>
+              <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id, sku == first_in_stock_sku, { :disabled => sku.is_out_of_stock?} -%> <%= h(get_attribute_values(sku)) -%></div>
             <% end -%>
           <% else -%>
             <div class = "productSelectOptions">

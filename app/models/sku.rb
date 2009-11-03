@@ -79,7 +79,11 @@ class Sku < ActiveRecord::Base
   end
 
   def is_out_of_stock?
-    return !(self.quantity > 0)
+    return !in_stock?
+  end
+
+  def in_stock?
+    return self.quantity > 0
   end
 
   def price

@@ -22,4 +22,8 @@ module ProductsHelper
     "[#{ @store.product_attributes.collect{ |product_attribute| '\'#' + product_attribute.name + '_options\''}.join(',') }]"
   end
 
+  def first_in_stock_sku
+    @first_in_stock_sku ||= @product.skus.first(:conditions => ["quantity > ?", 0])
+  end
+
 end
