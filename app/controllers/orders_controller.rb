@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   before_filter :build_order, :only => [:create]
   before_filter :login_required, :only => [:show]
   before_filter :find_order, :only => [:edit, :update, :destroy]
+  before_filter :set_metas, :only => [:new, :create, :edit, :update, :checkout]
 
   # GET /orders
   # GET /orders.xml
@@ -95,6 +96,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def checkout
+    redirect_to new_order_path and return if current_user
+  end
+
   #----------------------------------- private -----------------------------
   private
 
@@ -127,6 +132,10 @@ class OrdersController < ApplicationController
   def find_order
     @order = @store.orders.checking_out.find_by_number(session[:order_id])
     flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and redirect_to orders_path and return unless @order
+  end
+
+  def set_metas
+    @meta_title = "#{ @store.display_name } | Checkout"
   end
 
 end

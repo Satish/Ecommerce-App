@@ -1,0 +1,23 @@
+<% form_for @user do |f| -%>
+  <%= f.error_messages -%>
+  <div class = "formRow">
+    <%= f.label :login -%>
+    <%= f.text_field :login, :class => 'formField' -%>
+  </div>
+  <div class = "formRow">
+    <%= f.label :email -%>
+    <%= f.text_field :email, :class => 'formField' -%>
+  </div>
+  <div class = "formRow">
+    <%= f.label :password -%>
+    <%= f.password_field :password, :class => 'formField' -%>
+  </div>
+  <div class = "formRow">
+    <%= f.label :password_confirmation, 'Confirm Password' -%>
+    <%= f.password_field :password_confirmation, :class => 'formField' -%>
+  </div>
+  <div class = "formRow">
+    <%= f.label "&nbsp;" -%>
+    <%= f.submit 'Sign up', :class => 'submitButton' -%>
+  </div>
+<% end -%>

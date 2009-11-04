@@ -111,7 +111,12 @@ select.productOptionSelectBox { width: 150px; margin: 2px 0px;}
 .buttons{ padding: 10px 0px; text-align:right;}
 .updateButton { padding:3px 10px; color:#1382B9; }
 .progressIndicator { width:20px; height:20px; float:right; margin-right: 10px;}
-
+.floatLeft { float: left;}
+.floatRight { float: right; }
+.p10 { padding: 10px 0px }
+.m10 { margin: 10px 0px }
+.width50p { width: 48% }
+.borderRight { border-right:1px solid #ccc; }
 
 /*  sidebar */
 .navSection { border: 1px solid #333; -moz-border-radius: 5px; margin-bottom:20px;}

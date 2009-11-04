@@ -3,7 +3,7 @@
   <% unless @cart.empty? -%>
     <%= render :partial => 'cart' -%>
     <div class = "buttons">
-      <%= link_to 'Checkout &raquo;', new_order_path , :class => "linkButton continueButton", :rel => "nofollow", :title => "Checkout" -%>
+      <%= link_to 'Checkout &raquo;', current_user ? new_order_path : checkout_path , :class => "linkButton continueButton", :rel => "nofollow", :title => "Checkout" -%>
   	</div>
   <% else -%>
    	<p>There aren't any items in your shopping bag</p>

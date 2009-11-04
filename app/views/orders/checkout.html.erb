@@ -1,0 +1,17 @@
+<div id = "checkout">
+  <h1>Checkout</h1>
+  <div id="container">
+    <div class = "floatLeft width50p borderRight">
+    <h2>Returning Customer</h2>
+    <p class = "m10">Sign in for faster Checkout, access your stored addresses, account settings, order status & more.</p>
+    <% form_remote_tag :url => sessions_path(:return_to => new_order_path(:anchor => "billingAddress")), :loading => "showSpinner('#loadingIndicator')", :complete => "hideSpinner('#loadingIndicator')" do -%>
+      <%= render "sessions/form" -%>
+    <% end -%>
+    </div>
+    <div class = "floatRight width50p">
+      <h2>Proceed to Checkout</h2>
+      <p class = "m10">Start here if you don't want a <%= h(@store.domain) -%> account. Click Proceed to Checkout to complete your order now</p><br/>
+      <%= link_to 'Proceed to Checkout', new_order_path, :class => "linkButton continueButton m10", :style => "color: #000" %>
+    </div>
+  </div>
+</div>

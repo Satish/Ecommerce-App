@@ -1,0 +1,17 @@
+<div class = "formRow">
+  <%= label_tag :login %>
+  <%= text_field_tag :login, @login, :class => 'formField' -%>
+</div>
+<div class = "formRow">
+  <%= label_tag :password -%>
+  <%= password_field_tag :password, nil, :class => 'formField' -%>
+</div>
+<div class = "formRow">
+  <%= check_box_tag :remember_me, '1', @remember_me, :class => 'formField', :style => "float:left; margin-left: 80px" -%>
+  <%= label_tag 'remember_me', nil, {:style => "width: 100px; margin-left:10px;"} -%>
+</div><br/>
+<div class = "formRow">
+  <%= label_tag :button, '&nbsp;' -%>
+  <%= submit_tag 'Log in', :class => "linkButton" -%> or <%= link_to 'Create new account', signup_path -%>
+  <%= image_tag("/images/admin/indicator.gif", {:alt => "loading...", :size => "18x18", :id => "loadingIndicator", :class => "loadingIndicator", :style => "display:none"}) -%>
+</div>

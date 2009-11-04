@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     post.resources :comments, :only => [:create]
   end
   map.resources :orders, :collection => { :get_state_options => :post }
+  map.checkout '/checkout', :controller => 'orders', :action => 'checkout'
 
   map.category '/categories/:permalink', :controller => 'categories', :action => 'show'
   map.brand '/brands/:permalink', :controller => 'brands', :action => 'show'

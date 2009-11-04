@@ -1,0 +1,6 @@
+if current_user
+  params[:return_to] ? page.redirect_to(params[:return_to]) : page.reload
+else
+  page.alert(flash[:error])
+  flash.clear
+end

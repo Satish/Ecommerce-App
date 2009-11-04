@@ -21,20 +21,26 @@ class SessionsController < ApplicationController
       self.current_user = user
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_back_or_default(user.has_role?('admin') ? admin_root_path : root_path)
-      flash[:notice] = "Logged in successfully."
+      flash[:message] = "Logged in successfully."
+      respond_to do |format|
+        format.html { redirect_back_or_default(user.has_role?('admin') ? admin_root_path : root_path) }
+        format.js
+      end
     else
       note_failed_signin
       @login       = params[:login]
       @remember_me = params[:remember_me]
-      render :action => 'new'
+      respond_to do |format|
+        format.html { render :action => 'new' }
+        format.js
+      end
     end
   end
 
   def destroy
     logout_keeping_session!
     flash[:notice] = "You have been logged out successfully."
-    redirect_back_or_default('/')
+    redirect_to get_url_to_back
   end
 
   protected ###########################
