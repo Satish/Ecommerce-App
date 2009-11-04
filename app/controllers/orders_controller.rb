@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
 
   before_filter :find_store
   before_filter :cart_item_required, :only => [:new, :create, :checkout]
+  before_filter :inventory_check, :only => [:new, :create]
   before_filter :build_order, :only => [:create]
   before_filter :login_required, :only => [:show]
   before_filter :find_order, :only => [:edit, :update, :destroy]
@@ -132,6 +133,11 @@ class OrdersController < ApplicationController
   def find_order
     @order = @store.orders.checking_out.find_by_number(session[:order_id])
     flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and redirect_to orders_path and return unless @order
+  end
+
+  def inventory_check
+    current_cart.perform_inventory_check
+    flash[:error] = "#{ (@cart.errors.collect{ |error| '- ' + h(error) + '<br/>' }) }" and @cart.errors.clear and redirect_to cart_path and return unless current_cart.errors.empty?
   end
 
   def set_metas

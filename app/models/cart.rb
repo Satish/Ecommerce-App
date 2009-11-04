@@ -70,6 +70,16 @@ class Cart
     @cart_items.sum { |item| item[:price] * item[:qty] }
   end
 
+  def perform_inventory_check
+    cart_items.each do |cart_item|
+      if item = cart_item[:item_type].constantize.find_by_id(cart_item[:item_id])
+        cart_item[:qty] = get_quantity(cart_item[:qty], item)
+      else
+        @cart_items.delete( cart_item )
+      end
+    end
+  end
+
 #  def handling_fee
 #    handling = 0.00
 #    @cart_items.each do |item|
