@@ -110,6 +110,11 @@ module ApplicationHelper
     super + get_hint(options)
   end
 
+  def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
+    super + get_hint(options)
+  end
+
+
   private ##################
 
   def get_hint(options)

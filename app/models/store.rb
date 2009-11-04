@@ -61,8 +61,8 @@ class Store < ActiveRecord::Base
   before_create :build_pages
 
 
-  def product_selection_option?(option)
-    option == 'drop_down' # allow admin to choose the options
+  def display_radio_button?
+    product_selection_option
   end
 
   def store_gateway

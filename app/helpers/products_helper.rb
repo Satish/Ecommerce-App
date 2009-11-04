@@ -15,7 +15,7 @@ module ProductsHelper
   end
 
   def get_onclick_events
-    "return is_selected( #{ @store.product_selection_option?('radio_buttons') ? '[\'#item_id\']' : get_options_dom_ids });"
+    "return is_selected( #{ @store.display_radio_button? ? '[\'#item_id\']' : get_options_dom_ids });"
   end
 
   def get_options_dom_ids

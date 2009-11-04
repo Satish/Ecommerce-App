@@ -14,6 +14,14 @@
       <%= f.text_field :email, :class => "text important styledFormElement" -%>
     </div>
     <div class="formRow transparent">
+      <%= f.label :product_selection_option -%>
+      <%= f.select :product_selection_option, options_for_product_selection_option, { :hint => "Product Selection Option at Add to Cart page" }, { :class => "text styledFormElement" } -%>
+    </div>
+    <div class="formRow transparent">
+      <%= f.label :auto_capture -%>
+      <%= f.check_box :auto_capture, { :class => "text styledFormElement", :hint => "Checked/Unchecked will capture/authorize credit card respectively."} -%>
+    </div>
+    <div class="formRow transparent">
       <%= f.label :address -%>
       <%= f.text_area :address, :class => "mceNoEditor styledFormElement height50px" -%>
     </div>

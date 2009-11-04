@@ -245,7 +245,8 @@ class Order < ActiveRecord::Base
       # We will Use CreditCard number = 1 and type = 'bogus' for success in case of Bogus Gateway
       credit_card.number = '1' and credit_card.type = 'bogus' if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
 
-      @response = gateway.authorize(amount, credit_card, relevant_customer_info)
+      @response =  store.auto_capture? ? gateway.authorize(amount, credit_card, relevant_customer_info) : gateway.capture(amount, credit_card, relevant_customer_info)
+
       if @response.success?
         @response.params['transaction_id'] = 0 if gateway.is_a?(ActiveMerchant::Billing::BogusGateway)
       else
