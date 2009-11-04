@@ -6,6 +6,6 @@
       <%= link_to 'Checkout &raquo;', current_user ? new_order_path : checkout_path , :class => "linkButton continueButton", :rel => "nofollow", :title => "Checkout" -%>
   	</div>
   <% else -%>
-   	<p>There aren't any items in your shopping bag</p>
+    <h3 class = "p10">There are no items in your shopping cart. <%= link_to "Continue Shopping", products_path -%></h3>
   <% end -%>
 </div>

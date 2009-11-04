@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation, :card_number, :card_verification_value
-  private #########################################
+
+  # ---------------------------- private ---------------------------------
+  private
 
   def set_blog_time_zone
     Time.zone = @blog.time_zone if @blog

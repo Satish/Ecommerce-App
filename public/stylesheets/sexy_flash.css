@@ -22,7 +22,7 @@
   border: solid 1px;
   width: 90%;
   background-repeat: no-repeat;
-  background-position: 10px center;
+  background-position:10px 10px;
 }
 
 #flash_message {

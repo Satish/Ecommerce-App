@@ -5,13 +5,18 @@ class Cart
   
   def initialize
     @cart_items = []
+    @errors = []
   end
 
   def add_item(item, qty = 1)
-    if current_item = find_by_item_id_and_item_type(item.id, item.class.to_s)
-      current_item[:qty] += qty.to_i
-    else
-      @cart_items << { :id => Time.now.to_i, :qty => qty.to_i, :price => item.our_price, :item_id => item.id, :item_type => item.class.to_s }
+    @errors << "Quantity must be greater than zero" if qty < 1
+    @errors << "We are unable to add out of stock product to your cart." if item.is_out_of_stock?
+    if @errors.empty?
+      if current_item = find_by_item_id_and_item_type(item.id, item.class.to_s)
+        current_item[:qty] = get_quantity(current_item[:qty] + qty, item)
+      else
+        @cart_items << { :id => Time.now.to_i, :qty => get_quantity(qty, item), :price => item.our_price, :item_id => item.id, :item_type => item.class.to_s }
+      end
     end
   end
 
@@ -20,15 +25,29 @@ class Cart
       if qty.zero?
         @cart_items.delete( current_item )
       else
-        current_item[:qty] = qty.to_i
+        current_item[:qty] = get_quantity(qty, current_item[:item_type].constantize.find_by_id(current_item[:item_id]))
       end
     end
   end
 
   alias_method :update_item, :remove_item
 
+  def get_quantity(required_items, item)
+    remaining_quantity = item.quantity
+    if required_items > remaining_quantity
+      @errors << "The quantity for '#{ item.display_name }' in your cart has been adjusted to meet the available quantity(#{ remaining_quantity }) we currently have in stock."
+      return remaining_quantity
+    else
+      return required_items
+    end
+  end
+
   def cart_items
     @cart_items
+  end
+
+  def errors
+    @errors
   end
 
   def find_by_item_id_and_item_type(item_id, item_type)

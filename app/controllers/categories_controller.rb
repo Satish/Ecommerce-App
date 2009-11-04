@@ -22,8 +22,9 @@ class CategoriesController < ApplicationController
     render_products
   end
   
-  private ####################
-  
+  # ---------------------------- private ---------------------------------
+  private
+
   def find_category
     @category = @store.categories.find_by_permalink(params[:permalink])
     redirect_to categories_path and flash[:error] = PAGE_NOT_FOUND_ERROR_MESSAGE and return unless @category
