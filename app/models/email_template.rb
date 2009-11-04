@@ -43,13 +43,17 @@ class EmailTemplate < ActiveRecord::Base
 
   def self.search(query, options)
     conditions = ["name LIKE ? OR body LIKE ?", "%#{ query }%", "%#{ query }%"] unless query.blank?
-    default_options = {:conditions => conditions, :order => "created_at DESC, name ASC" }
+    default_options = {:conditions => conditions, :order => "id" }
     
     paginate default_options.merge(options)
   end
 
   def render(options = {})
     Liquid::Template.parse(body).render(options)
+  end
+
+  def render_subject(options = {})
+    Liquid::Template.parse(subject).render(options)
   end
 
   private

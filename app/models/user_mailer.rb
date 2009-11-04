@@ -20,10 +20,11 @@ class UserMailer < ActionMailer::Base
     from            @email_template.from
     cc              @email_template.cc unless @email_template.cc.blank?
     bcc             @email_template.bcc unless @email_template.bcc.blank?
-    subject         @email_template.subject.blank? ? "[www.#{ store.domain }] #{ default_subject }" : @email_template.subject
-    body            @email_template.render('user'   => UserDrop.new(user),
-                                           'store'  => StoreDrop.new(store),
-                                           'url'    => url)
+    subject         @email_template.subject.blank? ? "[www.#{ store.domain }] #{ default_subject }" : @email_template.render_subject({ :user => UserDrop.new(user), :store  => StoreDrop.new(store) }.stringify_keys!)
+    body            @email_template.render({
+                                            :user   => UserDrop.new(user),
+                                            :store  => StoreDrop.new(store),
+                                            :url    => url }.stringify_keys!)
   end
 
   def email_template(store)
