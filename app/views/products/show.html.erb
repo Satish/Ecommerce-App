@@ -21,8 +21,10 @@
     <div class = "productDescription"><%= @product.description -%></div>
     <div class = "productPriceContainer">
       <div class = "productOurPrice"><div class = "title">Our Price:</div><%= number_to_currency(@product.our_price) -%></div>
-      <div class = "productOriginalPrice"><div class = "title">Original Price:</div><%= number_to_currency(@product.price) -%></div>
-      <div class = "productSavedPrice"><div class = "title">You Saved:</div><%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+      <% if @product.price > @product.our_price -%>
+        <div class = "productOriginalPrice"><div class = "title">Original Price:</div><span class="strikethru"><%= number_to_currency(@product.price) -%></span></div>
+        <div class = "productSavedPrice"><div class = "title">You Saved:</div><%= number_to_currency(@product.discount) -%> (<%= number_to_percentage(@product.percent_discount) -%>)</div>
+      <% end -%>
     </div>
     <div>
       <% unless @product.skus.empty? -%>

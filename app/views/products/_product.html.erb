@@ -1,7 +1,9 @@
 <% content_tag_for :ul, product do -%>
 	<li class = "productImage"><%= link_to main_image(product, :S160x160), product -%></li>
-  <li class = "productName"><%= link_to h(truncate(product.name.titleize, :length => 30)), product -%></li>
+  <li class = "productName"><%= link_to h(truncate(product.name.titleize, :length => 45)), product -%></li>
   <li class = "productOurPrice">Our Price: <%= number_to_currency(product.our_price) -%></li>
-  <li class = "productOriginalPrice">Original Price: <%= number_to_currency(product.price) -%></li>
-  <li class = "productSavedPrice">You Saved: <%= number_to_currency(product.discount) -%> (<%= number_to_percentage(product.percent_discount) -%>)</li>
-<% end %>
+  <% if product.price > product.our_price -%>
+    <li class = "productOriginalPrice">Original Price: <span class="strikethru"><%= number_to_currency(product.price) -%></span></li>
+    <li class = "productSavedPrice">You Saved: <%= number_to_currency(product.discount) -%> (<%= number_to_percentage(product.percent_discount) -%>)</li>
+  <% end -%>
+<% end -%>

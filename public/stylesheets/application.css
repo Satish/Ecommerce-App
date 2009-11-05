@@ -5,17 +5,18 @@ body { font-family: 'Trebuchet MS', sans-serif;}
 a img {	border: none; }
 a, a:active, a:hover, a:visited { text-decoration:none; color: #1382B9; }
 body#body {font-size: 75%; background-color: #eee}
-#body #wrapper { margin:0px auto; width:75%; background-color: #fff; border:1px solid #DDDDDD; }
+#body #wrapper { margin:0px auto; width:85%; background-color: #fff; border:1px solid #DDDDDD; }
 
 /* header */
 #header, #headerInner { clear:both; overflow:hidden; }
 #header { padding:10px 0px; }
 #headerInner { padding:0px 10px; margin-bottom:10px; }
 #headerInner .right { float: right; }
-#headerInner .left { float: left; }
+#headerInner .left { float: left; width:50%; }
 #headerInner .topNav { padding-bottom: 20px; font-weight: bold; overflow:hidden;}
 #headerInner .topNav ul li { float:right; margin:2px; padding:0px 10px; border-right:1px solid #3A2012}
 #headerInner .topNav ul li.last { border: none }
+#headerInner #searchBox { text-align: right; padding-right:15px;}
 #headerInner .logo h1 { font-size: 4em; }
 #headerInner .logo h1 a { color:#999 }
 #header .navigationBar{ overflow:hidden; padding:5px 10px;}
@@ -56,15 +57,16 @@ body#body {font-size: 75%; background-color: #eee}
 .filterForm { float: left; padding-left:15px;}
 .filterForm select { border: 1px solid #333; padding:2px 5px;}
 #rightColumn #products, #rightColumn #categories, #rightColumn #brands { overflow:hidden; clear:both; padding: 10px 0px 0px 5px; }
-#rightColumn .product, #rightColumn .category, #rightColumn .brand {height:275px; float:left; margin: 10px 0px; text-align:center; width: 163px; padding:0px 9px; }
+#rightColumn .product, #rightColumn .category, #rightColumn .brand {height:275px; float:left; margin: 10px 0px; text-align:center; width: 175px; padding:0px 9px; }
 #rightColumn h1 { border-bottom:1px solid #333; background:#858484 url(/images/bgNavigation.png); color:#FFFFFF; font-size:2em; padding:3px 15px;}
 #productsBox, #brandsBox, #categoriesBox { padding:10px 10px 10px 0px; overflow: hidden; }
 .product .productImage, .category .categoryImage, .brand .brandImage { border: 1px solid #aaa; height:160px; width:160px; margin:0px auto;}
 .product .productName, .category .categoryTitle, .brand .brandName { font-weight:bold; padding:5px 0px;}
 .product .productName a, .category .categoryTitle a, .brand .brandName a { text-decoration:underline; }
-.product .productOriginalPrice, .product .productOurPrice, .product .productSavedPrice { padding:1px 0px; font-weight:700; color: #555 }
+.product .productOriginalPrice, .product .productOurPrice, .product .productSavedPrice { padding:1px 0px; color: #555 }
 .product .productOriginalPrice {  }
-.product .productOurPrice { color: #C00 }
+.strikethru { text-decoration:line-through; }
+.product .productOurPrice, #product .productOurPrice { color: #C00; font-weight:bold }
 .product .productSavedPrice {  }
 .category .categoryDesc, .brand .brandDesc{ padding:5px 0px; text-align: justify;}
 #category, #brand { overflow:hidden;}
