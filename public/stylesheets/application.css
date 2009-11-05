@@ -8,7 +8,7 @@ body#body {font-size: 75%; background-color: #eee}
 #body #wrapper { margin:0px auto; width:85%; background-color: #fff; border:1px solid #DDDDDD; }
 
 /* mini cart */
-#cartWrapper { background:#FFFFFF url('/images/miniCartBg.png') repeat-x scroll 0 0; border-bottom:15px solid #CCCCCC; border-top:4px solid #AF9E8E; left:0; opacity:0.95; position:absolute; text-align:left; top:0; width:100%; z-index:1; }
+#cartWrapper { background:#FFFFFF url('/images/miniCartBg.png') repeat-x scroll 0 0; max-height: 400px; overflow:auto; border-bottom:15px solid #CCCCCC; border-top:4px solid #AF9E8E; left:0; opacity:0.95; position:absolute; text-align:left; top:0; width:100%; z-index:1; }
 #cartWrapper .cartItems { color:#3F3B39; font-size:12px; line-height:18px; margin:0 auto; padding:10px 0; position:relative; text-align:left; top:0; width:900px; overflow: hidden; }
 #cartWrapper .listHeading { overflow:hidden; border-bottom:3px double #999999;}
 #cartWrapper .cartItem { clear: both; height:80px; border-bottom:1px dotted #999999; padding-top: 7px;}
