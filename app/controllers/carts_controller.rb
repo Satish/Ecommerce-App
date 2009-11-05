@@ -5,40 +5,17 @@ class CartsController < ApplicationController
   before_filter :current_cart
 
   def show
-    @meta_title = "#{ @store.display_name } | Cart"
+    respond_to do |format|
+      format.html { @meta_title = "#{ @store.display_name } | Cart" }
+      format.js
+    end
   end
   
-#  def create
-#    if item = find_item
-#      item_qty = params[:item_qty] ? params[:item_qty].to_i : nil
-#      if item_qty > 0
-#        if item_qty <= item.quantity
-#          unless item.is_out_of_stock?
-#            @cart.add_item(item, item_qty)
-#            flash[:message] = "Product added to your cart successfully."
-#          else
-#            flash[:notice] = "Soory, we are unable to add out of stock product to your cart."
-#          end
-#        else
-#          flash[:error] = "Soory, we have only #{ pluralize(item.quantity, 'item')} in stock"
-#        end
-#      else
-#        flash[:notice] = "Qty. must be at least one."
-#      end
-#    else
-#      flash[:error] = "You must select required options to add product to your cart."
-#    end
-#    respond_to do |format|
-#      format.html { redirect_to get_url_to_back(cart_path) and return }
-#      format.js
-#    end
-#  end
-
   def create
     if item = find_item
       item_qty = params[:item_qty] ? params[:item_qty].to_i : 0
       @cart.add_item(item, item_qty)
-      flash_message
+      flash_message(item)
     else
       flash[:error] = "You must select required options to add product to your cart."
     end
@@ -105,12 +82,21 @@ class CartsController < ApplicationController
     end
   end
 
+  def empty
+    @cart.empty
+    flash[:message] = "All items deleted from your cart successfully."
+    respond_to do |format|
+      format.html { redirect_to get_url_to_back(cart_path) and return }
+      format.js
+    end
+  end
+
   # ---------------------------- private ---------------------------------
   private
 
-  def flash_message
+  def flash_message(item = nil)
     if @cart.errors.empty?
-      flash[:message] = "Cart updated successfully."
+      flash[:message] = item ? "Product '#{ h(item.display_name) }' added to your cart successfully.": "Cart updated successfully."
     else
       flash[:error] = "#{ (@cart.errors.collect{ |error| '- ' + h(error) + '<br/>' }) }"
       @cart.errors.clear

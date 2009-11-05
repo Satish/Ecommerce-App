@@ -58,8 +58,8 @@ class Cart
     @cart_items.find{ |item| item[:id] == id }
   end
 
-  def empty_cart
-    @cart_items = []
+  def empty
+    @cart_items.clear
   end
 
   def empty?

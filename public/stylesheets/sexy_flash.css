@@ -3,8 +3,7 @@
  * Iconset: Knobs => http://itweek.deviantart.com/art/Knob-Buttons-Toolbar-icons-73463960
  */
 .flash{
-  width: 870px !important;
-	margin: 10px auto;
+  margin:10px;
 	padding: 15px 30px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -17,12 +16,10 @@
 }
 
 #flash_notice, #flash_error, #flash_warning, #flash_info, #flash_message{
-  margin: 10px auto;
   padding:13px 10px 13px 50px;
   border: solid 1px;
-  width: 90%;
   background-repeat: no-repeat;
-  background-position:10px 10px;
+  background-position:10px 5px;
 }
 
 #flash_message {

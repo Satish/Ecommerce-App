@@ -9,6 +9,13 @@
       <li><%= link_to 'My Account', "#", :title => 'My Account' -%></li>
     <% end %>
     <li><%= link_to "Home", root_path -%></li>
-    <li><%= link_to "Cart (#{ pluralize(@cart.cart_items.size, 'Item') })", cart_path -%></li>
+    <li>
+      <% unless cart_page -%>
+        <%= image_tag 'indicator.gif', :class => 'progressIndicator', :id => "miniCartLoadingIndicator", :style => "display:none; float:left;" -%>
+        <%= link_to_remote get_cart_items, :url => cart_path, :method => :get, :loading => "showSpinner('#miniCartLoadingIndicator')", :complete => "hideSpinner('#miniCartLoadingIndicator')", :html => { :id => "loadMiniCart" } -%>
+      <% else %>
+        <%= get_cart_items -%>
+      <% end %>
+    </li>
   </ul>
 </div>

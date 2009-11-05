@@ -7,6 +7,30 @@ a, a:active, a:hover, a:visited { text-decoration:none; color: #1382B9; }
 body#body {font-size: 75%; background-color: #eee}
 #body #wrapper { margin:0px auto; width:85%; background-color: #fff; border:1px solid #DDDDDD; }
 
+/* mini cart */
+#cartWrapper { background:#FFFFFF url('/images/miniCartBg.png') repeat-x scroll 0 0; border-bottom:15px solid #CCCCCC; border-top:4px solid #AF9E8E; left:0; opacity:0.95; position:absolute; text-align:left; top:0; width:100%; z-index:1; }
+#cartWrapper .cartItems { color:#3F3B39; font-size:12px; line-height:18px; margin:0 auto; padding:10px 0; position:relative; text-align:left; top:0; width:900px; overflow: hidden; }
+#cartWrapper .listHeading { overflow:hidden; border-bottom:3px double #999999;}
+#cartWrapper .cartItem { clear: both; height:80px; border-bottom:1px dotted #999999; padding-top: 7px;}
+#cartWrapper .cartItem div, #cartWrapper .listHeading div { float:left; padding: 0px 10px; }
+#cartWrapper .listHeading { font-weight:bold;}
+#cartWrapper .cartItem div.attributeValues { clear:left; }
+#cartWrapper .cartItem .actions { text-align: right;}
+#cartWrapper .itemImage { width: 80px; }
+#cartWrapper .descriptionItem { width: 300px; }
+#cartWrapper .qtyItem { width: 50px; }
+#cartWrapper .priceEachItem, #cartWrapper .priceTotalItem  { width: 100px; text-align: right; }
+#cartWrapper .actions { width: 145px; }
+#cartWrapper .actions a { margin-left:10px; clear:both; }
+#cartWrapper .actions .updateActionBlock, #cartWrapper .actions .removeActionBlock { width:100%; }
+#cartWrapper .cartItems h1 { font-size: 18px; padding-bottom: 15px; }
+#cartWrapper .cartItems h1 span.clear { font-size: 12px; }
+#cartWrapper .errorMessage, #cartWrapper .successMessage { margin-bottom:10px; padding:5px 20px; background-color:#EEEEEE;}
+#cartWrapper .errorMessage { border:1px solid red; color: red; }
+#cartWrapper .successMessage { border:1px solid green; color: green; }
+
+
+
 /* header */
 #header, #headerInner { clear:both; overflow:hidden; }
 #header { padding:10px 0px; }
@@ -105,6 +129,8 @@ select.productOptionSelectBox { width: 150px; margin: 2px 0px;}
 #cartItems .listHeading .priceEachItem, #cartItems .cartItem .priceEachItem { float:left; width: 12%; }
 #cartItems .listHeading .priceTotalItem, #cartItems .cartItem .priceTotalItem { float:left; width: 12%; }
 #cartItems .listHeading .removeItem, #cartItems .cartItem .actions { float:left; width: 14%; }
+#cartItems .actions .updateActionBlock, #cartItems .actions .removeActionBlock { overflow:hidden; }
+.buttons .emptyCart { float: left; }
 .updateCartItem, .deleteCartItem { float:right; overflow:hidden; display:block; margin-bottom:10px; width:55px; padding:1px !important;}
 .descriptionItem .heading { font-weight: bold; padding-bottom:5px; }
 .qtyTextField { border:1px solid #555; width: 40px; padding: 2px;}
@@ -112,7 +138,7 @@ select.productOptionSelectBox { width: 150px; margin: 2px 0px;}
 .submitButton:hover, .linkButton:hover { border-color: #F09B35; background-color: #ddd;}
 .buttons{ padding: 10px 0px; text-align:right;}
 .updateButton { padding:3px 10px; color:#1382B9; }
-.progressIndicator { width:20px; height:20px; float:right; margin-right: 10px;}
+.progressIndicator { width:20px; height:20px; margin-right: 10px; }
 .floatLeft { float: left;}
 .floatRight { float: right; }
 .p10 { padding: 10px 0px }

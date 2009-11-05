@@ -1,0 +1,2 @@
+page.replace_html 'cartWrapper', :partial => "carts/mini_cart"
+page << "Cart.show();"

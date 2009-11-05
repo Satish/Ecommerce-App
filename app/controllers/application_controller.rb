@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_blog_time_zone
   append_after_filter :set_meta_attributes
   helper_method :get_url_to_back
+
   # AuthenticatedSystem must be included for RoleRequirement, and is provided by installing acts_as_authenticates and running 'script/generate authenticated account user'.
   include AuthenticatedSystem
   # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.

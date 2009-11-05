@@ -13,6 +13,7 @@
     <%= javascript_include_tag "application", "jquery-1.3.2.min", "jquery-ui-1.7.2.min", "jrails", "jquery-fancybox-1.2.1", :cache => true %>
   </head>
   <body id = "body">
+    <div id = "cartWrapper" style = "display: none"></div>
     <div id = "wrapper">
       <%= render :partial => 'shared/header' -%>
       <%= sexy_flash :timeout => 3, :hide_duration => 2, :hide_effect => 'blind' -%>

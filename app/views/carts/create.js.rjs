@@ -1,0 +1,7 @@
+page.replace_html 'cartWrapper', :partial => "carts/mini_cart"
+page.replace 'cartItemCount', get_cart_items
+page << "Cart.show();"
+page.delay(5) do
+  page << "Cart.hide();"
+end
+flash.clear

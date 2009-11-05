@@ -1,2 +1,3 @@
+page.replace 'cartItemCount', get_cart_items
 page.alert(flash[:message].blank? ? flash[:error] : flash[:message])
 flash.clear

@@ -1,0 +1,18 @@
+<div class = "cartItems">
+    <h1>Shopping Cart <span class="clear"><%= link_to_remote 'clear', :url => empty_cart_path, :method => :delete, :confirm => "Are you sure you want to empty your cart?" unless @cart.empty? -%></span></h1>
+  <% unless @cart.empty? -%>
+    <% unless flash.empty? -%>
+      <%= "<div class = 'successMessage'>#{ flash[:message] }</div>" if flash[:message] -%>
+      <%= "<div class = 'errorMessage'>#{ flash[:error] }</div>" if flash[:error] -%>
+    <% end -%>
+    <%= render 'carts/item_header' -%>
+    <%= render :partial => 'carts/item', :collection => @cart.cart_items -%>
+    <div class = "buttons" style = "padding-right: 15px;">
+      <%= link_to_function 'Hide Cart', "Cart.hide();" , :class => "linkButton continueButton", :rel => "nofollow", :title => "Continue Shopping" -%>
+      <%= link_to 'Checkout &raquo;', current_user ? new_order_path : checkout_path , :class => "linkButton continueButton", :rel => "nofollow", :title => "Checkout" -%>
+    </div>
+  <% else -%>
+  There are no items in your shopping cart.
+  <%= link_to_function 'Hide', "Cart.hide();" , :class => "linkButton continueButton" -%>
+  <% end -%>
+</div>

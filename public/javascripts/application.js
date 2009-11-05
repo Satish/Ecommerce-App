@@ -144,6 +144,17 @@ function set_attribute_values(dom_ids){
   $('input#attribute_values').attr('value', attribute_values)
 }
 
+var Cart
+Cart = {
+ hide:function(){
+   $('#cartWrapper').hide('blind', 1000);
+  },
+
+ show:function(){
+   $('#cartWrapper').show('blind', 1000);
+  }
+}
+
 /*
 document.observe("dom:loaded", function() {r
   // the element in which we will observe all clicks and capture

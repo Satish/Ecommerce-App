@@ -1,3 +1,4 @@
 page["item_#{ params[:id] }"].remove()
+page.replace 'cartItemCount', get_cart_items
 page.alert(flash[:message].blank? ? flash[:error] : flash[:message])
 flash.clear

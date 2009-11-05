@@ -114,7 +114,13 @@ module ApplicationHelper
     super + get_hint(options)
   end
 
+  def cart_page
+    request.request_uri == "/cart" && request.get?
+  end
 
+  def get_cart_items
+    "<span id = 'cartItemCount'>Cart (#{ pluralize(@cart.cart_items.size, 'Item') })</span>"
+  end
   private ##################
 
   def get_hint(options)

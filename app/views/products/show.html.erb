@@ -1,7 +1,7 @@
 <%= javascript_tag "$(document).ready(function() { $('li.productOtherImage a').fancybox(); });" %>
 <h1>Product Detail</h1>
 <div id="product">
-  <h2 class = "productName"><%= link_to h(truncate(@product.name.titleize, :length => 30)), @product -%></h2>
+  <h2 class = "productName"><%= link_to h(@product.name.titleize), @product -%></h2>
   <div id = "productLeft">
     <div id = "productMainImage"><%= link_to main_image(@product, :S280x280), @product -%></div>
     <% if @product.images.size > 0 -%>
@@ -28,7 +28,7 @@
     </div>
     <div>
       <% unless @product.skus.empty? -%>
-        <% form_for :cart, :url => cart_path do |f| -%>
+        <% form_remote_for :cart, :url => cart_path, :loading => "showSpinner('#addToCartProgressIndicator')", :complete => "hideSpinner('#addToCartProgressIndicator')" do |f| -%>
           <% if @store.display_radio_button? -%>
             <% @product.skus.each do |sku| -%>
               <div class= "attribute_values"><%= radio_button_tag :item_id, sku.id, sku == first_in_stock_sku, { :disabled => sku.is_out_of_stock?} -%> <%= h(get_attribute_values(sku)) -%></div>
@@ -47,7 +47,10 @@
           <% end -%>
           <div class = "attributeName">Quantity</div>
           <div><%= text_field_tag :item_qty, 1, :class => "qtyField" -%></div>
-          <div class = "addToCartButtonContainer"><%= f.submit 'Add to Cart', :class => "linkButton", :onclick => get_onclick_events -%></div>
+          <div class = "addToCartButtonContainer">
+            <%= f.submit 'Add to Cart', :class => "linkButton", :onclick => get_onclick_events -%>
+            <%= image_tag 'indicator.gif', :class => 'progressIndicator', :id => "addToCartProgressIndicator", :style => "display:none" -%>
+          </div>
         <% end %>
       <% end %>
     </div>

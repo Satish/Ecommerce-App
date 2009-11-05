@@ -4,17 +4,11 @@
     <%= f.submit 'Update', :class => 'submitButton updateButton', :title => "Update Cart" -%></span>
   </div>
   <div id = "cartItems" class = "cart">
-    <div class = "listHeading">
-      <div class = "itemImage">Item</div>
-      <div class = "descriptionItem">description</div>
-      <div class = "qtyItem">qty</div>
-      <div class = "priceEachItem">each</div>
-      <div class = "priceTotalItem">total</div>
-      <div class = "actions">&nbsp;</div>
-    </div>
-    <%= render :partial => 'carts/item', :collection => @cart.cart_items -%>
+    <%= render 'item_header' -%>
+    <%= render :partial => 'item', :collection => @cart.cart_items -%>
   </div>
   <div class = "buttons">
+    <%= link_to 'Empty', empty_cart_path, :method => :delete, :confirm => "Are you sure you want to empty your cart?" , :class => "emptyCart linkButton", :rel => "nofollow", :title => "Continue Shopping" -%>
     <%= link_to 'Continue shopping', get_url_to_continue_shopping , :class => "linkButton continueButton", :rel => "nofollow", :title => "Continue Shopping" -%>
     <%= f.submit 'Update', :class => 'submitButton updateButton', :title => "Update Cart" -%>
 	</div>

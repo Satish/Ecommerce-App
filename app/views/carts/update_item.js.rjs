@@ -1,3 +1,5 @@
+page["item_#{ params[:id] }"].remove() if params[:qty].to_i.zero?
+page.replace 'cartItemCount', get_cart_items
 page.replace_html "priceTotalItem_#{ @item[:id] }", number_to_currency( @item[:price] * @item[:qty])
 page.alert(flash[:message].blank? ? flash[:error] : flash[:message])
 flash.clear
